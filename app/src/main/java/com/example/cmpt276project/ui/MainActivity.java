@@ -1,7 +1,9 @@
-package com.example.cmpt276project;
+package com.example.cmpt276project.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.cmpt276project.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -25,12 +27,14 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // Make the FloatingActionButton go to the ChildListActivity for now
+        // Change this when we decide on the design
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(MainActivity.this, ChildListActivity.class);
+                startActivity(intent);
             }
         });
     }
