@@ -13,41 +13,70 @@ import com.example.cmpt276project.model.ChildrenAdapter;
 
 // Activity to handle the Configure my Children part of Iteration 1
 public class ChildListActivity extends AppCompatActivity {
-    private RecyclerView childRecyclerView;
-    private RecyclerView.Adapter childAdapter;
-    private RecyclerView.LayoutManager childLayoutManager;
+    // Initiate adapter
+    ChildrenAdapter childrenAdapter;
+    Children children;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_child_list);
 
+        // Set toolbar for future use
         Toolbar toolbar = findViewById(R.id.childrentoolbar);
         setSupportActionBar(toolbar);
 
-        Children children = new Children();
-        children.addChild("poop");
-        children.addChild("aslkdfjas");
-        children.addChild("poop");
-        children.addChild("aslkdfjas");
-        children.addChild("poop");
-        children.addChild("aslkdfjas");
-        children.addChild("poop");
-        children.addChild("aslkdfjas");
-        children.addChild("poop");
-        children.addChild("aslkdfjas");
-        children.addChild("poop");
-        children.addChild("aslkdfjas");
-        children.addChild("poop");
-        children.addChild("aslkdfjas");
-        children.addChild("poop");
-        children.addChild("aslkdfjas");
-        childRecyclerView = findViewById(R.id.childrenview);
-        childRecyclerView.setHasFixedSize(true);
-        childLayoutManager = new LinearLayoutManager(this);
-        childAdapter = new ChildrenAdapter(children);
+        // Create children to test with
+        children = new Children();
+        children.addChild("1");
+        children.addChild("2");
+        children.addChild("3");
+        children.addChild("4");
+        children.addChild("5");
+        children.addChild("6");
+        children.addChild("7");
+        children.addChild("8");
+        children.addChild("9");
+        children.addChild("0");
+        children.addChild("11");
+        children.addChild("12");
+        children.addChild("13");
+        children.addChild("14");
+        children.addChild("15");
+        children.addChild("16");
 
+        // Build the RecyclerView
+        buildChildView(children);
+
+        // Build the delete buttons on the RecyclerView items
+        setDeleteButtons();
+    }
+
+    // Method to build the RecyclerView
+    public void buildChildView(Children children) {
+        // Find ID of RecyclerView
+        RecyclerView childRecyclerView = findViewById(R.id.childrenview);
+        childRecyclerView.setHasFixedSize(true);
+
+        // Set Layout for the RecyclerView
+        RecyclerView.LayoutManager childLayoutManager = new LinearLayoutManager(this);
         childRecyclerView.setLayoutManager(childLayoutManager);
-        childRecyclerView.setAdapter(childAdapter);
+
+        // Set Adapter for the RecyclerView
+        childrenAdapter = new ChildrenAdapter(children);
+        childRecyclerView.setAdapter(childrenAdapter);
+    }
+
+    // Method to build the Delete buttons on the RecyclerView items
+    public void setDeleteButtons() {
+        // Use custom OnClickListener to remove items in RecyclerView
+        childrenAdapter.setDeleteButtonClickListener(new ChildrenAdapter.OnDeleteButtonClickListener() {
+            @Override
+            public void deleteChild(int position) {
+                // Remove the item from Children class and notify RecyclerView that it was removed
+                children.removeChild(position);
+                childrenAdapter.notifyItemRemoved(position);
+            }
+        });
     }
 }
