@@ -4,7 +4,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Children {
-    ArrayList<String > childrenNames = new ArrayList<String>();
+    ArrayList<String> childrenNames = new ArrayList<String>();
 
     public Children() {
 
@@ -20,5 +20,9 @@ public class Children {
 
     public void removeChild(int position) {
         childrenNames.remove(position);
+    }
+
+    public int getSize() {
+        return childrenNames.size();
     }
 }

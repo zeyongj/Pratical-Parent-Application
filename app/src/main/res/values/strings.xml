@@ -11,4 +11,5 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
     <string name="ChildrenActivityName">Configure My Children</string>
+    <string name="DeleteButton">Delete</string>
 </resources>
