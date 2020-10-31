@@ -1,5 +1,6 @@
 package com.example.cmpt276project.ui;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -7,6 +8,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.example.cmpt276project.R;
 import com.example.cmpt276project.model.Children;
@@ -54,6 +57,20 @@ public class ChildListActivity extends AppCompatActivity {
         setDeleteButtons();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.configure_children_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.add_child_button) {
+            addChild();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     // Method to build the RecyclerView
     public void buildChildView(Children children) {
         // Find ID of RecyclerView
@@ -94,5 +111,11 @@ public class ChildListActivity extends AppCompatActivity {
             ActionBar ab = getSupportActionBar();
             ab.setDisplayHomeAsUpEnabled(true);
         }
+    }
+
+    // Add a child to the RecyclerView
+    public void addChild() {
+        children.addChild("poop");
+        childrenAdapter.notifyItemInserted(children.getSize()+1);
     }
 }
