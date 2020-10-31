@@ -12,4 +12,5 @@
 
     <string name="ChildrenActivityName">Configure My Children</string>
     <string name="DeleteButton">Delete</string>
+    <string name="EditButton">Edit</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.example.cmpt276project.ui;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,6 +17,7 @@ public class ChildListActivity extends AppCompatActivity {
     // Initiate adapter
     ChildrenAdapter childrenAdapter;
     Children children;
+    String childName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,15 +27,15 @@ public class ChildListActivity extends AppCompatActivity {
         // Set toolbar for future use
         Toolbar toolbar = findViewById(R.id.childrentoolbar);
         setSupportActionBar(toolbar);
-
+        setBackButton();
         // Create children to test with
         children = new Children();
-        children.addChild("1");
-        children.addChild("2");
+        children.addChild("asasdfsdfasdasdfasdfasdffasdfdf1");
+        children.addChild("asdf2");
         children.addChild("3");
-        children.addChild("4");
+        children.addChild("asdf4");
         children.addChild("5");
-        children.addChild("6");
+        children.addChild("6asdf");
         children.addChild("7");
         children.addChild("8");
         children.addChild("9");
@@ -72,11 +74,25 @@ public class ChildListActivity extends AppCompatActivity {
         // Use custom OnClickListener to remove items in RecyclerView
         childrenAdapter.setDeleteButtonClickListener(new ChildrenAdapter.OnDeleteButtonClickListener() {
             @Override
+            public void editChild(int position) {
+                children.editChild(position, childName);
+                childrenAdapter.notifyDataSetChanged();
+            }
+
+            @Override
             public void deleteChild(int position) {
                 // Remove the item from Children class and notify RecyclerView that it was removed
                 children.removeChild(position);
                 childrenAdapter.notifyItemRemoved(position);
             }
         });
+    }
+
+    // Set the back button on the activity
+    public void setBackButton() {
+        if (getSupportActionBar()!=null) { // Create back(up) button on the toolbar
+            ActionBar ab = getSupportActionBar();
+            ab.setDisplayHomeAsUpEnabled(true);
+        }
     }
 }

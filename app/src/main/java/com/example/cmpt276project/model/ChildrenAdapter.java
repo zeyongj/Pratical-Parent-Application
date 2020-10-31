@@ -24,6 +24,7 @@ public class ChildrenAdapter extends RecyclerView.Adapter<ChildrenAdapter.Childr
     // Set interface for Delete button on RecyclerView item
     public interface OnDeleteButtonClickListener {
         void deleteChild(int position);
+        void editChild(int position);
     }
 
     // Method to create OnClickListener for Delete button on RecyclerView item
@@ -34,11 +35,13 @@ public class ChildrenAdapter extends RecyclerView.Adapter<ChildrenAdapter.Childr
     public static class ChildrenViewHolder extends RecyclerView.ViewHolder {
         public TextView childName;
         public Button deleteButton;
+        public Button editButton;
 
         public ChildrenViewHolder(@NonNull View itemView, final OnDeleteButtonClickListener listener) {
             super(itemView);
             childName = itemView.findViewById(R.id.childname);
             deleteButton = itemView.findViewById(R.id.deletebutton);
+            editButton = itemView.findViewById(R.id.editbutton);
 
             // Set OnClickListener for the button specified on the Layout
             deleteButton.setOnClickListener(new View.OnClickListener() {
@@ -49,6 +52,19 @@ public class ChildrenAdapter extends RecyclerView.Adapter<ChildrenAdapter.Childr
                     // Prevent clicks when the RecyclerView is in the animation of removing an item
                     if (position != RecyclerView.NO_POSITION) {
                         listener.deleteChild(position);
+                    }
+                }
+            });
+
+            // Set OnClickListener for the button specified on the Layout
+            editButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Get the dynamically updated position of button
+                    int position = getAdapterPosition();
+                    // Prevent clicks when the RecyclerView is in the animation of removing an item
+                    if (position != RecyclerView.NO_POSITION) {
+                        listener.editChild(position);
                     }
                 }
             });

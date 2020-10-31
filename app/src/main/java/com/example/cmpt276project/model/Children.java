@@ -31,4 +31,8 @@ public class Children {
     public int getSize() {
         return childrenNames.size();
     }
+
+    public void editChild(int position, String name) {
+        childrenNames.set(position, name);
+    }
 }
