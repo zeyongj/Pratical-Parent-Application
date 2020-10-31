@@ -44,14 +44,11 @@ public class ChildrenAdapter extends RecyclerView.Adapter<ChildrenAdapter.Childr
             deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // Only run if the OnClickListener exists
-                    if (listener != null) {
-                        // Get the dynamically updated position of button
-                        int position = getAdapterPosition();
-                        // Delete the child at the current position if it's a valid position
-                        if (position != RecyclerView.NO_POSITION) {
-                            listener.deleteChild(position);
-                        }
+                    // Get the dynamically updated position of button
+                    int position = getAdapterPosition();
+                    // Prevent clicks when the RecyclerView is in the animation of removing an item
+                    if (position != RecyclerView.NO_POSITION) {
+                        listener.deleteChild(position);
                     }
                 }
             });
@@ -67,8 +64,8 @@ public class ChildrenAdapter extends RecyclerView.Adapter<ChildrenAdapter.Childr
     @NonNull
     @Override
     public ChildrenViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.child_item, parent, false);
-        return new ChildrenViewHolder(v, deleteButtonListener);
+        View childrenLayout = LayoutInflater.from(parent.getContext()).inflate(R.layout.child_item, parent, false);
+        return new ChildrenViewHolder(childrenLayout, deleteButtonListener);
     }
 
     // Bind the child names to their relevant positions on the RecyclerView
