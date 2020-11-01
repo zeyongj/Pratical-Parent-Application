@@ -8,8 +8,15 @@ public class Children {
     ArrayList<String> childrenNames = new ArrayList<>();
 
     // Constructor
+    private static Children instance;
     public Children() {
+    }
 
+    public static Children getInstance() {
+        if (instance == null) {
+            instance = new Children();
+        }
+        return instance;
     }
 
     // Add child to childrenNames
@@ -34,5 +41,9 @@ public class Children {
 
     public void editChild(int position, String name) {
         childrenNames.set(position, name);
+    }
+
+    public void saveChildren() {
+
     }
 }

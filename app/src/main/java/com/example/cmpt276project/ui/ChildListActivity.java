@@ -33,7 +33,7 @@ public class ChildListActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         setBackButton();
         // Create children to test with
-        children = new Children();
+        children = Children.getInstance();
 
         // Build the RecyclerView
         buildChildView(children);
