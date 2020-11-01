@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -33,22 +34,6 @@ public class ChildListActivity extends AppCompatActivity {
         setBackButton();
         // Create children to test with
         children = new Children();
-        children.addChild("asasdfsdfasdasdfasdfasdffasdfdf1");
-        children.addChild("asdf2");
-        children.addChild("3");
-        children.addChild("asdf4");
-        children.addChild("5");
-        children.addChild("6asdf");
-        children.addChild("7");
-        children.addChild("8");
-        children.addChild("9");
-        children.addChild("0");
-        children.addChild("11");
-        children.addChild("12");
-        children.addChild("13");
-        children.addChild("14");
-        children.addChild("15");
-        children.addChild("16");
 
         // Build the RecyclerView
         buildChildView(children);
@@ -92,15 +77,13 @@ public class ChildListActivity extends AppCompatActivity {
         childrenAdapter.setDeleteButtonClickListener(new ChildrenAdapter.OnDeleteButtonClickListener() {
             @Override
             public void editChild(int position) {
-                children.editChild(position, childName);
-                childrenAdapter.notifyDataSetChanged();
+                editChildPopup(children, position);
             }
 
             @Override
             public void deleteChild(int position) {
                 // Remove the item from Children class and notify RecyclerView that it was removed
-                children.removeChild(position);
-                childrenAdapter.notifyItemRemoved(position);
+                removeChild(position);
             }
         });
     }
@@ -115,7 +98,21 @@ public class ChildListActivity extends AppCompatActivity {
 
     // Add a child to the RecyclerView
     public void addChild() {
-        children.addChild("poop");
-        childrenAdapter.notifyItemInserted(children.getSize()+1);
+        FragmentManager manager = getSupportFragmentManager();
+        AddChildPopup addChildPopup = new AddChildPopup(children, childrenAdapter);
+
+        addChildPopup.show(manager, "Add Child");
+    }
+
+    public void removeChild(int position) {
+        children.removeChild(position);
+        childrenAdapter.notifyItemRemoved(position);
+    }
+
+    public void editChildPopup(Children children, int position) {
+        FragmentManager manager = getSupportFragmentManager();
+        EditChildPopup editChildPopup = new EditChildPopup(children, position, childrenAdapter);
+
+        editChildPopup.show(manager, "Edit Child");
     }
 }

@@ -14,4 +14,9 @@
     <string name="DeleteButton">Delete</string>
     <string name="EditButton">Edit</string>
     <string name="AddChild">Add Child</string>
+
+    <string name="EnterChildName">Enter Child Name…</string>
+    <string name="OK">OK</string>
+    <string name="Cancel">Cancel</string>
+    <string name="EditChildName">Edit Child Name</string>
 </resources>
