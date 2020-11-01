@@ -9,4 +9,14 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+    <string name="ChildrenActivityName">Configure My Children</string>
+    <string name="DeleteButton">Delete</string>
+    <string name="EditButton">Edit</string>
+    <string name="AddChild">Add Child</string>
+
+    <string name="EnterChildName">Enter Child Name…</string>
+    <string name="OK">OK</string>
+    <string name="Cancel">Cancel</string>
+    <string name="EditChildName">Edit Child Name</string>
 </resources>

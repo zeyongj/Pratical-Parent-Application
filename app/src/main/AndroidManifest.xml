@@ -9,8 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".model.FlipCoin"></activity>
-        <activity android:name=".ui.ChildListActivity" />
+        <activity
+            android:name=".ui.ChildListActivity"
+            android:label="@string/ChildrenActivityName"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".ui.MainActivity"/>
         <activity
             android:name=".ui.MainActivity"
             android:label="@string/app_name"
