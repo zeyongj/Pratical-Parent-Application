@@ -34,6 +34,7 @@ public class ChildListActivity extends AppCompatActivity {
         setBackButton();
         // Create children to test with
         children = Children.getInstance();
+        children.loadChildren(this);
 
         // Build the RecyclerView
         buildChildView(children);
@@ -42,12 +43,21 @@ public class ChildListActivity extends AppCompatActivity {
         setDeleteButtons();
     }
 
+    // Create the Add Child option on the toolbar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.configure_children_menu, menu);
         return true;
     }
 
+    // Save the children when the activity is closed
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        children.saveChildren(this);
+    }
+
+    // Open add child dialog when the add child button is pressed
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.add_child_button) {
@@ -98,18 +108,22 @@ public class ChildListActivity extends AppCompatActivity {
 
     // Add a child to the RecyclerView
     public void addChild() {
+        // Create a popup to add the child
         FragmentManager manager = getSupportFragmentManager();
         AddChildPopup addChildPopup = new AddChildPopup(children, childrenAdapter);
 
         addChildPopup.show(manager, "Add Child");
     }
 
+    // Remove the child at the current position
     public void removeChild(int position) {
         children.removeChild(position);
         childrenAdapter.notifyItemRemoved(position);
     }
 
+    // Edit the child at the current position
     public void editChildPopup(Children children, int position) {
+        // Create a popup to edit the current child
         FragmentManager manager = getSupportFragmentManager();
         EditChildPopup editChildPopup = new EditChildPopup(children, position, childrenAdapter);
 
