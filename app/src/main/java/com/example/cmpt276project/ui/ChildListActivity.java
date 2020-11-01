@@ -57,6 +57,12 @@ public class ChildListActivity extends AppCompatActivity {
         children.saveChildren(this);
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        children.saveChildren(this);
+    }
+
     // Open add child dialog when the add child button is pressed
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
