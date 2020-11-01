@@ -30,4 +30,13 @@
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@android:drawable/ic_dialog_email" />
 
+    <Button
+        android:id="@+id/flipCoin"
+        android:layout_marginTop="100dp"
+        android:layout_marginStart="60dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:text="@string/flipcoin" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

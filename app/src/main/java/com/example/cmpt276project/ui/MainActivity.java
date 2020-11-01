@@ -14,6 +14,7 @@ import android.view.View;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 
 
 // Main activity page for when the program starts
@@ -34,6 +35,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, ChildListActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        // Make the FlipCoinButton go to the FlipCoinActivity for now
+        // Change this when we decide on the design
+        Button flipCoinButton = findViewById(R.id.flipCoin);
+        flipCoinButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, FlipCoinActivity.class);
                 startActivity(intent);
             }
         });

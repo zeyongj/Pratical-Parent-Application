@@ -19,4 +19,7 @@
     <string name="OK">OK</string>
     <string name="Cancel">Cancel</string>
     <string name="EditChildName">Edit Child Name</string>
+    <string name="title_activity_flip_coin">FlipCoinActivity</string>
+    <string name="flipcoin">FlipCoin</string>
+    <string name="history">History</string>
 </resources>
