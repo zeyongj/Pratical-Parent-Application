@@ -36,6 +36,16 @@
             app:layout_constraintVertical_bias="0.284"
             app:srcCompat="@drawable/ic_heads" />
 
+        <TextView
+            android:id="@+id/childNameTextView"
+            android:layout_width="180dp"
+            android:layout_height="54dp"
+            android:layout_marginStart="112dp"
+            android:layout_marginTop="68dp"
+            android:gravity="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.appbar.AppBarLayout

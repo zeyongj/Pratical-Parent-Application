@@ -10,7 +10,7 @@ public class Children {
     private String CHILDREN_PREFS = "Shared Preferences for Children Class";
     private String CHILD_INDEX = "Child Index_";
     private String NUM_CHILDREN = "The number of Children saved is: ";
-
+    private int currentChildIndex = 0;
     private int numChildren;
 
     // ArrayList to keep track of names of Children
@@ -83,5 +83,20 @@ public class Children {
         for (int i = 0; i < numChildren; i++) {
             childrenNames.add(sharedPreferences.getString(CHILD_INDEX + i, null));
         }
+    }
+
+    // Get the current child index
+    public int getCurrentChildIndex() {
+        return currentChildIndex;
+    }
+
+    // Set the current child index to next child index
+    public void setCurrentToNextChild(){
+        currentChildIndex = (currentChildIndex + 1) % childrenNames.size();
+    }
+
+    // Get the number of children
+    public int getNumChildren(){
+        return numChildren;
     }
 }

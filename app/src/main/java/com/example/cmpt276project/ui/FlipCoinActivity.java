@@ -1,8 +1,10 @@
 package com.example.cmpt276project.ui;
 
+import android.content.SharedPreferences;
 import android.media.Image;
 import android.os.Bundle;
 
+import com.example.cmpt276project.model.Children;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -20,6 +22,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cmpt276project.R;
@@ -29,6 +32,9 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class FlipCoinActivity extends AppCompatActivity {
 
+    // Create children
+    private Children children = Children.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,17 +42,27 @@ public class FlipCoinActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //Enable "up" on toolbar
+        // Enable "up" on toolbar
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
-
+        // Display current child name who flip the coin
+        // If currently has no child, display "No child"
+        displayChildName();
 
         registerFlipClicked();
+    }
 
 
-
-
+    // Display current child name who flip the coin
+    private void displayChildName() {
+        TextView textView = findViewById(R.id.childNameTextView);
+        if(children.getNumChildren() == 0)
+            textView.setText("no child");
+        else {
+            String childName = " The current child is:" + children.getChild(children.getCurrentChildIndex());
+            textView.setText(childName);
+        }
     }
 
     private void registerFlipClicked() {
@@ -61,6 +77,10 @@ public class FlipCoinActivity extends AppCompatActivity {
                 else {
                     flipCoin(R.drawable.quarter_tail, "Tails");
                 }
+
+                // Set current child to next child
+                if(children.getNumChildren() != 0)
+                    children.setCurrentToNextChild();
             }
         });
     }
@@ -78,6 +98,7 @@ public class FlipCoinActivity extends AppCompatActivity {
                 coin.setImageResource(imageID);
                 Toast.makeText(FlipCoinActivity.this, coinSide, Toast.LENGTH_SHORT).show();
                 coin.setClickable(true);
+                displayChildName();
             }
         });
     }
@@ -86,7 +107,7 @@ public class FlipCoinActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        //Inflate the menu:
+        // Inflate the menu:
         getMenuInflater().inflate(R.menu.menu_flip_coin, menu);
         return true;
     }
