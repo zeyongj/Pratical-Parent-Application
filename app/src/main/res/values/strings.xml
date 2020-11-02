@@ -22,4 +22,6 @@
     <string name="title_activity_flip_coin">FlipCoinActivity</string>
     <string name="flipcoin">FlipCoin</string>
     <string name="history">History</string>
+    <string name="flip">Flip</string>
+    <string name="coin_image">Coin image</string>
 </resources>
