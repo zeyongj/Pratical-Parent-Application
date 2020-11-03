@@ -28,7 +28,8 @@ public class FlipCoinActivity extends AppCompatActivity {
     private String coinSide;
 
 
-    private Children children = Children.getInstance();
+    // Initiate variable
+    private Children children;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,10 @@ public class FlipCoinActivity extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
+        //Create Children
+        children = Children.getInstance();
+        children.loadChildren(this);
+
         // Display current child name who flip the coin
         // If currently has no child, display "No child"
         displayChildName();
@@ -48,16 +53,13 @@ public class FlipCoinActivity extends AppCompatActivity {
         registerFlipClicked();
     }
 
-
-
-
     // Display current child name who flip the coin
     private void displayChildName() {
         TextView textView = findViewById(R.id.childNameTextView);
-        if(children.getNumChildren() == 0)
+        if(children.getNumChildren(this) == 0)
             textView.setText(DEFAULT);
         else {
-            String childName = " The current child is:" + children.getChild(children.getCurrentChildIndex());
+            String childName = " The current child is:" + children.getChild(children.getCurrentChildIndex(this));
             textView.setText(childName);
         }
     }
@@ -76,8 +78,8 @@ public class FlipCoinActivity extends AppCompatActivity {
                 }
 
                 // Set current child to next child
-                if(children.getNumChildren() != 0)
-                    children.setCurrentToNextChild();
+                if(children.getNumChildren(FlipCoinActivity.this) != 0)
+                    children.setCurrentToNextChild(FlipCoinActivity.this);
             }
         });
     }

@@ -1,5 +1,6 @@
 package com.example.cmpt276project.model;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -10,7 +11,7 @@ public class Children {
     private String CHILDREN_PREFS = "Shared Preferences for Children Class";
     private String CHILD_INDEX = "Child Index_";
     private String NUM_CHILDREN = "The number of Children saved is: ";
-    private int currentChildIndex = 0;
+    private int currentChildIndex;
     private int numChildren;
 
     // ArrayList to keep track of names of Children
@@ -86,17 +87,30 @@ public class Children {
     }
 
     // Get the current child index
-    public int getCurrentChildIndex() {
+    public int getCurrentChildIndex(Context context) {
+        SharedPreferences sp = context.getSharedPreferences("Shared preference for current child index", Context.MODE_PRIVATE);
+        currentChildIndex = sp.getInt("current child index", 0);
         return currentChildIndex;
+
+       // return currentChildIndex;
     }
 
-    // Set the current child index to next child index
-    public void setCurrentToNextChild(){
+    // Set the current child index to next child index and save the index to Shared Preference
+    public void setCurrentToNextChild(Context context) {
+        SharedPreferences sp = context.getSharedPreferences("Shared preference for current child index", Context.MODE_PRIVATE);
+        currentChildIndex = sp.getInt("current child index", 0);
         currentChildIndex = (currentChildIndex + 1) % childrenNames.size();
+
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putInt("current child index", currentChildIndex);
+        editor.commit();
     }
 
     // Get the number of children
-    public int getNumChildren(){
+    public int getNumChildren(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(CHILDREN_PREFS, Context.MODE_PRIVATE);
+        numChildren = sharedPreferences.getInt(NUM_CHILDREN, 0);
         return numChildren;
     }
+
 }
