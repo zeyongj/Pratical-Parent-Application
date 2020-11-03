@@ -37,17 +37,13 @@ public class TimeoutTimer extends AppCompatActivity {
     String id ="channel_1";//id of channel
     String description = "123";//Description information of channel
     int importance = NotificationManager.IMPORTANCE_LOW;//The Importance of channel
-    NotificationChannel channel = new NotificationChannel(id, "123", importance);//Generating channel
+//    NotificationChannel channel = new NotificationChannel(id, "123", importance);//Generating channel
     private EditText mEditTextInput;
     private TextView mTextViewCountDown;
     private Button mButtonSet;
-    private Button mButtonSet1Min;
-    private Button mButtonSet2Min;
-    private Button mButtonSet3Min;
-    private Button mButtonSet5Min;
-    private Button mButtonSet10Min;
     private Button mButtonStartPause;
     private Button mButtonReset;
+    private Button[] mButtons = new Button[5];
 
     private CountDownTimer mCountDownTimer;
 
@@ -63,18 +59,7 @@ public class TimeoutTimer extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeout_timer);
 
-        mEditTextInput = findViewById(R.id.edit_text_input);
-        mTextViewCountDown = findViewById(R.id.text_view_countdown);
-
-        mButtonSet = findViewById(R.id.button_set);
-        mButtonSet1Min = findViewById(R.id.button_set1min);
-        mButtonSet2Min = findViewById(R.id.button_set2min);
-        mButtonSet3Min = findViewById(R.id.button_set3min);
-        mButtonSet5Min = findViewById(R.id.button_set5min);
-        mButtonSet10Min = findViewById(R.id.button_set10min);
-        mButtonStartPause = findViewById(R.id.button_start_pause);
-        mButtonReset = findViewById(R.id.button_reset);
-
+        setButtonsAndViews();
         setCertainTime();
 
         mButtonSet.setOnClickListener(new View.OnClickListener() {
@@ -115,51 +100,43 @@ public class TimeoutTimer extends AppCompatActivity {
 //        updateCountDownText();
     }
 
+    private void setButtonsAndViews() {
+        mEditTextInput = findViewById(R.id.edit_text_input);
+        mTextViewCountDown = findViewById(R.id.text_view_countdown);
+
+        mButtonSet = findViewById(R.id.button_set);
+        Button mButtonSet1Min = findViewById(R.id.button_set1min);
+        Button mButtonSet2Min = findViewById(R.id.button_set2min);
+        Button mButtonSet3Min = findViewById(R.id.button_set3min);
+        Button mButtonSet5Min = findViewById(R.id.button_set5min);
+        Button mButtonSet10Min = findViewById(R.id.button_set10min);
+        mButtonStartPause = findViewById(R.id.button_start_pause);
+        mButtonReset = findViewById(R.id.button_reset);
+
+        mButtons = new Button[]{mButtonSet1Min, mButtonSet2Min, mButtonSet3Min, mButtonSet5Min, mButtonSet10Min};
+    }
+
     private void setCertainTime() {
-        mButtonSet1Min.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                long millisInput = 1 * 60000;
-                setTime(millisInput);
-                mEditTextInput.setText("");
-            }
-        });
-
-        mButtonSet2Min.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                long millisInput = 2 * 60000;
-                setTime(millisInput);
-                mEditTextInput.setText("");
-            }
-        });
-
-        mButtonSet3Min.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                long millisInput = 3 * 60000;
-                setTime(millisInput);
-                mEditTextInput.setText("");
-            }
-        });
-
-        mButtonSet5Min.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                long millisInput = 5 * 60000;
-                setTime(millisInput);
-                mEditTextInput.setText("");
-            }
-        });
-
-        mButtonSet10Min.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                long millisInput = 10 * 60000;
-                setTime(millisInput);
-                mEditTextInput.setText("");
-            }
-        });
+        for (int i = 0; i<5; i++) {
+            final int index = i+1;
+            mButtons[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    long multiplier = index;
+                    if (index == 4) {
+                        multiplier = 5;
+                    } else if (index == 5) {
+                        multiplier = 10;
+                    }
+                    setTime(multiplier * 60000);
+                    // Set 1 minute timer to 6 seconds for testing purposes
+                    if (index == 1) {
+                        setTime(6000);
+                    }
+                    mEditTextInput.setText("");
+                }
+            });
+        }
     }
 
     private void setTime(long milliseconds) {
@@ -181,6 +158,13 @@ public class TimeoutTimer extends AppCompatActivity {
             @Override
             public void onFinish() {
                 mTimerRunning = false;
+                // Play alarm
+                alarm();
+                // Play vibration
+                vibrate();
+                //Play notification
+                notification();
+                resetTimer();
                 updateWatchInterface();
             }
         }.start();

@@ -19,4 +19,6 @@
     <string name="OK">OK</string>
     <string name="Cancel">Cancel</string>
     <string name="EditChildName">Edit Child Name</string>
+
+    <string name="TimeoutTimer">Timeout Timer</string>
 </resources>
