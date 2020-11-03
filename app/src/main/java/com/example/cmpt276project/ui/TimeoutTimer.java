@@ -73,6 +73,90 @@ public class TimeoutTimer extends AppCompatActivity {
         mButtonStartPause = findViewById(R.id.button_start_pause);
         mButtonReset = findViewById(R.id.button_reset);
 
-        
+        setCertainTime();
+
+        mButtonSet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String input = mEditTextInput.getText().toString();
+                if (input.length() == 0) {
+                    Toast.makeText(TimeoutTimer.this,"Field cannot be empty",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                long millisInput = Long.parseLong(input) * 60000; // To minutes
+                if (millisInput == 0) {
+                    Toast.makeText(TimeoutTimer.this,"Please enter a positive number",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                setTime(millisInput);
+                mEditTextInput.setText("");
+            }
+        });
+
+        mButtonStartPause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mTimerRunning){
+                    pauseTimer();
+                }else{
+                    startTimer();
+                }
+            }
+        });
+
+        mButtonReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                resetTimer();
+            }
+        });
+//        updateCountDownText();
+    }
+
+    private void setCertainTime() {
+        mButtonSet1Min.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                long millisInput = 1 * 60000;
+                setTime(millisInput);
+                mEditTextInput.setText("");
+            }
+        });
+
+        mButtonSet2Min.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                long millisInput = 2 * 60000;
+                setTime(millisInput);
+                mEditTextInput.setText("");
+            }
+        });
+
+        mButtonSet3Min.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                long millisInput = 3 * 60000;
+                setTime(millisInput);
+                mEditTextInput.setText("");
+            }
+        });
+
+        mButtonSet5Min.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                long millisInput = 5 * 60000;
+                setTime(millisInput);
+                mEditTextInput.setText("");
+            }
+        });
+
+        mButtonSet10Min.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                long millisInput = 10 * 60000;
+                setTime(millisInput);
+                mEditTextInput.setText("");
+            }
+        });
     }
 }
