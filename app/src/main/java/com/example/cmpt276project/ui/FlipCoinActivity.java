@@ -1,25 +1,18 @@
 package com.example.cmpt276project.ui;
 
-import android.content.SharedPreferences;
-import android.media.Image;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.cmpt276project.model.Children;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.FragmentManager;
 
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.DecelerateInterpolator;
-import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,12 +20,14 @@ import android.widget.Toast;
 
 import com.example.cmpt276project.R;
 
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class FlipCoinActivity extends AppCompatActivity {
 
-    // Create children
+    private static final String DEFAULT = "no child";
+    private String coinSide;
+
+
     private Children children = Children.getInstance();
 
     @Override
@@ -54,11 +49,13 @@ public class FlipCoinActivity extends AppCompatActivity {
     }
 
 
+
+
     // Display current child name who flip the coin
     private void displayChildName() {
         TextView textView = findViewById(R.id.childNameTextView);
         if(children.getNumChildren() == 0)
-            textView.setText("no child");
+            textView.setText(DEFAULT);
         else {
             String childName = " The current child is:" + children.getChild(children.getCurrentChildIndex());
             textView.setText(childName);
@@ -103,7 +100,9 @@ public class FlipCoinActivity extends AppCompatActivity {
         });
     }
 
-
+    public static Intent makeIntent(Context context) {
+        return new Intent(context, FlipCoinActivity.class);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -111,4 +110,19 @@ public class FlipCoinActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_flip_coin, menu);
         return true;
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.History_button:
+                Intent intent = FlipHistoryActivity.makeIntent(FlipCoinActivity.this);
+                startActivity(intent);
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+
 }

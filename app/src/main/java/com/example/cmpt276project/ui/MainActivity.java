@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         // Make the FloatingActionButton go to the ChildListActivity for now
-        // Change this when we decide on the design
+        //TODO:  Change this when we decide on the design
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,12 +41,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Make the FlipCoinButton go to the FlipCoinActivity for now
-        // Change this when we decide on the design
+        //TODO:  Change this when we decide on the design
         Button flipCoinButton = findViewById(R.id.flipCoin);
         flipCoinButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, FlipCoinActivity.class);
+                Intent intent = FlipCoinActivity.makeIntent(MainActivity.this);
                 startActivity(intent);
             }
         });
