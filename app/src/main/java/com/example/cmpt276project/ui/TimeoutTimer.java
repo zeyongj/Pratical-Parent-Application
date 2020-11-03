@@ -55,9 +55,24 @@ public class TimeoutTimer extends AppCompatActivity {
     private long mTimeLeftInMillis;
     private long mEndTime;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeout_timer);
+
+        mEditTextInput = findViewById(R.id.edit_text_input);
+        mTextViewCountDown = findViewById(R.id.text_view_countdown);
+
+        mButtonSet = findViewById(R.id.button_set);
+        mButtonSet1Min = findViewById(R.id.button_set1min);
+        mButtonSet2Min = findViewById(R.id.button_set2min);
+        mButtonSet3Min = findViewById(R.id.button_set3min);
+        mButtonSet5Min = findViewById(R.id.button_set5min);
+        mButtonSet10Min = findViewById(R.id.button_set10min);
+        mButtonStartPause = findViewById(R.id.button_start_pause);
+        mButtonReset = findViewById(R.id.button_reset);
+
+        
     }
 }
