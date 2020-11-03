@@ -27,6 +27,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import com.example.cmpt276project.R;
 @RequiresApi(api = Build.VERSION_CODES.O)
@@ -307,10 +309,18 @@ public class TimeoutTimer extends AppCompatActivity {
     }
 
     private void alarm() {
-        Uri alarmSound =
-                RingtoneManager. getDefaultUri (RingtoneManager. TYPE_NOTIFICATION );
-        MediaPlayer mp = MediaPlayer. create (getApplicationContext(), alarmSound);
-        mp.start();
+        long ringDelay = 6000;
+        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+        final Ringtone alarmRingtone = RingtoneManager.getRingtone(getApplicationContext(), notification);
+        alarmRingtone.play();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                alarmRingtone.stop();
+            }
+        };
+        Timer timer = new Timer();
+        timer.schedule(task, ringDelay);
     }
 
 
