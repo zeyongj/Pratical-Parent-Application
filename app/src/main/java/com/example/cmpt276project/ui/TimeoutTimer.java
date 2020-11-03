@@ -29,8 +29,31 @@ import android.widget.Toast;
 import java.util.Locale;
 
 import com.example.cmpt276project.R;
-
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class TimeoutTimer extends AppCompatActivity {
+    // Initialize the variables
+    String id ="channel_1";//id of channel
+    String description = "123";//Description information of channel
+    int importance = NotificationManager.IMPORTANCE_LOW;//The Importance of channel
+    NotificationChannel channel = new NotificationChannel(id, "123", importance);//Generating channel
+    private EditText mEditTextInput;
+    private TextView mTextViewCountDown;
+    private Button mButtonSet;
+    private Button mButtonSet1Min;
+    private Button mButtonSet2Min;
+    private Button mButtonSet3Min;
+    private Button mButtonSet5Min;
+    private Button mButtonSet10Min;
+    private Button mButtonStartPause;
+    private Button mButtonReset;
+
+    private CountDownTimer mCountDownTimer;
+
+    private boolean mTimerRunning;
+
+    private long mStartTimeInMillis;
+    private long mTimeLeftInMillis;
+    private long mEndTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
