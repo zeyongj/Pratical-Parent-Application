@@ -56,11 +56,19 @@ public class FlipCoinActivity extends AppCompatActivity {
     // Display current child name who flip the coin
     private void displayChildName() {
         TextView textView = findViewById(R.id.childNameTextView);
+
         if(children.getNumChildren(this) == 0)
             textView.setText(DEFAULT);
         else {
-            String childName = " The current child is:" + children.getChild(children.getCurrentChildIndex(this));
-            textView.setText(childName);
+            if(children.getCurrentChildIndex(this) >= children.getNumChildren(this)) {
+                children.setCurrentToFirstChild(this);
+                String childName = " The current child is:" + children.getChild(children.getCurrentChildIndex(this));
+                textView.setText(childName);
+            }
+            else {
+                String childName = " The current child is:" + children.getChild(children.getCurrentChildIndex(this));
+                textView.setText(childName);
+            }
         }
     }
 
