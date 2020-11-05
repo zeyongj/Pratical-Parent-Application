@@ -25,6 +25,8 @@
     <string name="flip">Flip</string>
     <string name="coin_image">Coin image</string>
     <string name="image_of_a_coin">Image of a coin</string>
+    <string name="head1">Head</string>
+    <string name="tail1">Tail</string>
     <string name="head">Head</string>
     <string name="tail">Tail</string>
 </resources>

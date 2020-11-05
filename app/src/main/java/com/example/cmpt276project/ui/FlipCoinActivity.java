@@ -30,6 +30,7 @@ public class FlipCoinActivity extends AppCompatActivity {
 
     private static final String DEFAULT = "no child";
     private String coinSide;
+    private View mView;
 
 
     // Initiate variable
@@ -57,7 +58,7 @@ public class FlipCoinActivity extends AppCompatActivity {
 
 
         // TODO: Configure Children Alert Dialog
-        chooseHeadAndTail();
+        chooseSideDialog();
 
 
 
@@ -65,18 +66,28 @@ public class FlipCoinActivity extends AppCompatActivity {
         registerFlipClicked();
     }
 
-    private void chooseHeadAndTail() {
+    private void chooseSideDialog() {
 //        FragmentManager manager = getSupportFragmentManager();
 //        FlipCoinChooseCoinSide dialog = new FlipCoinChooseCoinSide();
 //        dialog.show(manager, "MessageDialog");
         AlertDialog.Builder dialog = new AlertDialog.Builder(FlipCoinActivity.this);
-        View mView = getLayoutInflater().inflate(R.layout.flip_coin_choose_sides, null);
+        mView = getLayoutInflater().inflate(R.layout.flip_coin_choose_sides, null);
+
+        // TODO: add listener - that is when click ok, data is saved then can be accessed by historyActivity
         dialog.setTitle("Choose Side")
             .setView(mView)
+            .setPositiveButton(android.R.string.ok, null)
             .create()
             .show();
 
-        Spinner headSpinner = (Spinner) mView.findViewById(R.id.spinnerHead);
+
+        chooseSide(R.id.spinnerHead);
+        chooseSide(R.id.spinnerTail);
+
+
+    }
+    private void chooseSide(int spinnerID) {
+        Spinner headSpinner = (Spinner) mView.findViewById(spinnerID);
         List<String> childrenList = children.getListChildren(FlipCoinActivity.this);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(FlipCoinActivity.this,
@@ -86,8 +97,8 @@ public class FlipCoinActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
 
         headSpinner.setAdapter(adapter);
-
     }
+
 
     // Display current child name who flip the coin
     private void displayChildName() {
