@@ -30,6 +30,11 @@ public class FlipCoinActivity extends AppCompatActivity {
 
     // Initiate variable
     private Children children;
+    private Button btn;
+
+    // When buttonState == true, Flip is invisible, Head and tail is visible
+    // When buttonState == false, Flip is visible, Head and tail is invisible
+    private boolean buttonState = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,18 +47,86 @@ public class FlipCoinActivity extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
-        //Create Children
+        // Create Children
         children = Children.getInstance();
         children.loadChildren(this);
 
         // Display current child name who flip the coin
-        // If currently has no child, display "No child"
         displayChildName();
+
+        // Set Button State initially
+        setButton();
+
+        // Allow one child to pick head or tail
+        registerHeadOrTailClicked();
 
         registerFlipClicked();
     }
 
+    // Set Button State
+    // When buttonState == true, Flip is invisible, Head and tail is visible
+    // When buttonState == false, Flip is visible, Head and tail is invisible
+    private void setButton() {
+        Button headButton = findViewById(R.id.headButton);
+        Button tailButton = findViewById(R.id.tailButton);
+        Button flipButton = findViewById(R.id.btn_flip);
+        if(buttonState == true) {
+            headButton.setVisibility(View.VISIBLE);
+            tailButton.setVisibility(View.VISIBLE);
+            flipButton.setVisibility(View.GONE);
+        }
+        else{
+            headButton.setVisibility(View.GONE);
+            tailButton.setVisibility(View.GONE);
+            flipButton.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void registerHeadOrTailClicked() {
+        Button headButton = findViewById(R.id.headButton);
+        Button tailButton = findViewById(R.id.tailButton);
+        headButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buttonState = false;
+                setButton();
+            }
+        });
+        tailButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buttonState = false;
+                setButton();
+            }
+        });
+    }
+
+    private void registerFlipClicked() {
+        Button flipButton = findViewById(R.id.btn_flip);
+        flipButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int randomNumber = ThreadLocalRandom.current().nextInt(1, 3);
+                if (randomNumber == 1) {
+                    flipCoin(R.drawable.quarter_head, "Heads");
+                }
+                else {
+                    flipCoin(R.drawable.quarter_tail, "Tails");
+                }
+
+                // Set buttonState to true when flip finished
+                buttonState = true;
+                setButton();
+
+                // Set current child to next child
+                if(children.getNumChildren(FlipCoinActivity.this) != 0)
+                    children.setCurrentToNextChild(FlipCoinActivity.this);
+            }
+        });
+    }
+
     // Display current child name who flip the coin
+    // If currently has no child, display "No child"
     private void displayChildName() {
         TextView textView = findViewById(R.id.childNameTextView);
 
@@ -70,26 +143,6 @@ public class FlipCoinActivity extends AppCompatActivity {
                 textView.setText(childName);
             }
         }
-    }
-
-    private void registerFlipClicked() {
-        Button btn = findViewById(R.id.btn_flip);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int randomNumber = ThreadLocalRandom.current().nextInt(1, 3);
-                if (randomNumber == 1) {
-                    flipCoin(R.drawable.quarter_head, "Heads");
-                }
-                else {
-                    flipCoin(R.drawable.quarter_tail, "Tails");
-                }
-
-                // Set current child to next child
-                if(children.getNumChildren(FlipCoinActivity.this) != 0)
-                    children.setCurrentToNextChild(FlipCoinActivity.this);
-            }
-        });
     }
 
     private void flipCoin(final int imageID, final String coinSide) {
