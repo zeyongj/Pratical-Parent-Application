@@ -48,26 +48,6 @@
             app:layout_constraintVertical_bias="0.307"
             app:srcCompat="@drawable/quarter_head" />
 
-        <Button
-            android:id="@+id/headButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="80dp"
-            android:layout_marginTop="40dp"
-            android:text="@string/head"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_flip" />
-
-        <Button
-            android:id="@+id/tailButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="80dp"
-            android:text="@string/tail"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_flip" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.appbar.AppBarLayout
