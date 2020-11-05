@@ -29,8 +29,9 @@ import java.util.concurrent.ThreadLocalRandom;
 public class FlipCoinActivity extends AppCompatActivity {
 
     private static final String DEFAULT = "no child";
+    public static final String CHOOSE_SIDE_TITLE = "Choose Side";
     private String coinSide;
-    private View mView;
+    private View coinSideDialogView;
 
 
     // Initiate variable
@@ -57,25 +58,29 @@ public class FlipCoinActivity extends AppCompatActivity {
 
 
 
-        // TODO: Configure Children Alert Dialog
+        // When there is children saved in Children List,
+        // The program asks for the parent or child to choose coin side
+        // If empty children list, then skip this.
         chooseSideDialog();
-
-
 
 
         registerFlipClicked();
     }
 
     private void chooseSideDialog() {
-//        FragmentManager manager = getSupportFragmentManager();
-//        FlipCoinChooseCoinSide dialog = new FlipCoinChooseCoinSide();
-//        dialog.show(manager, "MessageDialog");
+
+
+        // if there is no children saved, skip the choose side.
+        if (children.getNumChildren(FlipCoinActivity.this)==0){
+            return;
+        }
+
         AlertDialog.Builder dialog = new AlertDialog.Builder(FlipCoinActivity.this);
-        mView = getLayoutInflater().inflate(R.layout.flip_coin_choose_sides, null);
+        coinSideDialogView = getLayoutInflater().inflate(R.layout.flip_coin_choose_sides, null);
 
         // TODO: add listener - that is when click ok, data is saved then can be accessed by historyActivity
-        dialog.setTitle("Choose Side")
-            .setView(mView)
+        dialog.setTitle(CHOOSE_SIDE_TITLE)
+            .setView(coinSideDialogView)
             .setPositiveButton(android.R.string.ok, null)
             .create()
             .show();
@@ -87,16 +92,16 @@ public class FlipCoinActivity extends AppCompatActivity {
 
     }
     private void chooseSide(int spinnerID) {
-        Spinner headSpinner = (Spinner) mView.findViewById(spinnerID);
+        Spinner spinner = (Spinner) coinSideDialogView.findViewById(spinnerID);
         List<String> childrenList = children.getListChildren(FlipCoinActivity.this);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(FlipCoinActivity.this,
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(FlipCoinActivity.this,
                 R.layout.support_simple_spinner_dropdown_item,
                 childrenList);
 
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
 
-        headSpinner.setAdapter(adapter);
+        spinner.setAdapter(adapter);
     }
 
 
