@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/configureChildTitle"
+        android:layout_width="253dp"
+        android:layout_height="53dp"
+        android:text="Configure Child"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.172" />
+
+    <TextView
+        android:id="@+id/configureHead"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Head"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.141"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.345" />
+
+    <TextView
+        android:id="@+id/configureTail"
+        android:layout_width="73dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="112dp"
+        android:text="Tail"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="@+id/configureHead"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/configureHead"
+        app:layout_constraintTop_toBottomOf="@+id/configureHead" />
+
+    <Spinner
+        android:id="@+id/spinnerHead"
+        android:layout_width="224dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="28dp"
+        app:layout_constraintBottom_toBottomOf="@+id/configureHead"
+        app:layout_constraintStart_toEndOf="@+id/configureHead"
+        app:layout_constraintTop_toTopOf="@+id/configureHead"
+        app:layout_constraintVertical_bias="0.48" />
+
+    <Spinner
+        android:id="@+id/spinnerTail"
+        android:layout_width="224dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="28dp"
+        app:layout_constraintBottom_toBottomOf="@+id/configureTail"
+        app:layout_constraintStart_toEndOf="@+id/configureTail"
+        app:layout_constraintTop_toTopOf="@+id/configureTail"
+        app:layout_constraintVertical_bias="0.48" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

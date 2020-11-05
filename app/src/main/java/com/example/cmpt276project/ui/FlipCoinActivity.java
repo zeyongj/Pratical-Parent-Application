@@ -9,6 +9,7 @@ import com.example.cmpt276project.model.Children;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.Menu;
 import android.view.MenuItem;
@@ -50,7 +51,21 @@ public class FlipCoinActivity extends AppCompatActivity {
         // If currently has no child, display "No child"
         displayChildName();
 
+
+
+        // TODO: Configure Children Alert Dialog
+        configureChild();
+
+
+
+
         registerFlipClicked();
+    }
+
+    private void configureChild() {
+        FragmentManager manager = getSupportFragmentManager();
+        FlipCoinConfigureChild dialog = new FlipCoinConfigureChild();
+        dialog.show(manager, "MessageDialog");
     }
 
     // Display current child name who flip the coin
