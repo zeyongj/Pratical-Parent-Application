@@ -7,18 +7,6 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/configureChildTitle"
-        android:layout_width="253dp"
-        android:layout_height="53dp"
-        android:text="Configure Child"
-        android:textSize="36sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.172" />
-
-    <TextView
         android:id="@+id/configureHead"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -26,10 +14,10 @@
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.141"
+        app:layout_constraintHorizontal_bias="0.091"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.345" />
+        app:layout_constraintVertical_bias="0.344" />
 
     <TextView
         android:id="@+id/configureTail"

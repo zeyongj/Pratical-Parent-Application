@@ -13,18 +13,23 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.example.cmpt276project.R;
+import com.example.cmpt276project.model.Children;
 
-public class FlipCoinConfigureChild  extends AppCompatDialogFragment {
+public class FlipCoinChooseCoinSide extends AppCompatDialogFragment {
+
+    private View v;
+    private Children children;
 
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
 
         // Create the view to show
-        View v = LayoutInflater.from(getActivity())
-                .inflate(R.layout.flip_coin_configure_child, null);
+       v = LayoutInflater.from(getActivity())
+                .inflate(R.layout.flip_coin_choose_sides, null);
 
         // Create a button listener
+
         DialogInterface.OnClickListener lister = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -39,6 +44,7 @@ public class FlipCoinConfigureChild  extends AppCompatDialogFragment {
                 .setPositiveButton(android.R.string.ok, lister)
                 .create();
 
-
     }
+
+
 }

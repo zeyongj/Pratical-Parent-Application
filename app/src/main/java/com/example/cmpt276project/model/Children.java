@@ -8,6 +8,7 @@ import com.example.cmpt276project.ui.FlipCoinActivity;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Children {
     public static final String CHILD_INDEX_PREF = "Shared preference for current child index";
@@ -89,6 +90,22 @@ public class Children {
             childrenNames.add(sharedPreferences.getString(CHILD_INDEX + i, null));
         }
     }
+
+    // get list of children
+    //TODO: Refactor this code to reduce repetition
+    public List<String> getListChildren(Context context){
+        childrenNames = new ArrayList<>();
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(CHILDREN_PREFS, Context.MODE_PRIVATE);
+        numChildren = sharedPreferences.getInt(NUM_CHILDREN, 0);
+
+        for (int i = 0; i < numChildren; i++) {
+            childrenNames.add(sharedPreferences.getString(CHILD_INDEX + i, null));
+        }
+        return childrenNames;
+
+    }
+
 
     // Get the current child index
     public int getCurrentChildIndex(Context context) {

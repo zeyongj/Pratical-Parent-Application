@@ -7,20 +7,23 @@ import android.os.Bundle;
 import com.example.cmpt276project.model.Children;
 
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.FragmentManager;
 
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cmpt276project.R;
 
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class FlipCoinActivity extends AppCompatActivity {
@@ -54,7 +57,7 @@ public class FlipCoinActivity extends AppCompatActivity {
 
 
         // TODO: Configure Children Alert Dialog
-        configureChild();
+        chooseHeadAndTail();
 
 
 
@@ -62,10 +65,28 @@ public class FlipCoinActivity extends AppCompatActivity {
         registerFlipClicked();
     }
 
-    private void configureChild() {
-        FragmentManager manager = getSupportFragmentManager();
-        FlipCoinConfigureChild dialog = new FlipCoinConfigureChild();
-        dialog.show(manager, "MessageDialog");
+    private void chooseHeadAndTail() {
+//        FragmentManager manager = getSupportFragmentManager();
+//        FlipCoinChooseCoinSide dialog = new FlipCoinChooseCoinSide();
+//        dialog.show(manager, "MessageDialog");
+        AlertDialog.Builder dialog = new AlertDialog.Builder(FlipCoinActivity.this);
+        View mView = getLayoutInflater().inflate(R.layout.flip_coin_choose_sides, null);
+        dialog.setTitle("Choose Side")
+            .setView(mView)
+            .create()
+            .show();
+
+        Spinner headSpinner = (Spinner) mView.findViewById(R.id.spinnerHead);
+        List<String> childrenList = children.getListChildren(FlipCoinActivity.this);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(FlipCoinActivity.this,
+                R.layout.support_simple_spinner_dropdown_item,
+                childrenList);
+
+        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+
+        headSpinner.setAdapter(adapter);
+
     }
 
     // Display current child name who flip the coin
