@@ -87,6 +87,8 @@ public class TimeoutTimer extends AppCompatActivity {
                 if (mTimerRunning){
                     pauseTimer();
                 }else{
+                    Intent intent = new Intent(TimeoutTimer.this, AlarmNotificationService.class);
+                    startService(intent);
                     startTimer();
                 }
             }
@@ -149,9 +151,6 @@ public class TimeoutTimer extends AppCompatActivity {
     private void startTimer() {
         mEndTime = System.currentTimeMillis() + mTimeLeftInMillis;
 
-        Intent intent = new Intent(this, AlarmNotificationService.class);
-        startService(intent);
-
         mCountDownTimer = new CountDownTimer(mTimeLeftInMillis, 1000) { //Every 1 second
             @Override
             public void onTick(long l) {
@@ -162,14 +161,6 @@ public class TimeoutTimer extends AppCompatActivity {
             @Override
             public void onFinish() {
                 mTimerRunning = false;
-                // Play alarm
-                alarm();
-                // Play vibration
-                vibrate();
-                //Play notification
-                notification();
-                resetTimer();
-                updateWatchInterface();
             }
         }.start();
 
@@ -222,7 +213,7 @@ public class TimeoutTimer extends AppCompatActivity {
 //            mButtonSet5Min.setVisibility(View.INVISIBLE);
 //            mButtonSet10Min.setVisibility(View.INVISIBLE);
 //            mButtonReset.setVisibility(View.INVISIBLE);
-            mButtonStartPause.setText("Pause");
+            mButtonStartPause.setText(R.string.Pause);
         }
         else{
 //            mEditTextInput.setVisibility(View.VISIBLE);
@@ -232,15 +223,10 @@ public class TimeoutTimer extends AppCompatActivity {
 //            mButtonSet3Min.setVisibility(View.VISIBLE);
 //            mButtonSet5Min.setVisibility(View.VISIBLE);
 //            mButtonSet10Min.setVisibility(View.VISIBLE);
-            mButtonStartPause.setText("Start");
+            mButtonStartPause.setText(R.string.Start);
 
             if(mTimeLeftInMillis < 1000) {
-                // Play alarm
-                alarm();
-                // Play vibration
-                vibrate();
                 //Play notification
-                notification();
                 resetTimer();
 
             }else{
@@ -254,63 +240,6 @@ public class TimeoutTimer extends AppCompatActivity {
 //            }
         }
     }
-
-    private void notification() {
-        // The codes are inspired and modified from the website: https://programmer.group/solutions-to-fail-to-post-notification-on-channel-null.html
-        NotificationManager manager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-        if(Build.VERSION.SDK_INT >= 26)
-        {
-            //When sdk version is larger than26
-            String id = "channel_1";
-            String description = "143";
-            int importance = NotificationManager.IMPORTANCE_LOW;
-            NotificationChannel channel = new NotificationChannel(id, description, importance);
-            channel.enableLights(true);
-            channel.enableVibration(true);
-            manager.createNotificationChannel(channel);
-            Notification notification = new Notification.Builder(TimeoutTimer.this, id)
-                    .setCategory(Notification.CATEGORY_MESSAGE)
-                    // The icon is downloaded from the website: https://www.flaticon.com/free-icon/notification_1040216?term=notification&page=1&position=16
-                    .setSmallIcon(R.drawable.notification)
-                    .setContentTitle("Alarm")
-                    .setContentText("The timeout timer has reached 0.")
-                    .setAutoCancel(true)
-                    .build();
-            manager.notify(1, notification);
-        }
-        else
-        {
-            //When sdk version is less than26
-            Notification notification = new NotificationCompat.Builder(TimeoutTimer.this)
-                    .setContentTitle("Alarm")
-                    .setContentText("The timeout timer has reached 0.")
-                    .setSmallIcon(R.drawable.notification)
-                    .build();
-            manager.notify(1,notification);
-        }
-    }
-
-    private void vibrate() {
-        // Vibrate for 500 milliseconds
-        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        v.vibrate(500);
-    }
-
-    private void alarm() {
-        long ringDelay = 6000;
-        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-        final Ringtone alarmRingtone = RingtoneManager.getRingtone(getApplicationContext(), notification);
-        alarmRingtone.play();
-        TimerTask task = new TimerTask() {
-            @Override
-            public void run() {
-                alarmRingtone.stop();
-            }
-        };
-        Timer timer = new Timer();
-        timer.schedule(task, ringDelay);
-    }
-
 
 
 //    @Override
