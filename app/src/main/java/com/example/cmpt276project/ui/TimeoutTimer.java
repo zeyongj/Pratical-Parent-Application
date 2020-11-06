@@ -149,6 +149,9 @@ public class TimeoutTimer extends AppCompatActivity {
     private void startTimer() {
         mEndTime = System.currentTimeMillis() + mTimeLeftInMillis;
 
+        Intent intent = new Intent(this, AlarmNotificationService.class);
+        startService(intent);
+
         mCountDownTimer = new CountDownTimer(mTimeLeftInMillis, 1000) { //Every 1 second
             @Override
             public void onTick(long l) {

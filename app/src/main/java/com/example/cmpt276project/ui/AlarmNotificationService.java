@@ -6,7 +6,9 @@ import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Build;
+import android.os.CountDownTimer;
 import android.os.IBinder;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
@@ -14,6 +16,9 @@ import androidx.core.app.NotificationCompat;
 import com.example.cmpt276project.R;
 
 public class AlarmNotificationService extends Service {
+    private long mTimeLeftInMillis;
+    private CountDownTimer mCountDownTimer;
+
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -22,8 +27,17 @@ public class AlarmNotificationService extends Service {
 
     @Override
     public void onCreate() {
-        showNotification();
+        mTimeLeftInMillis = 10000;
+        setTimer();
         super.onCreate();
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        mTimeLeftInMillis = 10000;
+        setTimer();
+        Toast.makeText(getBaseContext(), "asdfasdf", Toast.LENGTH_SHORT).show();
+        return super.onStartCommand(intent, flags, startId);
     }
 
     public void showNotification() {
@@ -59,5 +73,21 @@ public class AlarmNotificationService extends Service {
                     .build();
             manager.notify(1,notification);
         }
+    }
+
+    public void setTimer() {
+        mCountDownTimer = new CountDownTimer(mTimeLeftInMillis, 1000) { //Every 1 second
+            @Override
+            public void onTick(long l) {
+                mTimeLeftInMillis = l;
+            }
+
+            @Override
+            public void onFinish() {
+                showNotification();
+            }
+        };
+
+        mCountDownTimer.start();
     }
 }
