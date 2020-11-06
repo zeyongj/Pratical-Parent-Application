@@ -1,4 +1,4 @@
-package com.example.cmpt276project.ui;
+package com.example.cmpt276project.model;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
