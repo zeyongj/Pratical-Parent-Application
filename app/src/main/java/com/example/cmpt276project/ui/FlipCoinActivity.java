@@ -7,35 +7,34 @@ import android.os.Bundle;
 import com.example.cmpt276project.model.Children;
 
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cmpt276project.R;
 
-import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class FlipCoinActivity extends AppCompatActivity {
 
     private static final String DEFAULT = "no child";
-    public static final String CHOOSE_SIDE_TITLE = "Choose Side";
     private String coinSide;
-    private View coinSideDialogView;
 
 
     // Initiate variable
     private Children children;
+    private Button btn;
+
+    // When buttonState == true, Flip is invisible, Head and tail is visible
+    // When buttonState == false, Flip is visible, Head and tail is invisible
+    private boolean buttonState = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,64 +47,91 @@ public class FlipCoinActivity extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
-        //Create Children
+        // Create Children
         children = Children.getInstance();
         children.loadChildren(this);
 
         // Display current child name who flip the coin
-        // If currently has no child, display "No child"
         displayChildName();
 
+        // Set Button State initially
+        if(children.getNumChildren(this) == 0) {
+            buttonState = false;
+            setButton();
+        }
+        else
+            setButton();
 
-
-        // When there is children saved in Children List,
-        // The program asks for the parent or child to choose coin side
-        // If empty children list, then skip this.
-        chooseSideDialog();
-
+        // Allow one child to pick head or tail
+        registerHeadOrTailClicked();
 
         registerFlipClicked();
     }
 
-    private void chooseSideDialog() {
-
-
-        // if there is no children saved, skip the choose side.
-        if (children.getNumChildren(FlipCoinActivity.this)==0){
-            return;
+    // Set Button State
+    // When buttonState == true, Flip is invisible, Head and tail is visible
+    // When buttonState == false, Flip is visible, Head and tail is invisible
+    private void setButton() {
+        Button headButton = findViewById(R.id.headButton);
+        Button tailButton = findViewById(R.id.tailButton);
+        Button flipButton = findViewById(R.id.btn_flip);
+        if(buttonState == true) {
+            headButton.setVisibility(View.VISIBLE);
+            tailButton.setVisibility(View.VISIBLE);
+            flipButton.setVisibility(View.GONE);
         }
-
-        AlertDialog.Builder dialog = new AlertDialog.Builder(FlipCoinActivity.this);
-        coinSideDialogView = getLayoutInflater().inflate(R.layout.flip_coin_choose_sides, null);
-
-        // TODO: add listener - that is when click ok, data is saved then can be accessed by historyActivity
-        dialog.setTitle(CHOOSE_SIDE_TITLE)
-            .setView(coinSideDialogView)
-            .setPositiveButton(android.R.string.ok, null)
-            .create()
-            .show();
-
-
-        chooseSide(R.id.spinnerHead);
-        chooseSide(R.id.spinnerTail);
-
-
-    }
-    private void chooseSide(int spinnerID) {
-        Spinner spinner = (Spinner) coinSideDialogView.findViewById(spinnerID);
-        List<String> childrenList = children.getListChildren(FlipCoinActivity.this);
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(FlipCoinActivity.this,
-                R.layout.support_simple_spinner_dropdown_item,
-                childrenList);
-
-        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-
-        spinner.setAdapter(adapter);
+        else{
+            headButton.setVisibility(View.GONE);
+            tailButton.setVisibility(View.GONE);
+            flipButton.setVisibility(View.VISIBLE);
+        }
     }
 
+    private void registerHeadOrTailClicked() {
+        Button headButton = findViewById(R.id.headButton);
+        Button tailButton = findViewById(R.id.tailButton);
+        headButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buttonState = false;
+                setButton();
+            }
+        });
+        tailButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buttonState = false;
+                setButton();
+            }
+        });
+    }
+
+    private void registerFlipClicked() {
+        Button flipButton = findViewById(R.id.btn_flip);
+        flipButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int randomNumber = ThreadLocalRandom.current().nextInt(1, 3);
+                if (randomNumber == 1) {
+                    flipCoin(R.drawable.quarter_head, "Heads");
+                }
+                else {
+                    flipCoin(R.drawable.quarter_tail, "Tails");
+                }
+                if(children.getNumChildren(FlipCoinActivity.this) != 0) {
+                    buttonState = true;
+                    setButton();
+                }
+
+                // Set current child to next child
+                if(children.getNumChildren(FlipCoinActivity.this) != 0)
+                    children.setCurrentToNextChild(FlipCoinActivity.this);
+            }
+        });
+    }
 
     // Display current child name who flip the coin
+    // If currently has no child, display "No child"
     private void displayChildName() {
         TextView textView = findViewById(R.id.childNameTextView);
 
@@ -122,26 +148,6 @@ public class FlipCoinActivity extends AppCompatActivity {
                 textView.setText(childName);
             }
         }
-    }
-
-    private void registerFlipClicked() {
-        Button btn = findViewById(R.id.btn_flip);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int randomNumber = ThreadLocalRandom.current().nextInt(1, 3);
-                if (randomNumber == 1) {
-                    flipCoin(R.drawable.quarter_head, "Heads");
-                }
-                else {
-                    flipCoin(R.drawable.quarter_tail, "Tails");
-                }
-
-                // Set current child to next child
-                if(children.getNumChildren(FlipCoinActivity.this) != 0)
-                    children.setCurrentToNextChild(FlipCoinActivity.this);
-            }
-        });
     }
 
     private void flipCoin(final int imageID, final String coinSide) {

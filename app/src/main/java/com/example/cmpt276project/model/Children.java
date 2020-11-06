@@ -107,7 +107,7 @@ public class Children {
     }
 
 
-    // Get the current child index
+    // Get the current child index from Shared Preference
     public int getCurrentChildIndex(Context context) {
         SharedPreferences sp = context.getSharedPreferences(CHILD_INDEX_PREF, Context.MODE_PRIVATE);
         return sp.getInt(CURRENT_CHILD_INDEX, 0);
@@ -124,7 +124,7 @@ public class Children {
         editor.apply();
     }
 
-    // Get the number of children
+    // Get the number of children from Shared Preference
     public int getNumChildren(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(CHILDREN_PREFS, Context.MODE_PRIVATE);
         return sharedPreferences.getInt(NUM_CHILDREN, 0);
