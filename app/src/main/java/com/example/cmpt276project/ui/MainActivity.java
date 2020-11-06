@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         flipCoinButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = FlipCoinActivity.makeIntent(MainActivity.this);
+                Intent intent = new Intent(MainActivity.this, FlipCoinActivity.class);
                 startActivity(intent);
             }
         });

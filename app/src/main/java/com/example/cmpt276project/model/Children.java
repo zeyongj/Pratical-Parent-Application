@@ -16,7 +16,6 @@ public class Children {
     private String CHILDREN_PREFS = "Shared Preferences for Children Class";
     private String CHILD_INDEX = "Child Index_";
     private String NUM_CHILDREN = "The number of Children saved is: ";
-    private int currentChildIndex;
     private int numChildren;
 
     // ArrayList to keep track of names of Children
@@ -116,7 +115,7 @@ public class Children {
     // Set the current child index to next child index and save the index to Shared Preference
     public void setCurrentToNextChild(Context context) {
         SharedPreferences sp = context.getSharedPreferences(CHILD_INDEX_PREF, Context.MODE_PRIVATE);
-        currentChildIndex = sp.getInt(CURRENT_CHILD_INDEX, 0);
+        int currentChildIndex = sp.getInt(CURRENT_CHILD_INDEX, 0);
         currentChildIndex = (currentChildIndex + 1) % childrenNames.size();
 
         SharedPreferences.Editor editor = sp.edit();
@@ -133,11 +132,8 @@ public class Children {
     //Set the current child index to first child index and save the index to Shared Preference
     public void setCurrentToFirstChild(Context context) {
         SharedPreferences sp = context.getSharedPreferences(CHILD_INDEX_PREF, Context.MODE_PRIVATE);
-        currentChildIndex = sp.getInt(CURRENT_CHILD_INDEX, 0);
-        currentChildIndex = 0;
-
         SharedPreferences.Editor editor = sp.edit();
-        editor.putInt(CURRENT_CHILD_INDEX, currentChildIndex);
+        editor.putInt(CURRENT_CHILD_INDEX, 0);
         editor.apply();
     }
 }

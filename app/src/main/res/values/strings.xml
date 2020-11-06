@@ -29,4 +29,5 @@
     <string name="tail1">Tail</string>
     <string name="head">Head</string>
     <string name="tail">Tail</string>
+    <string name="title_activity_flip_coin_history">FlipCoinHistoryActivity</string>
 </resources>

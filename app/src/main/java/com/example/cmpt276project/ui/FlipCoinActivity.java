@@ -54,19 +54,31 @@ public class FlipCoinActivity extends AppCompatActivity {
         // Display current child name who flip the coin
         displayChildName();
 
-        // Set Button State initially
-        if(children.getNumChildren(this) == 0) {
-            buttonState = false;
-            setButton();
-        }
-        else
-            setButton();
+        // Initiate Buttons state
+        initiateButtons();
 
-        // Allow one child to pick head or tail
+        // Registered for Head and tail buttons
         registerHeadOrTailClicked();
-
         registerFlipClicked();
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu:
+        getMenuInflater().inflate(R.menu.menu_flip_coin, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.History_button) {
+            Intent intent = new Intent(FlipCoinActivity.this, FlipCoinHistoryActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
     // Set Button State
     // When buttonState == true, Flip is invisible, Head and tail is visible
@@ -75,7 +87,7 @@ public class FlipCoinActivity extends AppCompatActivity {
         Button headButton = findViewById(R.id.headButton);
         Button tailButton = findViewById(R.id.tailButton);
         Button flipButton = findViewById(R.id.btn_flip);
-        if(buttonState == true) {
+        if(buttonState) {
             headButton.setVisibility(View.VISIBLE);
             tailButton.setVisibility(View.VISIBLE);
             flipButton.setVisibility(View.GONE);
@@ -87,6 +99,18 @@ public class FlipCoinActivity extends AppCompatActivity {
         }
     }
 
+    // Initiate button state
+    // If there is no child, only make flip button visible
+    private void initiateButtons() {
+        if(children.getNumChildren(this) == 0) {
+            buttonState = false;
+            setButton();
+        }
+        else
+            setButton();
+    }
+
+    // Registered for Head and tail buttons
     private void registerHeadOrTailClicked() {
         Button headButton = findViewById(R.id.headButton);
         Button tailButton = findViewById(R.id.tailButton);
@@ -106,6 +130,7 @@ public class FlipCoinActivity extends AppCompatActivity {
         });
     }
 
+    // Registered for Flip buttons
     private void registerFlipClicked() {
         Button flipButton = findViewById(R.id.btn_flip);
         flipButton.setOnClickListener(new View.OnClickListener() {
@@ -150,6 +175,7 @@ public class FlipCoinActivity extends AppCompatActivity {
         }
     }
 
+    // Flip coin Animation
     private void flipCoin(final int imageID, final String coinSide) {
         final ImageView coin = findViewById(R.id.img_coin);
         coin.animate()
@@ -166,30 +192,6 @@ public class FlipCoinActivity extends AppCompatActivity {
                 displayChildName();
             }
         });
-    }
-
-    public static Intent makeIntent(Context context) {
-        return new Intent(context, FlipCoinActivity.class);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu:
-        getMenuInflater().inflate(R.menu.menu_flip_coin, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.History_button:
-                Intent intent = FlipHistoryActivity.makeIntent(FlipCoinActivity.this);
-                startActivity(intent);
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 
 
