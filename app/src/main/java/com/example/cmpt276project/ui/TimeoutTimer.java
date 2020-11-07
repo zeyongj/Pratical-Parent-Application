@@ -114,8 +114,8 @@ public class TimeoutTimer extends AppCompatActivity {
     }
 
     private void setCertainTime() {
-        for (int i = 0; i<5; i++) {
-            final int index = i+1;
+        for (int i = 0; i < 5; i++) {
+            final int index = i + 1;
             mButtons[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -198,63 +198,18 @@ public class TimeoutTimer extends AppCompatActivity {
 
     private void updateWatchInterface(){
         if (mTimerRunning) {
-//            mEditTextInput.setVisibility(View.INVISIBLE);
-//            mButtonSet.setVisibility(View.INVISIBLE);
-//            mButtonSet1Min.setVisibility(View.INVISIBLE);
-//            mButtonSet2Min.setVisibility(View.INVISIBLE);
-//            mButtonSet3Min.setVisibility(View.INVISIBLE);
-//            mButtonSet5Min.setVisibility(View.INVISIBLE);
-//            mButtonSet10Min.setVisibility(View.INVISIBLE);
-//            mButtonReset.setVisibility(View.INVISIBLE);
             mButtonStartPause.setText(R.string.Pause);
         }
         else{
-//            mEditTextInput.setVisibility(View.VISIBLE);
-//            mButtonSet.setVisibility(View.VISIBLE);
-//            mButtonSet1Min.setVisibility(View.VISIBLE);
-//            mButtonSet2Min.setVisibility(View.VISIBLE);
-//            mButtonSet3Min.setVisibility(View.VISIBLE);
-//            mButtonSet5Min.setVisibility(View.VISIBLE);
-//            mButtonSet10Min.setVisibility(View.VISIBLE);
             mButtonStartPause.setText(R.string.Start);
-
             if(mTimeLeftInMillis < 1000) {
-                //Play notification
+                //Timer needs to be reset as it reaches 0.
                 resetTimer();
-
-            }else{
-                mButtonStartPause.setVisibility(View.VISIBLE);
             }
-
-//            if(mTimeLeftInMillis < mStartTimeInMillis) {
-//                mButtonReset.setVisibility(View.VISIBLE);
-//            } else {
-//                mButtonReset.setVisibility(View.INVISIBLE);
-//            }
         }
     }
 
-//    @Override
-//    protected void onSaveInstanceState(@NonNull Bundle outState) {
-//        super.onSaveInstanceState(outState);
-//        outState.putLong("millisLeft", mTimeLeftInMillis);
-//        outState.putBoolean("timerRunning", mTimerRunning);
-//        outState.putLong("endTime", mEndTime);
-//    }
 
-//    @Override
-//    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
-//        super.onRestoreInstanceState(savedInstanceState);
-//        mTimeLeftInMillis = savedInstanceState.getLong("millisLeft");
-//        mTimerRunning = savedInstanceState.getBoolean("timerRunning");
-//        updateCountDownText();
-//        updateButtons();
-//        if (mTimerRunning){
-//            mEndTime = savedInstanceState.getLong("endTime");
-//            mTimeLeftInMillis = mEndTime - System.currentTimeMillis();
-//            startTimer();
-//        }
-//    }
 
     private void closeKeyBoard () {
         View view = this.getCurrentFocus();

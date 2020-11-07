@@ -13,6 +13,7 @@
         android:fullBackupContent="true">
         <activity
             android:name=".ui.TimeoutTimer"
+            android:screenOrientation="sensor"
             android:exported="true" />
         <activity
             android:name=".ui.ChildListActivity"
