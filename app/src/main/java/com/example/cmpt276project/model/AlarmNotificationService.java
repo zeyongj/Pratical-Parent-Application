@@ -9,6 +9,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -95,10 +96,12 @@ public class AlarmNotificationService extends Service {
         //When sdk version is less than26
         Notification notification = new NotificationCompat.Builder(getBaseContext())
                 .setContentTitle("Alarm")
-                .setContentText("The timeout timer has reached 0.")
+                .setContentText("The timeout timer has reached 0. Tap to stop.")
                 .setSmallIcon(R.drawable.notification)
+                // The icon is downloaded from the website: https://www.flaticon.com/free-icon/notification_1040216?term=notification&page=1&position=16
                 .setContentIntent(intent)
                 .setAutoCancel(true)
+                .setColor(Color.RED)
                 .build();
         manager.notify(1,notification);
     }
@@ -124,9 +127,10 @@ public class AlarmNotificationService extends Service {
                 // The icon is downloaded from the website: https://www.flaticon.com/free-icon/notification_1040216?term=notification&page=1&position=16
                 .setSmallIcon(R.drawable.notification)
                 .setContentTitle("Alarm")
-                .setContentText("The timeout timer has reached 0.")
+                .setContentText("The timeout timer has reached 0. Tap to stop.")
                 .setContentIntent(intent)
                 .setAutoCancel(true)
+                .setColor(Color.RED)
                 .build();
         manager.notify(1, notification);
     }
