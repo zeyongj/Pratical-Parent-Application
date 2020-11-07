@@ -30,10 +30,12 @@ import java.util.TimerTask;
 public class AlarmNotificationService extends Service {
     // Broadcast ID for Intent when notification is clicked
     private String BROADCAST_ID = "Broadcast ID to stop notification";
+    private String ALARM_TIME_INT = "Countdown timer value for service";
 
     private long mTimeLeftInMillis;
     private Ringtone alarmRingtone;
     private Vibrator vibration;
+    private CountDownTimer countDownTimer;
 
     @Nullable
     @Override
@@ -48,14 +50,25 @@ public class AlarmNotificationService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        // Get the timer value from TimeoutTimer activity
+        mTimeLeftInMillis = intent.getLongExtra(ALARM_TIME_INT, 0);
+
         // Register the BroadcastReceiver
         registerReceiver(notificationReceiver, new IntentFilter(BROADCAST_ID));
-        mTimeLeftInMillis = 10000;
 
-        // Set the timer
-        setTimer();
-        Toast.makeText(getBaseContext(), "TEST ONLY REMOVE WHEN SUBMITTING", Toast.LENGTH_SHORT).show();
+
+        // Set the timer if the timer isn't 0
+        if (mTimeLeftInMillis!=0) {
+            setTimer();
+        }
+        // Toast.makeText(getBaseContext(), String.format("ALARM TIMER %d", mTimeLeftInMillis), Toast.LENGTH_SHORT).show();
         return super.onStartCommand(intent, flags, startId);
+    }
+
+    @Override
+    public void onDestroy() {
+        countDownTimer.cancel();
+        super.onDestroy();
     }
 
     public void showNotification() {
@@ -119,7 +132,7 @@ public class AlarmNotificationService extends Service {
 
     public void setTimer() {
         // Set timer with intervals every second
-        new CountDownTimer(mTimeLeftInMillis, 1000) {
+        countDownTimer = new CountDownTimer(mTimeLeftInMillis, 1000) {
             @Override
             public void onTick(long l) {
             }
