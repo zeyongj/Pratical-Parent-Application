@@ -38,6 +38,7 @@ public class FlipCoinHistoryActivity extends AppCompatActivity {
         manager = FlipHistoryManager.getInstance();
 
 
+        // Testing to check if history is saved and can be pulled out from SharedPreference.
         Toast.makeText(this, manager.getHistory(0), Toast.LENGTH_SHORT).show();
 
 

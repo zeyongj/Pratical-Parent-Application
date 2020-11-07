@@ -64,6 +64,8 @@ public class FlipCoinActivity extends AppCompatActivity {
         children = Children.getInstance();
         children.loadChildren(this);
 
+
+        // handing history
         history = FlipHistory.getInstance();
         historyManager = FlipHistoryManager.getInstance();
 
@@ -157,25 +159,21 @@ public class FlipCoinActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 int randomNumber = ThreadLocalRandom.current().nextInt(1, 3);
+
                 if (randomNumber == 1) {
                     flipCoin(R.drawable.quarter_head, "Heads");
                     coinSide = "Head";
-                    // TODO: save flip result to SharedPreference.
-                    //TODO: Refactor the following code into one function
-                    saveCurrentDateAndTime();
-                    saveChildNames();
-                    saveCoinSide(coinSide);
-                    historyManager.addHistory(saveCurrentDateAndTime() + ' ' +
-                            saveChildNames() + ' ' +
-                            saveCoinSide(coinSide));
+
+
+                    // save coin flip result to history
+                    historyManager.addHistory(saveCoinFlipInformation(coinSide));
+
 
                 }
                 else {
                     coinSide = "Tail";
-                    flipCoin(R.drawable.quarter_tail, "Tails");
-                    saveCurrentDateAndTime();
-                    saveChildNames();
-                    saveCoinSide(coinSide);
+
+                    historyManager.addHistory(saveCoinFlipInformation(coinSide));
                 }
 
                 if(children.getNumChildren(FlipCoinActivity.this) != 0) {
@@ -192,6 +190,14 @@ public class FlipCoinActivity extends AppCompatActivity {
         });
     }
 
+    // combine different strings into history message.
+    private String saveCoinFlipInformation(String coinSide) {
+        return saveCurrentDateAndTime() + " " +
+                                saveChildNames() + " " +
+                                saveCoinSide(coinSide);
+    }
+
+    // save stuff in to strings from coin flip
     private String saveCurrentDateAndTime() {
 
         @SuppressLint("SimpleDateFormat") DateFormat date = new SimpleDateFormat(DATE_FORMAT);
@@ -204,7 +210,6 @@ public class FlipCoinActivity extends AppCompatActivity {
         // Log message to check if date and time is saved
 
     }
-
     private String saveChildNames() {
 
         if (children.getNumChildren(this) != 0) {
@@ -217,14 +222,11 @@ public class FlipCoinActivity extends AppCompatActivity {
         return null;
 
     }
-
     private String saveCoinSide(String coinSide) {
         Log.d("the result of the flip is:", coinSide);
 
         return coinSide;
         //history.setFlipResult(coinSide);
-
-
     }
 
 
