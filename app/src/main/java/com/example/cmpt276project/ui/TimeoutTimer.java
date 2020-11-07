@@ -23,9 +23,12 @@ import com.example.cmpt276project.model.AlarmNotificationService;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class TimeoutTimer extends AppCompatActivity {
+    private String ALARM_TIME_INT = "Countdown timer value for service";
+
     // Initialize the variables
     String id ="channel_1";//id of channel
     String description = "123";//Description information of channel
+
     int importance = NotificationManager.IMPORTANCE_LOW;//The Importance of channel
 //    NotificationChannel channel = new NotificationChannel(id, "123", importance);//Generating channel
     private EditText mEditTextInput;
@@ -43,9 +46,9 @@ public class TimeoutTimer extends AppCompatActivity {
     private long mTimeLeftInMillis;
     private long mEndTime;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeout_timer);
 
@@ -75,10 +78,13 @@ public class TimeoutTimer extends AppCompatActivity {
             public void onClick(View view) {
                 if (mTimerRunning){
                     pauseTimer();
-                }else{
                     Intent intent = new Intent(TimeoutTimer.this, AlarmNotificationService.class);
-                    startService(intent);
+                    stopService(intent);
+                }else{
                     startTimer();
+                    Intent intent = new Intent(TimeoutTimer.this, AlarmNotificationService.class);
+                    intent.putExtra(ALARM_TIME_INT, mTimeLeftInMillis);
+                    startService(intent);
                 }
             }
         });
@@ -121,10 +127,10 @@ public class TimeoutTimer extends AppCompatActivity {
                         multiplier = 10;
                     }
                     setTime(multiplier * 60000);
-                    // Set 1 minute timer to 6 seconds for testing purposes
+/*                  Set 1 minute timer to 6 seconds for testing purposes
                     if (index == 1) {
                         setTime(6000);
-                    }
+                    }*/
                     mEditTextInput.setText("");
                 }
             });
@@ -150,6 +156,8 @@ public class TimeoutTimer extends AppCompatActivity {
             @Override
             public void onFinish() {
                 mTimerRunning = false;
+                pauseTimer();
+                resetTimer();
             }
         }.start();
 
@@ -163,7 +171,6 @@ public class TimeoutTimer extends AppCompatActivity {
         updateWatchInterface();
     }
 
-
     private void resetTimer() {
         if (mTimerRunning) {
             mCountDownTimer.cancel();
@@ -173,8 +180,6 @@ public class TimeoutTimer extends AppCompatActivity {
         updateCountDownText();
         updateWatchInterface();
     }
-
-
 
     private void updateCountDownText() {
         int hours = (int) (mTimeLeftInMillis / 1000) / 3600;
@@ -190,7 +195,6 @@ public class TimeoutTimer extends AppCompatActivity {
         }
         mTextViewCountDown.setText(timeLeftFormatted);
     }
-
 
     private void updateWatchInterface(){
         if (mTimerRunning) {
@@ -230,7 +234,6 @@ public class TimeoutTimer extends AppCompatActivity {
         }
     }
 
-
 //    @Override
 //    protected void onSaveInstanceState(@NonNull Bundle outState) {
 //        super.onSaveInstanceState(outState);
@@ -238,7 +241,6 @@ public class TimeoutTimer extends AppCompatActivity {
 //        outState.putBoolean("timerRunning", mTimerRunning);
 //        outState.putLong("endTime", mEndTime);
 //    }
-
 
 //    @Override
 //    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
