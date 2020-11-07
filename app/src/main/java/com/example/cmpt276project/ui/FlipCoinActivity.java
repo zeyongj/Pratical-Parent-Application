@@ -10,6 +10,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -60,6 +61,9 @@ public class FlipCoinActivity extends AppCompatActivity {
         // Create Children
         children = Children.getInstance();
         children.loadChildren(this);
+
+        history = FlipHistory.getInstance();
+
 
         // Display current child name who flip the coin
         displayChildName();
@@ -154,7 +158,7 @@ public class FlipCoinActivity extends AppCompatActivity {
                     coinSide = "Head";
                     // TODO: save flip result to SharedPreference.
                     //TODO: fix bug
-                    //saveCurrentDateAndTime();
+                    saveCurrentDateAndTime();
                     //saveChildNames();
                     //saveCoinSide(coinSide);
                 }
@@ -177,12 +181,13 @@ public class FlipCoinActivity extends AppCompatActivity {
     }
 
     private void saveCurrentDateAndTime() {
-
-        FlipHistory.getInstance();
-
+        
         DateFormat date = new SimpleDateFormat(DATE_FORMATE);
         String dateFormatted = date.format(Calendar.getInstance().getTime());
         history.setCurrentDateAndTime(dateFormatted);
+
+        // Log message to check if date and time is saved
+        Log.d("the date and time saved is:", history.getCurrentDateAndTime());
     }
 
 
