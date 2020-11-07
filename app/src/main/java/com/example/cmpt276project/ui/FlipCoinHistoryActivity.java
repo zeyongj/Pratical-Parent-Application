@@ -1,5 +1,6 @@
 package com.example.cmpt276project.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -25,5 +26,11 @@ public class FlipCoinHistoryActivity extends AppCompatActivity {
         // Enable "up" on toolbar
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
+
+        // History should be stored in SharedPreferences as user may access when reopen the program.
+
+
     }
+
+
 }

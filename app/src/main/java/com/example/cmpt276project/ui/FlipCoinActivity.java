@@ -19,18 +19,28 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cmpt276project.R;
+import com.example.cmpt276project.model.FlipHistory;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class FlipCoinActivity extends AppCompatActivity {
 
     private static final String DEFAULT = "no child";
+    public static final String DATE_FORMATE = "MM dd yyyy, h:mm";
     private String coinSide;
 
 
     // Initiate variable
     private Children children;
-    private Button btn;
+
+    // Handling History
+    private FlipHistory history;
+
+
+
 
     // When buttonState == true, Flip is invisible, Head and tail is visible
     // When buttonState == false, Flip is visible, Head and tail is invisible
@@ -62,6 +72,7 @@ public class FlipCoinActivity extends AppCompatActivity {
         registerFlipClicked();
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu:
@@ -69,6 +80,7 @@ public class FlipCoinActivity extends AppCompatActivity {
         return true;
     }
 
+    // Flip History
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.History_button) {
@@ -139,10 +151,17 @@ public class FlipCoinActivity extends AppCompatActivity {
                 int randomNumber = ThreadLocalRandom.current().nextInt(1, 3);
                 if (randomNumber == 1) {
                     flipCoin(R.drawable.quarter_head, "Heads");
+                    coinSide = "Head";
+                    // TODO: save flip result to SharedPreference.
+                    //TODO: fix bug
+                    //saveCurrentDateAndTime();
+                    //saveChildNames();
+                    //saveCoinSide(coinSide);
                 }
                 else {
                     flipCoin(R.drawable.quarter_tail, "Tails");
                 }
+
                 if(children.getNumChildren(FlipCoinActivity.this) != 0) {
                     buttonState = true;
                     setButton();
@@ -152,8 +171,37 @@ public class FlipCoinActivity extends AppCompatActivity {
                 if(children.getNumChildren(FlipCoinActivity.this) != 0)
                     children.setCurrentToNextChild(FlipCoinActivity.this);
             }
+
+
         });
     }
+
+    private void saveCurrentDateAndTime() {
+
+        FlipHistory.getInstance();
+
+        DateFormat date = new SimpleDateFormat(DATE_FORMATE);
+        String dateFormatted = date.format(Calendar.getInstance().getTime());
+        history.setCurrentDateAndTime(dateFormatted);
+    }
+
+
+    private void saveCoinSide(String coinSide) {
+        history.getInstance();
+        history.setFlipResult(coinSide);
+    }
+
+
+    private void saveChildNames() {
+        history.getInstance();
+
+        history.setChildName(children.getChild(children.getCurrentChildIndex(this)));
+
+    }
+
+
+
+
 
     // Display current child name who flip the coin
     // If currently has no child, display "No child"
@@ -193,6 +241,9 @@ public class FlipCoinActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
 
 
 }
