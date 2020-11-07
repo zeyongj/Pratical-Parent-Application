@@ -90,20 +90,6 @@ public class Children {
         }
     }
 
-    // get list of children
-    //TODO: Refactor this code to reduce repetition
-    public List<String> getListChildren(Context context){
-        childrenNames = new ArrayList<>();
-
-        SharedPreferences sharedPreferences = context.getSharedPreferences(CHILDREN_PREFS, Context.MODE_PRIVATE);
-        numChildren = sharedPreferences.getInt(NUM_CHILDREN, 0);
-
-        for (int i = 0; i < numChildren; i++) {
-            childrenNames.add(sharedPreferences.getString(CHILD_INDEX + i, null));
-        }
-        return childrenNames;
-
-    }
 
 
     // Get the current child index from Shared Preference

@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.example.cmpt276project.R;
 import com.example.cmpt276project.model.FlipHistory;
+import com.example.cmpt276project.model.FlipHistoryManager;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -39,6 +40,7 @@ public class FlipCoinActivity extends AppCompatActivity {
 
     // Handling History
     private FlipHistory history;
+    private FlipHistoryManager historyManager;
 
 
 
@@ -63,6 +65,8 @@ public class FlipCoinActivity extends AppCompatActivity {
         children.loadChildren(this);
 
         history = FlipHistory.getInstance();
+        historyManager = FlipHistoryManager.getInstance();
+
 
 
         // Display current child name who flip the coin
@@ -161,6 +165,10 @@ public class FlipCoinActivity extends AppCompatActivity {
                     saveCurrentDateAndTime();
                     saveChildNames();
                     saveCoinSide(coinSide);
+                    historyManager.addHistory(saveCurrentDateAndTime() + ' ' +
+                            saveChildNames() + ' ' +
+                            saveCoinSide(coinSide));
+
                 }
                 else {
                     coinSide = "Tail";
@@ -184,29 +192,39 @@ public class FlipCoinActivity extends AppCompatActivity {
         });
     }
 
-    private void saveCurrentDateAndTime() {
+    private String saveCurrentDateAndTime() {
 
         @SuppressLint("SimpleDateFormat") DateFormat date = new SimpleDateFormat(DATE_FORMAT);
         String dateFormatted = date.format(Calendar.getInstance().getTime());
-        history.setCurrentDateAndTime(dateFormatted);
 
+        Log.d("the date and time saved is:",dateFormatted);
+
+        return dateFormatted;
+        //history.setCurrentDateAndTime(dateFormatted);
         // Log message to check if date and time is saved
-        Log.d("the date and time saved is:", history.getCurrentDateAndTime());
+
     }
 
-    private void saveChildNames() {
+    private String saveChildNames() {
 
         if (children.getNumChildren(this) != 0) {
-            history.setChildName(children.getChild(children.getCurrentChildIndex(this)));
+
+            Log.d("saved Child is: ", children.getChild(children.getCurrentChildIndex(this)) );
+            return children.getChild(children.getCurrentChildIndex(this));
+
+            //history.setChildName(children.getChild(children.getCurrentChildIndex(this)));
         }
-        Log.d("saveChild", "the fucntion complete with no child");
+        return null;
+
     }
 
-    private void saveCoinSide(String coinSide) {
+    private String saveCoinSide(String coinSide) {
+        Log.d("the result of the flip is:", coinSide);
 
-        history.setFlipResult(coinSide);
+        return coinSide;
+        //history.setFlipResult(coinSide);
 
-        Log.d("the result of the flip is:", history.getFlipResult());
+
     }
 
 
