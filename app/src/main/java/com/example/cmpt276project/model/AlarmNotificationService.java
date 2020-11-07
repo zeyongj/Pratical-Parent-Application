@@ -51,11 +51,12 @@ public class AlarmNotificationService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         // Get the timer value from TimeoutTimer activity
-        mTimeLeftInMillis = intent.getLongExtra(ALARM_TIME_INT, 0);
+        if (intent.getExtras()!=null) {
+            mTimeLeftInMillis = intent.getLongExtra(ALARM_TIME_INT, 0);
+        }
 
         // Register the BroadcastReceiver
         registerReceiver(notificationReceiver, new IntentFilter(BROADCAST_ID));
-
 
         // Set the timer if the timer isn't 0
         if (mTimeLeftInMillis!=0) {
@@ -174,6 +175,7 @@ public class AlarmNotificationService extends Service {
             // Stop alarm and stop vibration
             alarmRingtone.stop();
             vibration.cancel();
+            stopSelf();
         }
     };
 }

@@ -78,8 +78,7 @@ public class TimeoutTimer extends AppCompatActivity {
             public void onClick(View view) {
                 if (mTimerRunning){
                     pauseTimer();
-                    Intent intent = new Intent(TimeoutTimer.this, AlarmNotificationService.class);
-                    stopService(intent);
+                    stopTimerService();
                 }else{
                     startTimer();
                     Intent intent = new Intent(TimeoutTimer.this, AlarmNotificationService.class);
@@ -179,6 +178,7 @@ public class TimeoutTimer extends AppCompatActivity {
         mTimeLeftInMillis = mStartTimeInMillis;
         updateCountDownText();
         updateWatchInterface();
+        stopTimerService();
     }
 
     private void updateCountDownText() {
@@ -305,5 +305,10 @@ public class TimeoutTimer extends AppCompatActivity {
                 startTimer();
             }
         }
+    }
+
+    private void stopTimerService() {
+        Intent intent = new Intent(TimeoutTimer.this, AlarmNotificationService.class);
+        stopService(intent);
     }
 }
