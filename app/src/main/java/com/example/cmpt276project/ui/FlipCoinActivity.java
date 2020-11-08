@@ -2,6 +2,7 @@ package com.example.cmpt276project.ui;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import com.example.cmpt276project.model.Children;
@@ -42,6 +43,8 @@ public class FlipCoinActivity extends AppCompatActivity {
     private FlipHistory history;
     private FlipHistoryManager historyManager;
 
+    // Handling Flipping sound
+    private MediaPlayer flipSound;
 
 
 
@@ -68,6 +71,10 @@ public class FlipCoinActivity extends AppCompatActivity {
         // handing history
         history = FlipHistory.getInstance();
         historyManager = FlipHistoryManager.getInstance();
+
+
+        // Handling tossing coin sound
+        flipSound = MediaPlayer.create(this,R.raw.coin_toss_sound);
 
 
 
@@ -163,7 +170,7 @@ public class FlipCoinActivity extends AppCompatActivity {
                 if (randomNumber == 1) {
                     flipCoin(R.drawable.quarter_head, "Heads");
                     coinSide = "Head";
-
+                    flipSound.start();
 
                     // save coin flip result to history
                     historyManager.addHistory(saveCoinFlipInformation(coinSide));
@@ -171,7 +178,10 @@ public class FlipCoinActivity extends AppCompatActivity {
 
                 }
                 else {
+                    flipCoin(R.drawable.quarter_tail, "Tail");
+
                     coinSide = "Tail";
+                    flipSound.start();
 
                     historyManager.addHistory(saveCoinFlipInformation(coinSide));
                 }
