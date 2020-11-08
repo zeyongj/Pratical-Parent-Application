@@ -92,6 +92,7 @@ public class TimeoutTimer extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 resetTimer();
+                stopTimerService();
             }
         });
 //        updateCountDownText();
@@ -178,7 +179,6 @@ public class TimeoutTimer extends AppCompatActivity {
         mTimeLeftInMillis = mStartTimeInMillis;
         updateCountDownText();
         updateWatchInterface();
-        stopTimerService();
     }
 
     private void updateCountDownText() {

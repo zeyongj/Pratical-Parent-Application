@@ -63,7 +63,8 @@ public class AlarmNotificationService extends Service {
         if (mTimeLeftInMillis!=0) {
             setTimer();
         }
-        // Toast.makeText(getBaseContext(), String.format("ALARM TIMER %d", mTimeLeftInMillis), Toast.LENGTH_SHORT).show();
+
+//        Toast.makeText(getBaseContext(), String.format("ALARM TIMER %d", mTimeLeftInMillis), Toast.LENGTH_SHORT).show();
         return super.onStartCommand(intent, flags, startId);
     }
 
