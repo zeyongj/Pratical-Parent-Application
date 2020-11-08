@@ -4,11 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.cmpt276project.R;
+import com.example.cmpt276project.model.MainMenuAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.View;
 
@@ -20,6 +23,7 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
 
+    MainMenuAdapter mainMenuAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,16 +31,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        // Make the FloatingActionButton go to the ChildListActivity for now
-        // Change this when we decide on the design
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, ChildListActivity.class);
-                startActivity(intent);
-            }
-        });
+        buildMenuView();
     }
 
     @Override
@@ -59,5 +54,19 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void buildMenuView() {
+        // Find ID of RecyclerView
+        RecyclerView menuRecyclerView = findViewById(R.id.mainmenuview);
+        menuRecyclerView.setHasFixedSize(true);
+
+        // Set Layout for the RecyclerView
+        RecyclerView.LayoutManager menuLayoutManager = new LinearLayoutManager(this);
+        menuRecyclerView.setLayoutManager(menuLayoutManager);
+
+        // Set Adapter for the RecyclerView
+        mainMenuAdapter = new MainMenuAdapter();
+        menuRecyclerView.setAdapter(mainMenuAdapter);
     }
 }

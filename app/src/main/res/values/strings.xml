@@ -19,4 +19,10 @@
     <string name="OK">OK</string>
     <string name="Cancel">Cancel</string>
     <string name="EditChildName">Edit Child Name</string>
+
+    <string-array name="MenuNames">
+        <item>Flip a Coin</item>
+        <item>Timeout Timer</item>
+        <item>Configure my Children</item>
+    </string-array>
 </resources>
