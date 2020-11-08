@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cmpt276project.R;
 import com.example.cmpt276project.ui.ChildListActivity;
+import com.example.cmpt276project.ui.TimeoutTimer;
 
 // Class to set up the RecyclerView Menu for the Main Menu
 // Each button leads to its respective activity
@@ -36,7 +37,8 @@ public class MainMenuAdapter extends RecyclerView.Adapter<MainMenuAdapter.MainMe
                     Toast.makeText(v.getContext(), "0000", Toast.LENGTH_SHORT).show();
                     break;
                 case 1: // Go to Timeout Activity
-                    Toast.makeText(v.getContext(), "1111", Toast.LENGTH_SHORT).show();
+                    Intent timeoutTimerIntent = new Intent(v.getContext(), TimeoutTimer.class);
+                    v.getContext().startActivity(timeoutTimerIntent);
                     break;
                 case 2: // Go to Child Configuration Activity
                     Intent configChildIntent = new Intent(v.getContext(), ChildListActivity.class);
