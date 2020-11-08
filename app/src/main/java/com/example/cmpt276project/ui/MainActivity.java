@@ -14,6 +14,7 @@ import android.view.View;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 
 
 // Main activity page for when the program starts
@@ -37,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        onTimeoutTimerButtonClick();
     }
 
     @Override
@@ -59,5 +62,16 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onTimeoutTimerButtonClick() {
+        Button toTimeoutButton = findViewById(R.id.MainMenuTimeoutButton);
+        toTimeoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, TimeoutTimer.class);
+                startActivity(intent);
+            }
+        });
     }
 }
