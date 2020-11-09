@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cmpt276project.R;
 import com.example.cmpt276project.ui.ChildListActivity;
+import com.example.cmpt276project.ui.FlipCoinActivity;
 import com.example.cmpt276project.ui.TimeoutTimer;
 
 // Class to set up the RecyclerView Menu for the Main Menu
@@ -34,7 +35,8 @@ public class MainMenuAdapter extends RecyclerView.Adapter<MainMenuAdapter.MainMe
             // Set buttons to be clickable
             switch(getAdapterPosition()) {
                 case 0: // Go to Coin Flip Activity
-                    Toast.makeText(v.getContext(), "0000", Toast.LENGTH_SHORT).show();
+                    Intent flipCoinIntent = new Intent(v.getContext(), FlipCoinActivity.class);
+                    v.getContext().startActivity(flipCoinIntent);
                     break;
                 case 1: // Go to Timeout Activity
                     Intent timeoutTimerIntent = new Intent(v.getContext(), TimeoutTimer.class);
