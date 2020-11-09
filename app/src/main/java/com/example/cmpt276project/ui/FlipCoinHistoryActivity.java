@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.cmpt276project.model.Children;
 import com.example.cmpt276project.model.FlipHistory;
 import com.example.cmpt276project.model.FlipHistoryManager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -30,7 +31,10 @@ import com.example.cmpt276project.R;
 public class FlipCoinHistoryActivity extends AppCompatActivity {
 
     private FlipHistoryManager manager;
+    private Children children;
     private boolean toggleHistory = true;
+    private String currentChildName;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +48,12 @@ public class FlipCoinHistoryActivity extends AppCompatActivity {
         ab.setDisplayHomeAsUpEnabled(true);
 
         manager = FlipHistoryManager.getInstance();
+        children = Children.getInstance();
 
-        populateListView();
+        if(children.getNumChildren(this) != 0) {
+            currentChildName = "childname: " + children.getChild(children.getCurrentChildIndex(this));
+            populateListView();
+        }
 
     }
 
@@ -127,7 +135,7 @@ public class FlipCoinHistoryActivity extends AppCompatActivity {
             }
             else {
 
-                //Find the History wo work with
+                //Find the History to work with
                 FlipHistory currentHistory = manager.getMyHistory().get(position);
 
                 //Fill the view
@@ -146,7 +154,11 @@ public class FlipCoinHistoryActivity extends AppCompatActivity {
                 TextView FlipResult = (TextView) itemView.findViewById(R.id.item_ResultOfHeadOrTail);
                 FlipResult.setText(currentHistory.getFlipResult());
 
+                if(!manager.getMyHistory().get(position).getChildName().equals(currentChildName))
+                    itemView.setVisibility(View.GONE);
+
                 return itemView;
+
             }
         }
     }

@@ -17,7 +17,7 @@ import java.util.List;
 public class FlipHistoryManager implements Iterable<FlipHistory> {
 
     private static FlipHistoryManager instance;
-    private FlipHistoryManager() {
+    public FlipHistoryManager() {
     }
     public static FlipHistoryManager getInstance(){
         if (instance == null) {
