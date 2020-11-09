@@ -1,18 +1,24 @@
 package com.example.cmpt276project.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.cmpt276project.model.FlipHistory;
 import com.example.cmpt276project.model.FlipHistoryManager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,22 +40,51 @@ public class FlipCoinHistoryActivity extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
-        // History should be stored in SharedPreferences as user may access when reopen the program.
         manager = FlipHistoryManager.getInstance();
-        manager.loadHistory(this);
 
-
-        // Testing to check if history is saved and can be pulled out from SharedPreference.
-        //
-        Toast.makeText(this, manager.getHistory(0), Toast.LENGTH_SHORT).show();
-
-        Toast.makeText(this, manager.getHistory(manager.size()-1), Toast.LENGTH_SHORT).show();
-
-
+        populateListView();
 
     }
 
+    public void populateListView(){
+        ArrayAdapter<FlipHistory> adapter = new myListAdapter();
+        ListView list = (ListView) findViewById(R.id.history_ListView);
+        list.setAdapter(adapter);
+    }
 
+    private class myListAdapter extends ArrayAdapter<FlipHistory> {
+        public myListAdapter(){
+            super(FlipCoinHistoryActivity.this, R.layout.history_item, manager.getMyHistory());
+        }
 
+        @NonNull
+        @Override
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            View itemView = convertView;
+            if(itemView == null){
+                itemView = getLayoutInflater().inflate(R.layout.history_item, parent, false);
+            }
 
+            //Find the History wo work with
+            FlipHistory currentHistory = manager.getMyHistory().get(position);
+
+            //Fill the view
+            ImageView imageView = (ImageView) itemView.findViewById(R.id.item_Win);
+            imageView.setImageResource(currentHistory.getIconID());
+
+            // ChildName:
+            TextView ChildName = (TextView) itemView.findViewById(R.id.item_ChildrenName);
+            ChildName.setText(currentHistory.getChildName());
+
+            // CurrentDate:
+            TextView CurrentDate = (TextView) itemView.findViewById(R.id.item_CurrentDate);
+            CurrentDate.setText(currentHistory.getCurrentDateAndTime());
+
+            // Make:
+            TextView FlipResult = (TextView) itemView.findViewById(R.id.item_ResultOfHeadOrTail);
+            FlipResult.setText(currentHistory.getFlipResult());
+
+            return itemView;
+        }
+    }
 }

@@ -22,5 +22,14 @@
 
     <include layout="@layout/content_flip_coin_history" />
 
+    <ListView
+        android:id="@+id/history_ListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?android:attr/actionBarSize"
+        android:padding="4dp"
+        android:background="@android:color/darker_gray"
+        android:scrollbars="vertical" />
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

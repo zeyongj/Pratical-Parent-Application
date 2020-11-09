@@ -51,6 +51,8 @@ public class FlipCoinActivity extends AppCompatActivity {
     // When buttonState == true, Flip is invisible, Head and tail is visible
     // When buttonState == false, Flip is visible, Head and tail is invisible
     private boolean buttonState = true;
+    private String choose;
+    private boolean WinOrLoss;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +73,7 @@ public class FlipCoinActivity extends AppCompatActivity {
         // handing history
         history = FlipHistory.getInstance();
         historyManager = FlipHistoryManager.getInstance();
-        historyManager.loadHistory(this);
+/*        historyManager.loadHistory(this);*/
 
 
         // Handling tossing coin sound
@@ -90,6 +92,7 @@ public class FlipCoinActivity extends AppCompatActivity {
         registerFlipClicked();
     }
 
+/*
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -100,6 +103,7 @@ public class FlipCoinActivity extends AppCompatActivity {
         super.onStop();
         historyManager.saveHistory(this);
     }
+*/
 
 
     @Override
@@ -163,6 +167,7 @@ public class FlipCoinActivity extends AppCompatActivity {
             public void onClick(View v) {
                 buttonState = false;
                 setButton();
+                choose = "Head";
             }
         });
         tailButton.setOnClickListener(new View.OnClickListener() {
@@ -170,6 +175,7 @@ public class FlipCoinActivity extends AppCompatActivity {
             public void onClick(View v) {
                 buttonState = false;
                 setButton();
+                choose = "Tail";
             }
         });
     }
@@ -187,9 +193,13 @@ public class FlipCoinActivity extends AppCompatActivity {
                     coinSide = "Head";
                     flipSound.start();
 
-                    // save coin flip result to history
+                    if(choose == coinSide)
+                        WinOrLoss = true;
+                    else
+                        WinOrLoss = false;
+/*                    // save coin flip result to history
                     historyManager.addHistory(saveCoinFlipInformation(coinSide));
-                    historyManager.saveHistory(FlipCoinActivity.this);
+                    historyManager.saveHistory(FlipCoinActivity.this);*/
 
                 }
                 else {
@@ -198,13 +208,19 @@ public class FlipCoinActivity extends AppCompatActivity {
                     coinSide = "Tail";
                     flipSound.start();
 
-                    historyManager.addHistory(saveCoinFlipInformation(coinSide));
-                    historyManager.saveHistory(FlipCoinActivity.this);
+                    if(choose == coinSide)
+                        WinOrLoss = true;
+                    else
+                        WinOrLoss = false;
+
+/*                    historyManager.addHistory(saveCoinFlipInformation(coinSide));
+                    historyManager.saveHistory(FlipCoinActivity.this);*/
                 }
 
                 if(children.getNumChildren(FlipCoinActivity.this) != 0) {
                     buttonState = true;
                     setButton();
+                    historyManager.addHistory(saveCurrentDateAndTime(), children.getChild(children.getCurrentChildIndex(FlipCoinActivity.this)),choose, WinOrLoss);
                 }
 
                 // Set current child to next child

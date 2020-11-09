@@ -3,10 +3,9 @@ package com.example.cmpt276project.model;
 public class FlipHistory {
 
     private String currentDateAndTime;
-
     private String childName;
     private String flipResult;
-
+    private int iconID;
 
     // Add singleton support to FlipHistory
     private static FlipHistory instance;
@@ -18,11 +17,13 @@ public class FlipHistory {
         return instance;
     }
 
-
-    //TODO: add data validation
-
-    // getters and setters
-
+    public FlipHistory(String currentDateAndTime, String childName, String flipResult, int iconID){
+        super();
+        setCurrentDateAndTime(currentDateAndTime);
+        setChildName(childName);
+        setFlipResult(flipResult);
+        setIconID(iconID);
+    }
 
     public String getCurrentDateAndTime() {
         return currentDateAndTime;
@@ -46,5 +47,13 @@ public class FlipHistory {
 
     public void setFlipResult(String flipResult) {
         this.flipResult = flipResult;
+    }
+
+    public int getIconID() {
+        return iconID;
+    }
+
+    public void setIconID(int iconID) {
+        this.iconID = iconID;
     }
 }
