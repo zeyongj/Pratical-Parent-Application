@@ -19,6 +19,23 @@
     <string name="OK">OK</string>
     <string name="Cancel">Cancel</string>
     <string name="EditChildName">Edit Child Name</string>
+    <string name="title_activity_flip_coin">FlipCoinActivity</string>
+    <string name="flipcoin">FlipCoin</string>
+    <string name="history">History</string>
+    <string name="flip">Flip</string>
+    <string name="coin_image">Coin image</string>
+    <string name="image_of_a_coin">Image of a coin</string>
+    <string name="head1">Head</string>
+    <string name="tail1">Tail</string>
+    <string name="head">Head</string>
+    <string name="tail">Tail</string>
+    <string name="title_activity_flip_coin_history">FlipCoinHistoryActivity</string>
+    <string name="children_name_abc">children_name_abc</string>
+    <string name="current_date_11_22_1111">current_date_11_22_1111</string>
+    <string name="result">result</string>
+    <string name="currentchild" />
+    <string name="all">All</string>
+    <string name="current">Current</string>
 
     <string name="TimeoutTimer">Timeout Timer</string>
     <string name="Start">Start</string>

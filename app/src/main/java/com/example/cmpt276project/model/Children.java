@@ -1,16 +1,21 @@
 package com.example.cmpt276project.model;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.cmpt276project.ui.FlipCoinActivity;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Children {
+    public static final String CHILD_INDEX_PREF = "Shared preference for current child index";
+    public static final String CURRENT_CHILD_INDEX = "current child index";
     private String CHILDREN_PREFS = "Shared Preferences for Children Class";
     private String CHILD_INDEX = "Child Index_";
     private String NUM_CHILDREN = "The number of Children saved is: ";
-
     private int numChildren;
 
     // ArrayList to keep track of names of Children
@@ -83,5 +88,38 @@ public class Children {
         for (int i = 0; i < numChildren; i++) {
             childrenNames.add(sharedPreferences.getString(CHILD_INDEX + i, null));
         }
+    }
+
+
+
+    // Get the current child index from Shared Preference
+    public int getCurrentChildIndex(Context context) {
+        SharedPreferences sp = context.getSharedPreferences(CHILD_INDEX_PREF, Context.MODE_PRIVATE);
+        return sp.getInt(CURRENT_CHILD_INDEX, 0);
+    }
+
+    // Set the current child index to next child index and save the index to Shared Preference
+    public void setCurrentToNextChild(Context context) {
+        SharedPreferences sp = context.getSharedPreferences(CHILD_INDEX_PREF, Context.MODE_PRIVATE);
+        int currentChildIndex = sp.getInt(CURRENT_CHILD_INDEX, 0);
+        currentChildIndex = (currentChildIndex + 1) % childrenNames.size();
+
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putInt(CURRENT_CHILD_INDEX, currentChildIndex);
+        editor.apply();
+    }
+
+    // Get the number of children from Shared Preference
+    public int getNumChildren(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(CHILDREN_PREFS, Context.MODE_PRIVATE);
+        return sharedPreferences.getInt(NUM_CHILDREN, 0);
+    }
+
+    //Set the current child index to first child index and save the index to Shared Preference
+    public void setCurrentToFirstChild(Context context) {
+        SharedPreferences sp = context.getSharedPreferences(CHILD_INDEX_PREF, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putInt(CURRENT_CHILD_INDEX, 0);
+        editor.apply();
     }
 }
