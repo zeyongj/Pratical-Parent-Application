@@ -28,6 +28,8 @@ import android.widget.Toast;
 
 import com.example.cmpt276project.R;
 
+import java.util.Objects;
+
 // Activity to display the history of results from FlipCoinActivity
 // Allows the user to choose between seeing all results or the results of the current child
 public class FlipCoinHistoryActivity extends AppCompatActivity {
@@ -47,7 +49,7 @@ public class FlipCoinHistoryActivity extends AppCompatActivity {
 
         // Enable "up" on toolbar
         ActionBar ab = getSupportActionBar();
-        ab.setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(ab).setDisplayHomeAsUpEnabled(true);
 
         manager = FlipHistoryManager.getInstance();
         children = Children.getInstance();
@@ -88,14 +90,14 @@ public class FlipCoinHistoryActivity extends AppCompatActivity {
 
     private void populateCurrentChildListView() {
         ArrayAdapter<FlipHistory> adapter = new myListAdapter();
-        ListView list = (ListView) findViewById(R.id.history_ListView);
+        ListView list = findViewById(R.id.history_ListView);
         list.setAdapter(adapter);
     }
 
 
     public void populateListView(){
         ArrayAdapter<FlipHistory> adapter = new myListAdapter();
-        ListView list = (ListView) findViewById(R.id.history_ListView);
+        ListView list = findViewById(R.id.history_ListView);
         list.setAdapter(adapter);
     }
 
@@ -112,25 +114,25 @@ public class FlipCoinHistoryActivity extends AppCompatActivity {
                 itemView = getLayoutInflater().inflate(R.layout.history_item, parent, false);
             }
 
-            if (toggleHistory == true) {
+            if (toggleHistory) {
 
                 //Find the History wo work with
                 FlipHistory currentHistory = manager.getMyHistory().get(position);
 
                 //Fill the view
-                ImageView imageView = (ImageView) itemView.findViewById(R.id.item_Win);
+                ImageView imageView = itemView.findViewById(R.id.item_Win);
                 imageView.setImageResource(currentHistory.getIconID());
 
                 // ChildName:
-                TextView ChildName = (TextView) itemView.findViewById(R.id.item_ChildrenName);
+                TextView ChildName = itemView.findViewById(R.id.item_ChildrenName);
                 ChildName.setText(currentHistory.getChildName());
 
                 // CurrentDate:
-                TextView CurrentDate = (TextView) itemView.findViewById(R.id.item_CurrentDate);
+                TextView CurrentDate = itemView.findViewById(R.id.item_CurrentDate);
                 CurrentDate.setText(currentHistory.getCurrentDateAndTime());
 
                 // Result:
-                TextView FlipResult = (TextView) itemView.findViewById(R.id.item_ResultOfHeadOrTail);
+                TextView FlipResult = itemView.findViewById(R.id.item_ResultOfHeadOrTail);
                 FlipResult.setText(currentHistory.getFlipResult());
 
                 return itemView;
@@ -141,20 +143,22 @@ public class FlipCoinHistoryActivity extends AppCompatActivity {
                 FlipHistory currentHistory = manager.getMyHistory().get(position);
 
                 //Fill the view
-                ImageView imageView = (ImageView) itemView.findViewById(R.id.item_Win);
+                ImageView imageView = itemView.findViewById(R.id.item_Win);
                 imageView.setImageResource(currentHistory.getIconID());
 
                 // ChildName:
-                TextView ChildName = (TextView) itemView.findViewById(R.id.item_ChildrenName);
+                TextView ChildName = itemView.findViewById(R.id.item_ChildrenName);
                 ChildName.setText(currentHistory.getChildName());
 
                 // CurrentDate:
-                TextView CurrentDate = (TextView) itemView.findViewById(R.id.item_CurrentDate);
+                TextView CurrentDate = itemView.findViewById(R.id.item_CurrentDate);
                 CurrentDate.setText(currentHistory.getCurrentDateAndTime());
 
                 // Result:
-                TextView FlipResult = (TextView) itemView.findViewById(R.id.item_ResultOfHeadOrTail);
+                TextView FlipResult = itemView.findViewById(R.id.item_ResultOfHeadOrTail);
                 FlipResult.setText(currentHistory.getFlipResult());
+
+                itemView.setVisibility(View.VISIBLE);
 
                 if(!manager.getMyHistory().get(position).getChildName().equals(currentChildName))
                     itemView.setVisibility(View.GONE);
