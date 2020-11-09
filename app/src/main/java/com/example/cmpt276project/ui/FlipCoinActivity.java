@@ -92,19 +92,6 @@ public class FlipCoinActivity extends AppCompatActivity {
         registerFlipClicked();
     }
 
-/*
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        historyManager.saveHistory(this);
-    }
-    @Override
-    protected void onStop() {
-        super.onStop();
-        historyManager.saveHistory(this);
-    }
-*/
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

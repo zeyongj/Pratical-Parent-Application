@@ -35,8 +35,8 @@
         android:id="@+id/item_ResultOfHeadOrTail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="80dp"
-        android:layout_alignParentRight="true"
+        android:layout_marginBottom="30dp"
+        android:layout_alignParentLeft="true"
         android:layout_alignBottom="@+id/item_Win"
         android:text="@string/result" />
 

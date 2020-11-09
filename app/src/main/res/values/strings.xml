@@ -33,4 +33,7 @@
     <string name="children_name_abc">children_name_abc</string>
     <string name="current_date_11_22_1111">current_date_11_22_1111</string>
     <string name="result">result</string>
+    <string name="currentchild" />
+    <string name="all">All</string>
+    <string name="current">Current</string>
 </resources>

@@ -15,6 +15,8 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -28,6 +30,7 @@ import com.example.cmpt276project.R;
 public class FlipCoinHistoryActivity extends AppCompatActivity {
 
     private FlipHistoryManager manager;
+    private boolean toggleHistory = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,40 @@ public class FlipCoinHistoryActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu:
+        getMenuInflater().inflate(R.menu.menu_flip_coin_history, menu);
+        return true;
+    }
+
+    // Switch History to current history
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == R.id.CurrentChildHsitory_Button_item) {
+            populateListView();
+            toggleHistory = false;
+            return true;
+        }
+
+        if (item.getItemId() == R.id.AllChildHsitory_Button_item) {
+            populateCurrentChildListView();
+            toggleHistory = true;
+            return true;
+        }
+
+        //return false;
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void populateCurrentChildListView() {
+        ArrayAdapter<FlipHistory> adapter = new myListAdapter();
+        ListView list = (ListView) findViewById(R.id.history_ListView);
+        list.setAdapter(adapter);
+    }
+
+
     public void populateListView(){
         ArrayAdapter<FlipHistory> adapter = new myListAdapter();
         ListView list = (ListView) findViewById(R.id.history_ListView);
@@ -61,30 +98,56 @@ public class FlipCoinHistoryActivity extends AppCompatActivity {
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             View itemView = convertView;
-            if(itemView == null){
+            if (itemView == null) {
                 itemView = getLayoutInflater().inflate(R.layout.history_item, parent, false);
             }
 
-            //Find the History wo work with
-            FlipHistory currentHistory = manager.getMyHistory().get(position);
+            if (toggleHistory == true) {
 
-            //Fill the view
-            ImageView imageView = (ImageView) itemView.findViewById(R.id.item_Win);
-            imageView.setImageResource(currentHistory.getIconID());
+                //Find the History wo work with
+                FlipHistory currentHistory = manager.getMyHistory().get(position);
 
-            // ChildName:
-            TextView ChildName = (TextView) itemView.findViewById(R.id.item_ChildrenName);
-            ChildName.setText(currentHistory.getChildName());
+                //Fill the view
+                ImageView imageView = (ImageView) itemView.findViewById(R.id.item_Win);
+                imageView.setImageResource(currentHistory.getIconID());
 
-            // CurrentDate:
-            TextView CurrentDate = (TextView) itemView.findViewById(R.id.item_CurrentDate);
-            CurrentDate.setText(currentHistory.getCurrentDateAndTime());
+                // ChildName:
+                TextView ChildName = (TextView) itemView.findViewById(R.id.item_ChildrenName);
+                ChildName.setText(currentHistory.getChildName());
 
-            // Make:
-            TextView FlipResult = (TextView) itemView.findViewById(R.id.item_ResultOfHeadOrTail);
-            FlipResult.setText(currentHistory.getFlipResult());
+                // CurrentDate:
+                TextView CurrentDate = (TextView) itemView.findViewById(R.id.item_CurrentDate);
+                CurrentDate.setText(currentHistory.getCurrentDateAndTime());
 
-            return itemView;
+                // Result:
+                TextView FlipResult = (TextView) itemView.findViewById(R.id.item_ResultOfHeadOrTail);
+                FlipResult.setText(currentHistory.getFlipResult());
+
+                return itemView;
+            }
+            else {
+
+                //Find the History wo work with
+                FlipHistory currentHistory = manager.getMyHistory().get(position);
+
+                //Fill the view
+                ImageView imageView = (ImageView) itemView.findViewById(R.id.item_Win);
+                imageView.setImageResource(currentHistory.getIconID());
+
+                // ChildName:
+                TextView ChildName = (TextView) itemView.findViewById(R.id.item_ChildrenName);
+                ChildName.setText(currentHistory.getChildName());
+
+                // CurrentDate:
+                TextView CurrentDate = (TextView) itemView.findViewById(R.id.item_CurrentDate);
+                CurrentDate.setText(currentHistory.getCurrentDateAndTime());
+
+                // Result:
+                TextView FlipResult = (TextView) itemView.findViewById(R.id.item_ResultOfHeadOrTail);
+                FlipResult.setText(currentHistory.getFlipResult());
+
+                return itemView;
+            }
         }
     }
 }
