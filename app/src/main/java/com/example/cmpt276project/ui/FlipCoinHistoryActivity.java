@@ -36,10 +36,15 @@ public class FlipCoinHistoryActivity extends AppCompatActivity {
 
         // History should be stored in SharedPreferences as user may access when reopen the program.
         manager = FlipHistoryManager.getInstance();
+        manager.loadHistory(this);
 
 
         // Testing to check if history is saved and can be pulled out from SharedPreference.
+        //
         Toast.makeText(this, manager.getHistory(0), Toast.LENGTH_SHORT).show();
+
+        Toast.makeText(this, manager.getHistory(manager.size()-1), Toast.LENGTH_SHORT).show();
+
 
 
     }

@@ -71,6 +71,7 @@ public class FlipCoinActivity extends AppCompatActivity {
         // handing history
         history = FlipHistory.getInstance();
         historyManager = FlipHistoryManager.getInstance();
+        historyManager.loadHistory(this);
 
 
         // Handling tossing coin sound
@@ -89,6 +90,17 @@ public class FlipCoinActivity extends AppCompatActivity {
         registerFlipClicked();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        historyManager.saveHistory(this);
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        historyManager.saveHistory(this);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -100,11 +112,14 @@ public class FlipCoinActivity extends AppCompatActivity {
     // Flip History
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         if (item.getItemId() == R.id.History_button) {
             Intent intent = new Intent(FlipCoinActivity.this, FlipCoinHistoryActivity.class);
             startActivity(intent);
             return true;
-        }
+
+       }
+       //return false;
         return super.onOptionsItemSelected(item);
     }
 
@@ -174,7 +189,7 @@ public class FlipCoinActivity extends AppCompatActivity {
 
                     // save coin flip result to history
                     historyManager.addHistory(saveCoinFlipInformation(coinSide));
-
+                    historyManager.saveHistory(FlipCoinActivity.this);
 
                 }
                 else {
@@ -184,6 +199,7 @@ public class FlipCoinActivity extends AppCompatActivity {
                     flipSound.start();
 
                     historyManager.addHistory(saveCoinFlipInformation(coinSide));
+                    historyManager.saveHistory(FlipCoinActivity.this);
                 }
 
                 if(children.getNumChildren(FlipCoinActivity.this) != 0) {

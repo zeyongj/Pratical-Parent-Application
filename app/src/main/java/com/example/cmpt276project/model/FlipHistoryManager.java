@@ -51,7 +51,7 @@ public class FlipHistoryManager implements Iterable<FlipHistory> {
         editor.putInt(NUMBER_OF_HISTORY, numHistory);
 
         //Store each string individually along with its current index
-        for (int i = 0; i < size(); i++){
+        for (int i = 0; i < historyList.size(); i++){
             editor.putString(HISTORY_INDEX + i, historyList.get(i));
         }
         editor.apply();
@@ -66,7 +66,7 @@ public class FlipHistoryManager implements Iterable<FlipHistory> {
 
         numHistory = sharedPreferences.getInt(NUMBER_OF_HISTORY, 0);
 
-        for (int i = 0; i < size(); i ++){
+        for (int i = 0; i < numHistory; i ++){
             historyList.add(sharedPreferences.getString(HISTORY_INDEX + i, null));
         }
     }
