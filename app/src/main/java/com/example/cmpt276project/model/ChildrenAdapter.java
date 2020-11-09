@@ -16,6 +16,8 @@ import com.example.cmpt276project.ui.ChildListActivity;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+// Class to create the RecyclerView layout for ChildListActivity
+// Has buttons on each layout to allow the user to delete and edit the Children more easily
 public class ChildrenAdapter extends RecyclerView.Adapter<ChildrenAdapter.ChildrenViewHolder> {
     // Set variables
     private Children children;

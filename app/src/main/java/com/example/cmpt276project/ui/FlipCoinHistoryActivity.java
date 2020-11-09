@@ -28,6 +28,8 @@ import android.widget.Toast;
 
 import com.example.cmpt276project.R;
 
+// Activity to display the history of results from FlipCoinActivity
+// Allows the user to choose between seeing all results or the results of the current child
 public class FlipCoinHistoryActivity extends AppCompatActivity {
 
     private FlipHistoryManager manager;

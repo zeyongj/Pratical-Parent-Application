@@ -28,6 +28,8 @@ import com.example.cmpt276project.R;
 import java.util.Timer;
 import java.util.TimerTask;
 
+// Class that extends a service to send a notification when the timer given by TimeoutTimerActivity is up
+// This class runs in the background so that the notification will send even if the app is not in use
 public class AlarmNotificationService extends Service {
     // Broadcast ID for Intent when notification is clicked
     private String BROADCAST_ID = "Broadcast ID to stop notification";

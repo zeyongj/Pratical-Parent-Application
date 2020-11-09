@@ -17,6 +17,9 @@ import com.example.cmpt276project.model.Children;
 import com.example.cmpt276project.model.ChildrenAdapter;
 
 // Activity to handle the Configure my Children part of Iteration 1
+// Displays the name of all the current Children in the Children class object
+// Allows the user to add, edit or delete Children
+// Children are saved between application uses
 public class ChildListActivity extends AppCompatActivity {
     // Initiate adapter
     ChildrenAdapter childrenAdapter;

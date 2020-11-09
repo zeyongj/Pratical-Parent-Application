@@ -1,6 +1,7 @@
 package com.example.cmpt276project.ui;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.NotificationManager;
@@ -17,12 +18,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Locale;
+import java.util.Objects;
 
 import com.example.cmpt276project.R;
 import com.example.cmpt276project.model.AlarmNotificationService;
 
+
+// Activity to handle the Timeout Timer part of iteration 1 for the project
+// Allows the user to choose the number of minutes in the timer
+// Displays a notification, plays an alarm, and vibrates when the timer is up
 @RequiresApi(api = Build.VERSION_CODES.O)
-public class TimeoutTimer extends AppCompatActivity {
+public class TimeoutTimerActivity extends AppCompatActivity {
     private String ALARM_TIME_INT = "Countdown timer value for service";
 
     // Initialize the variables
@@ -52,6 +58,10 @@ public class TimeoutTimer extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeout_timer);
 
+        // Set back button on toolbar
+        ActionBar ab = getSupportActionBar();
+        Objects.requireNonNull(ab).setDisplayHomeAsUpEnabled(true);
+
         setButtonsAndViews();
         setCertainTime();
 
@@ -60,12 +70,12 @@ public class TimeoutTimer extends AppCompatActivity {
             public void onClick(View view) {
                 String input = mEditTextInput.getText().toString();
                 if (input.length() == 0) {
-                    Toast.makeText(TimeoutTimer.this,"Field cannot be empty",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(TimeoutTimerActivity.this,"Field cannot be empty",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 long millisInput = Long.parseLong(input) * 60000; // To minutes
                 if (millisInput == 0) {
-                    Toast.makeText(TimeoutTimer.this,"Please enter a positive number",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(TimeoutTimerActivity.this,"Please enter a positive number",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 setTime(millisInput);
@@ -81,7 +91,7 @@ public class TimeoutTimer extends AppCompatActivity {
                     stopTimerService();
                 }else{
                     startTimer();
-                    Intent intent = new Intent(TimeoutTimer.this, AlarmNotificationService.class);
+                    Intent intent = new Intent(TimeoutTimerActivity.this, AlarmNotificationService.class);
                     intent.putExtra(ALARM_TIME_INT, mTimeLeftInMillis);
                     startService(intent);
                 }
@@ -263,7 +273,7 @@ public class TimeoutTimer extends AppCompatActivity {
     }
 
     private void stopTimerService() {
-        Intent intent = new Intent(TimeoutTimer.this, AlarmNotificationService.class);
+        Intent intent = new Intent(TimeoutTimerActivity.this, AlarmNotificationService.class);
         stopService(intent);
     }
 }

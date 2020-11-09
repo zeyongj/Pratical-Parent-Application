@@ -20,7 +20,7 @@ import android.view.MenuItem;
 
 
 // Main activity page for when the program starts
-
+// Lets the user go to the different activity when the respective buttons are clicked
 public class MainActivity extends AppCompatActivity {
 
     MainMenuAdapter mainMenuAdapter;

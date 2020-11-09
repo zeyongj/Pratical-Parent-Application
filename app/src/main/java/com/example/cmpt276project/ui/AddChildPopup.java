@@ -16,6 +16,8 @@ import com.example.cmpt276project.R;
 import com.example.cmpt276project.model.Children;
 import com.example.cmpt276project.model.ChildrenAdapter;
 
+// Fragment that allows the user to create a new Child on ChildListActivity
+// Functions as a popup when the user clicks "Add Child" on ChildListActivity
 public class AddChildPopup extends AppCompatDialogFragment {
     // Initialize variables
     private Children children;

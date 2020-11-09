@@ -10,6 +10,10 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
+// Class that contains the Children class
+// Holds an ArrayList of Strings containing only the names of the children
+// Is a singleton class to allow the current Children to be found in all activities
+// Contents of Children can be changed at will
 public class Children {
     public static final String CHILD_INDEX_PREF = "Shared preference for current child index";
     public static final String CURRENT_CHILD_INDEX = "current child index";

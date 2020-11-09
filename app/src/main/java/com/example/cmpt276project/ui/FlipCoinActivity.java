@@ -29,6 +29,10 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.concurrent.ThreadLocalRandom;
 
+// Activity to handle the Flip Coin part of iteration 1 of the project
+// Lets the current child pick heads or tails
+// Remember the order of the Children who have already picked heads or tails
+// Saves the history of the flips in the current session
 public class FlipCoinActivity extends AppCompatActivity {
 
     private static final String DEFAULT = "no child";

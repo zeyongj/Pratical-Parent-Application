@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+// Class that contains a List of FlipHistory class objects
+// Used in the FlipCoinHistoryActivity
+// Receives input data from FlipCoinActivity
 public class FlipHistoryManager implements Iterable<FlipHistory> {
 
     private static FlipHistoryManager instance;

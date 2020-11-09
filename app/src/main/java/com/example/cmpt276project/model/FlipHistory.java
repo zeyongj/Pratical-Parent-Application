@@ -1,5 +1,7 @@
 package com.example.cmpt276project.model;
 
+// Class that contains information for the FlipCoinHistoryActivity
+// Receives data from FlipCoinActivity when the user flips a coin
 public class FlipHistory {
 
     private String currentDateAndTime;
