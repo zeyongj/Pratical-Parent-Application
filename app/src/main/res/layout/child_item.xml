@@ -24,7 +24,7 @@
         <Button
             android:id="@+id/deletebutton"
             android:layout_width="40dp"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
             android:background="#FF0000"
@@ -37,7 +37,7 @@
         <Button
             android:id="@+id/editbutton"
             android:layout_width="50dp"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toStartOf="@+id/deletebutton"
             android:layout_marginEnd="20dp"
