@@ -45,4 +45,14 @@
         <item>Timeout Timer</item>
         <item>Configure my Children</item>
     </string-array>
+
+    <string name="OneMinute">1 Minute</string>
+    <string name="TwoMinutes">2 Minutes</string>
+    <string name="ThreeMinutes">3 Minutes</string>
+    <string name="FiveMinutes">5 Minutes</string>
+    <string name="TenMinutes">10 Minutes</string>
+    <string name="Minutes">Minutes</string>
+    <string name="TimesUp">00:00</string>
+    <string name="Set">Set</string>
+    <string name="Reset">Reset</string>
 </resources>
