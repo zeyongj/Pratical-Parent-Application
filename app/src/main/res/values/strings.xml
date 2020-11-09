@@ -36,4 +36,14 @@
     <string name="currentchild" />
     <string name="all">All</string>
     <string name="current">Current</string>
+
+    <string name="TimeoutTimer">Timeout Timer</string>
+    <string name="Start">Start</string>
+    <string name="Pause">Pause</string>
+
+    <string-array name="MenuNames">
+        <item>Flip a Coin</item>
+        <item>Timeout Timer</item>
+        <item>Configure my Children</item>
+    </string-array>
 </resources>
