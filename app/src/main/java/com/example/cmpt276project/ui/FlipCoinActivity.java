@@ -27,6 +27,7 @@ import com.example.cmpt276project.model.FlipHistoryManager;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 
 // Activity to handle the Flip Coin part of iteration 1 of the project
@@ -66,7 +67,7 @@ public class FlipCoinActivity extends AppCompatActivity {
 
         // Enable "up" on toolbar
         ActionBar ab = getSupportActionBar();
-        ab.setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(ab).setDisplayHomeAsUpEnabled(true);
 
         // Create Children
         children = Children.getInstance();
@@ -176,10 +177,7 @@ public class FlipCoinActivity extends AppCompatActivity {
                     coinSide = "Head";
                     flipSound.start();
 
-                    if(choose == coinSide)
-                        WinOrLoss = true;
-                    else
-                        WinOrLoss = false;
+                    WinOrLoss = choose.equals(coinSide);
 
                 }
                 else {
@@ -188,10 +186,7 @@ public class FlipCoinActivity extends AppCompatActivity {
                     coinSide = "Tail";
                     flipSound.start();
 
-                    if(choose == coinSide)
-                        WinOrLoss = true;
-                    else
-                        WinOrLoss = false;
+                    WinOrLoss = choose.equals(coinSide);
 
                 }
 

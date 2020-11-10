@@ -29,13 +29,13 @@ public class FlipHistoryManager implements Iterable<FlipHistory> {
         return instance;
     }
 
-    private List<FlipHistory> myHistory = new ArrayList<FlipHistory>();
+    private List<FlipHistory> myHistory = new ArrayList<>();
 
     public void addHistory(String Time, String ChildName, String result, boolean WinOrLoss){
-        if(WinOrLoss == true)
-            myHistory.add(new FlipHistory(Time, "childname: " + ChildName, "choose " + result, R.drawable.win));
+        if(WinOrLoss)
+            myHistory.add(new FlipHistory(Time, "ChildName: " + ChildName, "choose " + result, R.drawable.win));
         else
-            myHistory.add(new FlipHistory(Time, "childname: " + ChildName, "choose " + result, R.drawable.loss));
+            myHistory.add(new FlipHistory(Time, "ChildName: " + ChildName, "choose " + result, R.drawable.loss));
     }
 
     public List<FlipHistory> getMyHistory() {
