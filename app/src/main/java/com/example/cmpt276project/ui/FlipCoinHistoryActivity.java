@@ -114,58 +114,37 @@ public class FlipCoinHistoryActivity extends AppCompatActivity {
                 itemView = getLayoutInflater().inflate(R.layout.history_item, parent, false);
             }
 
-            if (toggleHistory) {
-
-                //Find the History wo work with
-                FlipHistory currentHistory = manager.getMyHistory().get(position);
-
-                //Fill the view
-                ImageView imageView = itemView.findViewById(R.id.item_Win);
-                imageView.setImageResource(currentHistory.getIconID());
-
-                // ChildName:
-                TextView ChildName = itemView.findViewById(R.id.item_ChildrenName);
-                ChildName.setText(currentHistory.getChildName());
-
-                // CurrentDate:
-                TextView CurrentDate = itemView.findViewById(R.id.item_CurrentDate);
-                CurrentDate.setText(currentHistory.getCurrentDateAndTime());
-
-                // Result:
-                TextView FlipResult = itemView.findViewById(R.id.item_ResultOfHeadOrTail);
-                FlipResult.setText(currentHistory.getFlipResult());
-
-                return itemView;
-            }
-            else {
-
-                //Find the History to work with
-                FlipHistory currentHistory = manager.getMyHistory().get(position);
-
-                //Fill the view
-                ImageView imageView = itemView.findViewById(R.id.item_Win);
-                imageView.setImageResource(currentHistory.getIconID());
-
-                // ChildName:
-                TextView ChildName = itemView.findViewById(R.id.item_ChildrenName);
-                ChildName.setText(currentHistory.getChildName());
-
-                // CurrentDate:
-                TextView CurrentDate = itemView.findViewById(R.id.item_CurrentDate);
-                CurrentDate.setText(currentHistory.getCurrentDateAndTime());
-
-                // Result:
-                TextView FlipResult = itemView.findViewById(R.id.item_ResultOfHeadOrTail);
-                FlipResult.setText(currentHistory.getFlipResult());
-
-                itemView.setVisibility(View.VISIBLE);
-
-                if(!manager.getMyHistory().get(position).getChildName().equals(currentChildName))
-                    itemView.setVisibility(View.GONE);
-
-                return itemView;
-
-            }
+            return getCoinHistoryView(position, itemView);
         }
+    }
+
+    private View getCoinHistoryView(int position, View itemView) {
+        //Find the History to work with
+        FlipHistory currentHistory = manager.getMyHistory().get(position);
+
+        //Fill the view
+        ImageView imageView = itemView.findViewById(R.id.item_Win);
+        imageView.setImageResource(currentHistory.getIconID());
+
+        // ChildName:
+        TextView ChildName = itemView.findViewById(R.id.item_ChildrenName);
+        ChildName.setText(currentHistory.getChildName());
+
+        // CurrentDate:
+        TextView CurrentDate = itemView.findViewById(R.id.item_CurrentDate);
+        CurrentDate.setText(currentHistory.getCurrentDateAndTime());
+
+        // Result:
+        TextView FlipResult = itemView.findViewById(R.id.item_ResultOfHeadOrTail);
+        FlipResult.setText(currentHistory.getFlipResult());
+
+        itemView.setVisibility(View.VISIBLE);
+
+        if (!toggleHistory) {
+            if (!manager.getMyHistory().get(position).getChildName().equals(currentChildName))
+                itemView.setVisibility(View.GONE);
+        }
+
+        return itemView;
     }
 }
