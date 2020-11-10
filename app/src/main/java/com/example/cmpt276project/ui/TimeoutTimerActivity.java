@@ -137,10 +137,7 @@ public class TimeoutTimerActivity extends AppCompatActivity {
                         multiplier = 10;
                     }
                     setTime(multiplier * 60000);
-/*                  Set 1 minute timer to 6 seconds for testing purposes
-                    if (index == 1) {
-                        setTime(6000);
-                    }*/
+
                     mEditTextInput.setText("");
                 }
             });

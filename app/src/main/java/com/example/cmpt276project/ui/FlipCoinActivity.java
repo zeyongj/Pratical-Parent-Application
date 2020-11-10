@@ -43,11 +43,10 @@ public class FlipCoinActivity extends AppCompatActivity {
     // Initiate variable
     private Children children;
 
-    // Handling History
-    private FlipHistory history;
+
     private FlipHistoryManager historyManager;
 
-    // Handling Flipping sound
+
     private MediaPlayer flipSound;
 
 
@@ -74,24 +73,18 @@ public class FlipCoinActivity extends AppCompatActivity {
         children.loadChildren(this);
 
 
-        // handing history
-        history = FlipHistory.getInstance();
+        // Handling history
         historyManager = FlipHistoryManager.getInstance();
-/*        historyManager.loadHistory(this);*/
 
 
         // Handling tossing coin sound
         flipSound = MediaPlayer.create(this,R.raw.coin_toss_sound);
 
 
-
-        // Display current child name who flip the coin
         displayChildName();
 
-        // Initiate Buttons state
         initiateButtons();
 
-        // Registered for Head and tail buttons
         registerHeadOrTailClicked();
         registerFlipClicked();
     }
@@ -120,8 +113,7 @@ public class FlipCoinActivity extends AppCompatActivity {
 
 
     // Set Button State
-    // When buttonState == true, Flip is invisible, Head and tail is visible
-    // When buttonState == false, Flip is visible, Head and tail is invisible
+    // Toggle visibility of the Flip button
     private void setButton() {
         Button headButton = findViewById(R.id.headButton);
         Button tailButton = findViewById(R.id.tailButton);
@@ -180,7 +172,7 @@ public class FlipCoinActivity extends AppCompatActivity {
                 int randomNumber = ThreadLocalRandom.current().nextInt(1, 3);
 
                 if (randomNumber == 1) {
-                    flipCoin(R.drawable.quarter_head, "Heads");
+                    flipCoinAnimation(R.drawable.quarter_head, "Heads");
                     coinSide = "Head";
                     flipSound.start();
 
@@ -188,13 +180,10 @@ public class FlipCoinActivity extends AppCompatActivity {
                         WinOrLoss = true;
                     else
                         WinOrLoss = false;
-/*                    // save coin flip result to history
-                    historyManager.addHistory(saveCoinFlipInformation(coinSide));
-                    historyManager.saveHistory(FlipCoinActivity.this);*/
 
                 }
                 else {
-                    flipCoin(R.drawable.quarter_tail, "Tail");
+                    flipCoinAnimation(R.drawable.quarter_tail, "Tail");
 
                     coinSide = "Tail";
                     flipSound.start();
@@ -204,14 +193,12 @@ public class FlipCoinActivity extends AppCompatActivity {
                     else
                         WinOrLoss = false;
 
-/*                    historyManager.addHistory(saveCoinFlipInformation(coinSide));
-                    historyManager.saveHistory(FlipCoinActivity.this);*/
                 }
 
                 if(children.getNumChildren(FlipCoinActivity.this) != 0) {
                     buttonState = true;
                     setButton();
-                    historyManager.addHistory(saveCurrentDateAndTime(), children.getChild(children.getCurrentChildIndex(FlipCoinActivity.this)),choose, WinOrLoss);
+                    historyManager.addHistory(saveCurrentDateAndTime(), saveChildNames(),choose, WinOrLoss);
                 }
 
                 // Set current child to next child
@@ -223,14 +210,7 @@ public class FlipCoinActivity extends AppCompatActivity {
         });
     }
 
-    // combine different strings into history message.
-    private String saveCoinFlipInformation(String coinSide) {
-        return saveCurrentDateAndTime() + " " +
-                                saveChildNames() + " " +
-                                saveCoinSide(coinSide);
-    }
 
-    // save stuff in to strings from coin flip
     private String saveCurrentDateAndTime() {
 
         @SuppressLint("SimpleDateFormat") DateFormat date = new SimpleDateFormat(DATE_FORMAT);
@@ -239,8 +219,7 @@ public class FlipCoinActivity extends AppCompatActivity {
         Log.d("the date and time saved is:",dateFormatted);
 
         return dateFormatted;
-        //history.setCurrentDateAndTime(dateFormatted);
-        // Log message to check if date and time is saved
+
 
     }
     private String saveChildNames() {
@@ -250,16 +229,8 @@ public class FlipCoinActivity extends AppCompatActivity {
             Log.d("saved Child is: ", children.getChild(children.getCurrentChildIndex(this)) );
             return children.getChild(children.getCurrentChildIndex(this));
 
-            //history.setChildName(children.getChild(children.getCurrentChildIndex(this)));
         }
         return null;
-
-    }
-    private String saveCoinSide(String coinSide) {
-        Log.d("the result of the flip is:", coinSide);
-
-        return coinSide;
-        //history.setFlipResult(coinSide);
     }
 
 
@@ -284,8 +255,8 @@ public class FlipCoinActivity extends AppCompatActivity {
         }
     }
 
-    // Flip coin Animation
-    private void flipCoin(final int imageID, final String coinSide) {
+
+    private void flipCoinAnimation(final int imageID, final String coinSide) {
         final ImageView coin = findViewById(R.id.img_coin);
         coin.animate()
                 .setDuration(1000)

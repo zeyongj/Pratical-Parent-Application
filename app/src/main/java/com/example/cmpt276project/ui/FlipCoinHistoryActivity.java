@@ -55,7 +55,7 @@ public class FlipCoinHistoryActivity extends AppCompatActivity {
         children = Children.getInstance();
 
         if(children.getNumChildren(this) != 0) {
-            currentChildName = "childname: " + children.getChild(children.getCurrentChildIndex(this));
+            currentChildName = "ChildName: " + children.getChild(children.getCurrentChildIndex(this));
             populateListView();
         }
 
