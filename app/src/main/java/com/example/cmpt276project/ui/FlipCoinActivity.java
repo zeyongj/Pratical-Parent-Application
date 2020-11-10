@@ -245,11 +245,11 @@ public class FlipCoinActivity extends AppCompatActivity {
         else {
             if(children.getCurrentChildIndex(this) >= children.getNumChildren(this)) {
                 children.setCurrentToFirstChild(this);
-                String childName = " The current child is:" + children.getChild(children.getCurrentChildIndex(this));
+                String childName = " The current child is: " + children.getChild(children.getCurrentChildIndex(this));
                 textView.setText(childName);
             }
             else {
-                String childName = " The current child is:" + children.getChild(children.getCurrentChildIndex(this));
+                String childName = " The current child is: " + children.getChild(children.getCurrentChildIndex(this));
                 textView.setText(childName);
             }
         }
