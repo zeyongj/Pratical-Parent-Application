@@ -24,7 +24,6 @@ public class ChildListActivity extends AppCompatActivity {
     // Initiate adapter and variables
     ChildrenAdapter childrenAdapter;
     Children children;
-    String childName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
