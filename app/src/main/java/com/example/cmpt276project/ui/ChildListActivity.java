@@ -21,7 +21,7 @@ import com.example.cmpt276project.model.ChildrenAdapter;
 // Allows the user to add, edit or delete Children
 // Children are saved between application uses
 public class ChildListActivity extends AppCompatActivity {
-    // Initiate adapter
+    // Initiate adapter and variables
     ChildrenAdapter childrenAdapter;
     Children children;
     String childName;
