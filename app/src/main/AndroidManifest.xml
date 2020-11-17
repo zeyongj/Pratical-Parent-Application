@@ -12,8 +12,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.HelpPageActivity" />
-        <activity android:name=".ui.WhoseTurnActivity" />
+        <activity
+            android:name=".ui.HelpPageActivity"
+            android:parentActivityName=".ui.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="@string/HelpPage"/>
+        <activity
+            android:name=".ui.WhoseTurnActivity"
+            android:parentActivityName=".ui.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="@string/WhoseTurn"/>
         <activity
             android:name=".ui.TimeoutTimerActivity"
             android:exported="true"
