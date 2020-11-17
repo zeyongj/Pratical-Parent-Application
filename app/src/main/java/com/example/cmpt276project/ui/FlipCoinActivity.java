@@ -168,17 +168,16 @@ public class FlipCoinActivity extends AppCompatActivity {
                     flipCoinAnimation(R.drawable.quarter_head, "Heads");
                     coinSide = "Head";
                     flipSound.start();
-                    WinOrLoss = choose.equals(coinSide);
                 }
                 else {
                     flipCoinAnimation(R.drawable.quarter_tail, "Tail");
                     coinSide = "Tail";
                     flipSound.start();
-                    WinOrLoss = choose.equals(coinSide);
                 }
                 if(children.getNumChildren(FlipCoinActivity.this) != 0) {
                     buttonState = true;
                     setButton();
+                    WinOrLoss = choose.equals(coinSide);
                     historyManager.addHistory(saveCurrentDateAndTime(), saveChildNames(),choose, WinOrLoss);
                 }
                 // Set current child to next child
