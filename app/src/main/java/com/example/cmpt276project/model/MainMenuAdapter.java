@@ -1,5 +1,6 @@
 package com.example.cmpt276project.model;
 
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,11 @@ import com.example.cmpt276project.ui.TimeoutTimerActivity;
 public class MainMenuAdapter extends RecyclerView.Adapter<MainMenuAdapter.MainMenuViewHolder> {
     // String array that will contain menu name strings
     private String[] menuNames;
+
+    public MainMenuAdapter(Context context) {
+        // Set menu name strings
+        this.menuNames = context.getResources().getStringArray(R.array.MenuNames);
+    }
 
     public static class MainMenuViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public TextView menuName;
@@ -45,6 +51,12 @@ public class MainMenuAdapter extends RecyclerView.Adapter<MainMenuAdapter.MainMe
                     Intent configChildIntent = new Intent(v.getContext(), ChildListActivity.class);
                     v.getContext().startActivity(configChildIntent);
                     break;
+                case 3: // Go to Whose Turn Is It Activity
+                    break;
+                case 4: // Go to Help Page
+                    break;
+                default:
+                    break;
             }
         }
     }
@@ -52,8 +64,6 @@ public class MainMenuAdapter extends RecyclerView.Adapter<MainMenuAdapter.MainMe
     @NonNull
     @Override
     public MainMenuViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // Set menu name strings and inflate layout
-        menuNames = parent.getContext().getResources().getStringArray(R.array.MenuNames);
         View mainMenuLayout = LayoutInflater.from(parent.getContext()).inflate(R.layout.content_main, parent, false);
         return new MainMenuViewHolder(mainMenuLayout);
     }
@@ -65,7 +75,7 @@ public class MainMenuAdapter extends RecyclerView.Adapter<MainMenuAdapter.MainMe
 
     @Override
     public int getItemCount() {
-        return 3; // Set at 3 as there will only be 3 items in the Main Menu
+        return menuNames.length; // Set at length of menuNames
     }
 }
 

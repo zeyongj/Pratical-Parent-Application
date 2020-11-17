@@ -44,6 +44,8 @@
         <item>Flip a Coin</item>
         <item>Timeout Timer</item>
         <item>Configure my Children</item>
+        <item>Whose Turn Is It</item>
+        <item>Help</item>
     </string-array>
 
     <string name="OneMinute">1 Minute</string>
