@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.cmpt276project.R;
 import com.example.cmpt276project.model.Children;
@@ -25,12 +26,16 @@ public class AddChildActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_child);
 
+        // enable 'up' button
         ActionBar ab = getSupportActionBar();
         Objects.requireNonNull(ab).setDisplayHomeAsUpEnabled(true);
 
 
-
+        children= Children.getInstance();
+        childrenAdapter = ChildrenAdapter.getInstance();
         addChildName = findViewById(R.id.txt_enterChildName);
+
+
 
         registerClickedSaveChild();
 
@@ -44,6 +49,7 @@ public class AddChildActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 addChild(children);
+                //Toast.makeText(AddChildActivity.this, addChildName.getText().toString(), Toast.LENGTH_SHORT).show();
             }
         });
     }

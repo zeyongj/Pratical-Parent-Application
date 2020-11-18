@@ -50,6 +50,8 @@ public class ChildListActivity extends AppCompatActivity {
         // Build the delete buttons on the RecyclerView items
         setDeleteButtons();
 
+
+        // save child now is an activity
         startAddChildActivity = new Intent(ChildListActivity.this, AddChildActivity.class);
 
 

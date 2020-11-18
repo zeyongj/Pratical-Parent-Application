@@ -99,4 +99,23 @@ public class ChildrenAdapter extends RecyclerView.Adapter<ChildrenAdapter.Childr
     public int getItemCount() {
         return children.getSize();
     }
+
+
+
+
+    // getInstance
+    private static ChildrenAdapter instance;
+    public ChildrenAdapter() {
+    }
+
+    public static ChildrenAdapter getInstance() {
+        if (instance == null) {
+            instance = new ChildrenAdapter();
+        }
+        return instance;
+    }
+
+
+
+
 }
