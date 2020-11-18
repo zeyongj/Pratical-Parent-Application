@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.AddChildActivity">
+
+    <TextView
+        android:id="@+id/txt_addChildActivity"
+        android:layout_width="139dp"
+        android:layout_height="40dp"
+        android:text="Add Child"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.058"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023" />
+
+    <ImageView
+        android:id="@+id/profileImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.459"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.159"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <EditText
+        android:id="@+id/txt_enterChildName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="108dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Enter Child name.."
+        app:layout_constraintEnd_toEndOf="@+id/profileImage"
+        app:layout_constraintHorizontal_bias="0.512"
+        app:layout_constraintStart_toStartOf="@+id/profileImage"
+        app:layout_constraintTop_toBottomOf="@+id/profileImage" />
+
+    <Button
+        android:id="@+id/btn_changeProfileImage"
+        android:layout_width="201dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="76dp"
+        android:text="CHANGE PROFILE"
+        app:layout_constraintEnd_toEndOf="@+id/txt_enterChildName"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/txt_enterChildName"
+        app:layout_constraintTop_toBottomOf="@+id/txt_enterChildName" />
+
+    <Button
+        android:id="@+id/btn_saveChild"
+        android:layout_width="198dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="40dp"
+        android:text="Save Child"
+        app:layout_constraintEnd_toEndOf="@+id/btn_changeProfileImage"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/btn_changeProfileImage"
+        app:layout_constraintTop_toBottomOf="@+id/btn_changeProfileImage" />
+
+    <Button
+        android:id="@+id/btn_cancel"
+        android:layout_width="195dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="56dp"
+        android:text="CANCEL"
+        app:layout_constraintEnd_toEndOf="@+id/btn_saveChild"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/btn_saveChild"
+        app:layout_constraintTop_toBottomOf="@+id/btn_saveChild" />
+</androidx.constraintlayout.widget.ConstraintLayout>

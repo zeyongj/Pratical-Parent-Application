@@ -12,16 +12,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ui.AddChildActivity"
+            android:parentActivityName=".ui.ChildListActivity"
+
+            ></activity>
         <activity
             android:name=".ui.HelpPageActivity"
+            android:label="@string/HelpPage"
             android:parentActivityName=".ui.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:label="@string/HelpPage"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.WhoseTurnActivity"
+            android:label="@string/WhoseTurn"
             android:parentActivityName=".ui.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:label="@string/WhoseTurn"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.TimeoutTimerActivity"
             android:exported="true"

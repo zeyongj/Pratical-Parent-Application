@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,6 +25,11 @@ public class ChildListActivity extends AppCompatActivity {
     // Initiate adapter and variables
     ChildrenAdapter childrenAdapter;
     Children children;
+
+
+
+    Intent startAddChildActivity;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +49,11 @@ public class ChildListActivity extends AppCompatActivity {
 
         // Build the delete buttons on the RecyclerView items
         setDeleteButtons();
+
+        startAddChildActivity = new Intent(ChildListActivity.this, AddChildActivity.class);
+
+
+
     }
 
     // Create the Add Child option on the toolbar
@@ -117,10 +128,14 @@ public class ChildListActivity extends AppCompatActivity {
     // Add a child to the RecyclerView
     public void addChild() {
         // Create a popup to add the child
-        FragmentManager manager = getSupportFragmentManager();
-        AddChildPopup addChildPopup = new AddChildPopup(children, childrenAdapter);
+//        FragmentManager manager = getSupportFragmentManager();
+//        AddChildPopup addChildPopup = new AddChildPopup(children, childrenAdapter);
+//
+//        addChildPopup.show(manager, "Add Child");
 
-        addChildPopup.show(manager, "Add Child");
+        startActivity(startAddChildActivity);
+
+
     }
 
     // Remove the child at the current position
