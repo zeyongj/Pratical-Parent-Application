@@ -60,4 +60,8 @@
 
     <string name="HelpPage">Help Page</string>
     <string name="WhoseTurn">Whose Turn Is It</string>
+    <string name="change_profile">CHANGE PROFILE</string>
+    <string name="save_child">Save Child</string>
+    <string name="cancel">CANCEL</string>
+    <string name="add_child">Add Child</string>
 </resources>

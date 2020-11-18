@@ -29,6 +29,7 @@ public class ChildListActivity extends AppCompatActivity {
 
 
     Intent startAddChildActivity;
+    Intent startEditChildActivity;
 
 
     @Override
@@ -53,6 +54,8 @@ public class ChildListActivity extends AppCompatActivity {
 
         // save child now is an activity
         startAddChildActivity = new Intent(ChildListActivity.this, AddChildActivity.class);
+
+        startEditChildActivity = new Intent(ChildListActivity.this, EditChildActivity.class);
 
 
 
@@ -135,6 +138,7 @@ public class ChildListActivity extends AppCompatActivity {
 //
 //        addChildPopup.show(manager, "Add Child");
 
+
         startActivity(startAddChildActivity);
 
 
@@ -149,9 +153,11 @@ public class ChildListActivity extends AppCompatActivity {
     // Edit the child at the current position
     public void editChildPopup(Children children, int position) {
         // Create a popup to edit the current child
-        FragmentManager manager = getSupportFragmentManager();
-        EditChildPopup editChildPopup = new EditChildPopup(children, position, childrenAdapter);
+//        FragmentManager manager = getSupportFragmentManager();
+//        EditChildPopup editChildPopup = new EditChildPopup(children, position, childrenAdapter);
+//
+//        editChildPopup.show(manager, "Edit Child");
 
-        editChildPopup.show(manager, "Edit Child");
+        startActivity(startEditChildActivity);
     }
 }
