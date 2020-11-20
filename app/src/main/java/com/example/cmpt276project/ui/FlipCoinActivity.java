@@ -10,6 +10,7 @@ import com.example.cmpt276project.model.Children;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
 
 import android.util.Log;
 import android.view.Menu;
@@ -72,14 +73,17 @@ public class FlipCoinActivity extends AppCompatActivity {
         // Handling tossing coin sound
         flipSound = MediaPlayer.create(this,R.raw.coin_toss_sound);
 
+        //Setup Buttons
         displayChildName();
         initiateButtons();
         registerHeadOrTailClicked();
         registerFlipClicked();
         registerChangeDefaultClicked();
         registerNobodyClicked();
-    }
 
+        //Setup Message Fragment
+        setupChangeChildMessage();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -272,8 +276,18 @@ public class FlipCoinActivity extends AppCompatActivity {
         });
     }
 
+    //Setup Message Fragment
+    private void setupChangeChildMessage() {
+        Button button = (Button) findViewById(R.id.changeChildButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager manager = getSupportFragmentManager();
+                ChangeChildMessageFragment dialog = new ChangeChildMessageFragment();
+                dialog.show(manager,"MessageDialog");
 
-
-
-
+                Log.i("TAG","Just showed the dialog");
+            }
+        });
+    }
 }
