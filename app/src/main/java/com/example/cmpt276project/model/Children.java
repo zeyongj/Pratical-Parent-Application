@@ -25,6 +25,10 @@ public class Children {
     // ArrayList to keep track of names of Children
     ArrayList<String> childrenNames = new ArrayList<>();
 
+    //TODO: add arraylist storing list of children profile pics
+
+
+
     // Constructor
     private static Children instance;
     public Children() {
