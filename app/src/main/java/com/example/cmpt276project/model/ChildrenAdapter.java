@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,12 +39,14 @@ public class ChildrenAdapter extends RecyclerView.Adapter<ChildrenAdapter.Childr
         public TextView childName;
         public Button deleteButton;
         public Button editButton;
+        public ImageView profilePic;
 
         public ChildrenViewHolder(@NonNull View itemView, final OnDeleteButtonClickListener listener) {
             super(itemView);
             childName = itemView.findViewById(R.id.childname);
             deleteButton = itemView.findViewById(R.id.deletebutton);
             editButton = itemView.findViewById(R.id.editbutton);
+            profilePic = itemView.findViewById(R.id.img_profileImageChildItem);
 
             // Set OnClickListener for the button specified on the Layout
             deleteButton.setOnClickListener(new View.OnClickListener() {
@@ -83,6 +86,7 @@ public class ChildrenAdapter extends RecyclerView.Adapter<ChildrenAdapter.Childr
     @Override
     public ChildrenViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View childrenLayout = LayoutInflater.from(parent.getContext()).inflate(R.layout.child_item, parent, false);
+
         return new ChildrenViewHolder(childrenLayout, deleteButtonListener);
     }
 
@@ -92,6 +96,7 @@ public class ChildrenAdapter extends RecyclerView.Adapter<ChildrenAdapter.Childr
         String currentChild = children.getChild(position);
 
         holder.childName.setText(currentChild);
+       // holder.profilePic.setImageResource();
     }
 
     // Get the number of items in the RecyclerView
