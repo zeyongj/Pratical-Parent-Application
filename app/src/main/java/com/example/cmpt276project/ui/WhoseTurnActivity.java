@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.cmpt276project.R;
 import com.example.cmpt276project.model.Children;
@@ -35,8 +36,9 @@ public class WhoseTurnActivity extends AppCompatActivity {
 
         setBackButton();
 
-        // Create children to test with
+        // Initialize TaskManager
         taskManager = TaskManager.getInstance();
+        loadTaskManager(taskManager);
 
         // Build the RecyclerView
         buildWhoseTurnView(taskManager);
@@ -53,7 +55,6 @@ public class WhoseTurnActivity extends AppCompatActivity {
         return true;
     }
 
-    // Save the children when the activity is closed
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -64,7 +65,7 @@ public class WhoseTurnActivity extends AppCompatActivity {
         super.onStop();
     }
 
-    // Open add child dialog when the add child button is pressed
+    // Go to add task activity when button is pressed
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.add_task_button) {
@@ -80,8 +81,8 @@ public class WhoseTurnActivity extends AppCompatActivity {
         whoseTurnRecyclerView.setHasFixedSize(true);
 
         // Set Layout for the RecyclerView
-        RecyclerView.LayoutManager childLayoutManager = new LinearLayoutManager(this);
-        whoseTurnRecyclerView.setLayoutManager(childLayoutManager);
+        RecyclerView.LayoutManager taskLayoutManager = new LinearLayoutManager(this);
+        whoseTurnRecyclerView.setLayoutManager(taskLayoutManager);
 
         // Set Adapter for the RecyclerView
         whoseTurnAdapter = new WhoseTurnAdapter(taskManager);
@@ -93,15 +94,15 @@ public class WhoseTurnActivity extends AppCompatActivity {
         // Use custom OnClickListener to remove items in RecyclerView
         whoseTurnAdapter.setDeleteButtonClickListener(new WhoseTurnAdapter.OnDeleteButtonClickListener() {
             @Override
-            public void editChild(int position) {
-
+            public void editTask(int position) {
+                // Put what to do when EDIT button is clicked here
+                editTasks(position);
             }
 
             @Override
-            public void deleteChild(int position) {
+            public void deleteTask(int position) {
                 // Remove the item from TaskManager class and notify RecyclerView that it was removed
-                taskManager.removeTask(position);
-                whoseTurnAdapter.notifyItemRemoved(position);
+                removeTask(position);
             }
         });
     }
@@ -115,16 +116,27 @@ public class WhoseTurnActivity extends AppCompatActivity {
     }
 
 
-    // Remove the child at the current position
+    // Remove the Task at the current position
     public void removeTask(int position) {
+        taskManager.removeTask(position);
+        taskManager.saveTaskManager(this);
+        whoseTurnAdapter.notifyItemRemoved(position);
     }
 
-    // Edit the child at the current position
-    public void editTask(Children children, int position) {
+    // Edit the Task at the current position
+    public void editTasks(int position) {
+
     }
 
     public void goToAddTasks() {
         Intent intent = new Intent(this, AddTaskActivity.class);
         startActivity(intent);
+    }
+
+    public void loadTaskManager(TaskManager taskManager) {
+        taskManager.loadTaskManager(this);
+        if (taskManager.checkTaskManagerEmpty()) {
+            taskManager.reinitializeTaskManager();
+        }
     }
 }

@@ -32,6 +32,7 @@ public class AddTaskActivity extends AppCompatActivity {
 
         children = Children.getInstance();
         taskManager = TaskManager.getInstance();
+        loadTaskManager(taskManager);
     }
 
     // Create the Save option on the toolbar
@@ -63,6 +64,7 @@ public class AddTaskActivity extends AppCompatActivity {
 
         if (!checkTaskNameEmpty(taskName)) {
             taskManager.addTask(new Task(taskName.getText().toString(), taskDesc.getText().toString(), children));
+            taskManager.saveTaskManager(this);
             Intent intent = new Intent(this, WhoseTurnActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
@@ -74,5 +76,12 @@ public class AddTaskActivity extends AppCompatActivity {
 
     public boolean checkTaskNameEmpty(EditText taskName) {
         return taskName.getText().toString().equals("");
+    }
+
+    public void loadTaskManager(TaskManager taskManager) {
+        taskManager.loadTaskManager(this);
+        if (taskManager.checkTaskManagerEmpty()) {
+            taskManager.reinitializeTaskManager();
+        }
     }
 }

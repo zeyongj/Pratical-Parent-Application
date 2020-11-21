@@ -20,8 +20,8 @@ public class WhoseTurnAdapter extends RecyclerView.Adapter<WhoseTurnAdapter.Whos
 
     // Set interface for Delete button on RecyclerView item
     public interface OnDeleteButtonClickListener {
-        void deleteChild(int position);
-        void editChild(int position);
+        void deleteTask(int position);
+        void editTask(int position);
     }
 
     // Method to create OnClickListener for Delete button on RecyclerView item
@@ -48,7 +48,7 @@ public class WhoseTurnAdapter extends RecyclerView.Adapter<WhoseTurnAdapter.Whos
                     int position = getAdapterPosition();
                     // Prevent clicks when the RecyclerView is in the animation of removing an item
                     if (position != RecyclerView.NO_POSITION) {
-                        listener.deleteChild(position);
+                        listener.deleteTask(position);
                     }
                 }
             });
@@ -61,7 +61,7 @@ public class WhoseTurnAdapter extends RecyclerView.Adapter<WhoseTurnAdapter.Whos
                     int position = getAdapterPosition();
                     // Prevent clicks when the RecyclerView is in the animation of removing an item
                     if (position != RecyclerView.NO_POSITION) {
-                        listener.editChild(position);
+                        listener.editTask(position);
                     }
                 }
             });
