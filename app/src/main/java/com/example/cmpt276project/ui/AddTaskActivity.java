@@ -9,10 +9,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.cmpt276project.R;
+import com.example.cmpt276project.model.Children;
+import com.example.cmpt276project.model.Task;
+import com.example.cmpt276project.model.TaskManager;
 
 public class AddTaskActivity extends AppCompatActivity {
+    private TaskManager taskManager;
+    private Children children;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +29,9 @@ public class AddTaskActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         setBackButton();
+
+        children = Children.getInstance();
+        taskManager = TaskManager.getInstance();
     }
 
     // Create the Save option on the toolbar
@@ -48,9 +58,21 @@ public class AddTaskActivity extends AppCompatActivity {
     }
 
     public void saveTaskAdded() {
-        Intent intent = new Intent(this, WhoseTurnActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-        finish();
+        EditText taskName = findViewById(R.id.text_add_task_name);
+        EditText taskDesc = findViewById(R.id.text_add_task_description);
+
+        if (!checkTaskNameEmpty(taskName)) {
+            taskManager.addTask(new Task(taskName.getText().toString(), taskDesc.getText().toString(), children));
+            Intent intent = new Intent(this, WhoseTurnActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
+        } else {
+            Toast.makeText(this, "Please enter the name of the task", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public boolean checkTaskNameEmpty(EditText taskName) {
+        return taskName.getText().toString().equals("");
     }
 }

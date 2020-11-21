@@ -7,6 +7,17 @@ import java.util.ArrayList;
 public class TaskManager {
     private ArrayList<Task> taskManager = new ArrayList<>();
 
+    private static TaskManager instance;
+    public TaskManager() {
+    }
+
+    public static TaskManager getInstance() {
+        if (instance == null) {
+            instance = new TaskManager();
+        }
+        return instance;
+    }
+
     public void addTask(Task task) {
         taskManager.add(task);
     }
@@ -21,5 +32,9 @@ public class TaskManager {
 
     public Task getTask(int position) {
         return taskManager.get(position);
+    }
+
+    public int getSize() {
+        return taskManager.size();
     }
 }

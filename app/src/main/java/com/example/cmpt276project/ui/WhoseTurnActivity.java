@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import com.example.cmpt276project.R;
 import com.example.cmpt276project.model.Children;
 import com.example.cmpt276project.model.ChildrenAdapter;
+import com.example.cmpt276project.model.TaskManager;
 import com.example.cmpt276project.model.WhoseTurnAdapter;
 
 import java.util.Objects;
@@ -23,7 +24,7 @@ import java.util.Objects;
 public class WhoseTurnActivity extends AppCompatActivity {
     // Initiate adapter and variables
     WhoseTurnAdapter whoseTurnAdapter;
-    Children children;
+    private TaskManager taskManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +36,10 @@ public class WhoseTurnActivity extends AppCompatActivity {
         setBackButton();
 
         // Create children to test with
-        children = Children.getInstance();
-        children.loadChildren(this);
+        taskManager = TaskManager.getInstance();
 
         // Build the RecyclerView
-        buildWhoseTurnView(children);
+        buildWhoseTurnView(taskManager);
 
         // Build the delete buttons on the RecyclerView items
         setDeleteButtons();
@@ -57,13 +57,11 @@ public class WhoseTurnActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        children.saveChildren(this);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        children.saveChildren(this);
     }
 
     // Open add child dialog when the add child button is pressed
@@ -76,7 +74,7 @@ public class WhoseTurnActivity extends AppCompatActivity {
     }
 
     // Method to build the RecyclerView
-    public void buildWhoseTurnView(Children children) {
+    public void buildWhoseTurnView(TaskManager taskManager) {
         // Find ID of RecyclerView
         RecyclerView whoseTurnRecyclerView = findViewById(R.id.whoseturnview);
         whoseTurnRecyclerView.setHasFixedSize(true);
@@ -86,14 +84,14 @@ public class WhoseTurnActivity extends AppCompatActivity {
         whoseTurnRecyclerView.setLayoutManager(childLayoutManager);
 
         // Set Adapter for the RecyclerView
-        whoseTurnAdapter = new WhoseTurnAdapter(children);
+        whoseTurnAdapter = new WhoseTurnAdapter(taskManager);
         whoseTurnRecyclerView.setAdapter(whoseTurnAdapter);
     }
 
     // Method to build the Delete buttons on the RecyclerView items
     public void setDeleteButtons() {
         // Use custom OnClickListener to remove items in RecyclerView
-        whoseTurnAdapter.setDeleteButtonClickListener(new ChildrenAdapter.OnDeleteButtonClickListener() {
+        whoseTurnAdapter.setDeleteButtonClickListener(new WhoseTurnAdapter.OnDeleteButtonClickListener() {
             @Override
             public void editChild(int position) {
 
@@ -101,7 +99,9 @@ public class WhoseTurnActivity extends AppCompatActivity {
 
             @Override
             public void deleteChild(int position) {
-                // Remove the item from Children class and notify RecyclerView that it was removed
+                // Remove the item from TaskManager class and notify RecyclerView that it was removed
+                taskManager.removeTask(position);
+                whoseTurnAdapter.notifyItemRemoved(position);
             }
         });
     }
