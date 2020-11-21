@@ -8,13 +8,16 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.cmpt276project.R;
 import com.example.cmpt276project.model.Children;
 import com.example.cmpt276project.model.ChildrenAdapter;
+import com.example.cmpt276project.model.TaskManager;
 import com.example.cmpt276project.model.WhoseTurnAdapter;
 
 import java.util.Objects;
@@ -22,7 +25,8 @@ import java.util.Objects;
 public class WhoseTurnActivity extends AppCompatActivity {
     // Initiate adapter and variables
     WhoseTurnAdapter whoseTurnAdapter;
-    Children children;
+    private TaskManager taskManager;
+    private Children children;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,75 +37,77 @@ public class WhoseTurnActivity extends AppCompatActivity {
 
         setBackButton();
 
-        // Create children to test with
         children = Children.getInstance();
         children.loadChildren(this);
 
+        // Initialize TaskManager
+        taskManager = TaskManager.getInstance();
+        loadTaskManager(taskManager);
+
+
         // Build the RecyclerView
-        buildWhoseTurnView(children);
+        buildWhoseTurnView(taskManager);
 
         // Build the delete buttons on the RecyclerView items
         setDeleteButtons();
     }
 
 
-    // Create the Add Child option on the toolbar
+    // Create the Add Task option on the toolbar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.configure_children_menu, menu);
+        getMenuInflater().inflate(R.menu.add_tasks_menu, menu);
         return true;
     }
 
-    // Save the children when the activity is closed
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        children.saveChildren(this);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        children.saveChildren(this);
     }
 
-    // Open add child dialog when the add child button is pressed
+    // Go to add task activity when button is pressed
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.add_child_button) {
-            addChild();
+        if (item.getItemId() == R.id.add_task_button) {
+            goToAddTasks();
         }
         return super.onOptionsItemSelected(item);
     }
 
     // Method to build the RecyclerView
-    public void buildWhoseTurnView(Children children) {
+    public void buildWhoseTurnView(TaskManager taskManager) {
         // Find ID of RecyclerView
         RecyclerView whoseTurnRecyclerView = findViewById(R.id.whoseturnview);
         whoseTurnRecyclerView.setHasFixedSize(true);
 
         // Set Layout for the RecyclerView
-        RecyclerView.LayoutManager childLayoutManager = new LinearLayoutManager(this);
-        whoseTurnRecyclerView.setLayoutManager(childLayoutManager);
+        RecyclerView.LayoutManager taskLayoutManager = new LinearLayoutManager(this);
+        whoseTurnRecyclerView.setLayoutManager(taskLayoutManager);
 
         // Set Adapter for the RecyclerView
-        whoseTurnAdapter = new WhoseTurnAdapter(children);
+        whoseTurnAdapter = new WhoseTurnAdapter(taskManager);
         whoseTurnRecyclerView.setAdapter(whoseTurnAdapter);
     }
 
     // Method to build the Delete buttons on the RecyclerView items
     public void setDeleteButtons() {
         // Use custom OnClickListener to remove items in RecyclerView
-        whoseTurnAdapter.setDeleteButtonClickListener(new ChildrenAdapter.OnDeleteButtonClickListener() {
+        whoseTurnAdapter.setDeleteButtonClickListener(new WhoseTurnAdapter.OnDeleteButtonClickListener() {
             @Override
-            public void editChild(int position) {
-                editChildPopup(children, position);
+            public void editTask(int position) {
+                // Put what to do when EDIT button is clicked here
+                editTasks(position);
             }
 
             @Override
-            public void deleteChild(int position) {
-                // Remove the item from Children class and notify RecyclerView that it was removed
-                removeChild(position);
+            public void deleteTask(int position) {
+                // Remove the item from TaskManager class and notify RecyclerView that it was removed
+                removeTask(position);
             }
         });
     }
@@ -115,27 +121,28 @@ public class WhoseTurnActivity extends AppCompatActivity {
     }
 
 
-    // Add a child to the RecyclerView
-    public void addChild() {
-/*        // Create a popup to add the child
-        FragmentManager manager = getSupportFragmentManager();
-        AddChildPopup addChildPopup = new AddChildPopup(children, whoseTurnAdapter);
-
-        addChildPopup.show(manager, "Add Child");*/
-    }
-
-    // Remove the child at the current position
-    public void removeChild(int position) {
-        children.removeChild(position);
+    // Remove the Task at the current position
+    public void removeTask(int position) {
+        taskManager.removeTask(position);
+        taskManager.saveTaskManager(this);
         whoseTurnAdapter.notifyItemRemoved(position);
     }
 
-    // Edit the child at the current position
-    public void editChildPopup(Children children, int position) {
-/*        // Create a popup to edit the current child
-        FragmentManager manager = getSupportFragmentManager();
-        EditChildPopup editChildPopup = new EditChildPopup(children, position, whoseTurnAdapter);
+    // Edit the Task at the current position
+    public void editTasks(int position) {
 
-        editChildPopup.show(manager, "Edit Child");*/
+    }
+
+    public void goToAddTasks() {
+        Intent intent = new Intent(this, AddTaskActivity.class);
+        startActivity(intent);
+    }
+
+    public void loadTaskManager(TaskManager taskManager) {
+        taskManager.loadTaskManager(this);
+        if (taskManager.checkTaskManagerEmpty()) {
+            taskManager.reinitializeTaskManager();
+        }
+        taskManager.updateTasks(children);
     }
 }
