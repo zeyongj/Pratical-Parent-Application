@@ -26,6 +26,7 @@ public class WhoseTurnActivity extends AppCompatActivity {
     // Initiate adapter and variables
     WhoseTurnAdapter whoseTurnAdapter;
     private TaskManager taskManager;
+    private Children children;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +37,13 @@ public class WhoseTurnActivity extends AppCompatActivity {
 
         setBackButton();
 
+        children = Children.getInstance();
+        children.loadChildren(this);
+
         // Initialize TaskManager
         taskManager = TaskManager.getInstance();
         loadTaskManager(taskManager);
+
 
         // Build the RecyclerView
         buildWhoseTurnView(taskManager);
@@ -138,5 +143,6 @@ public class WhoseTurnActivity extends AppCompatActivity {
         if (taskManager.checkTaskManagerEmpty()) {
             taskManager.reinitializeTaskManager();
         }
+        taskManager.updateTasks(children);
     }
 }

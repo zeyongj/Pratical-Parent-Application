@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.cmpt276project.R;
 import com.example.cmpt276project.ui.WhoseTurnActivity;
 
+import org.w3c.dom.Text;
+
 // RecyclerView Adapter for the Whose Turn Activity
 public class WhoseTurnAdapter extends RecyclerView.Adapter<WhoseTurnAdapter.WhoseTurnViewHolder>{
     // Set variables
@@ -31,14 +33,16 @@ public class WhoseTurnAdapter extends RecyclerView.Adapter<WhoseTurnAdapter.Whos
 
     public static class WhoseTurnViewHolder extends RecyclerView.ViewHolder {
         public TextView taskName;
+        public TextView nextChildName;
         public Button deleteButton;
         public Button editButton;
 
         public WhoseTurnViewHolder(@NonNull View itemView, final WhoseTurnAdapter.OnDeleteButtonClickListener listener) {
             super(itemView);
-            taskName = itemView.findViewById(R.id.childname);
-            deleteButton = itemView.findViewById(R.id.deletebutton);
-            editButton = itemView.findViewById(R.id.editbutton);
+            taskName = itemView.findViewById(R.id.taskname);
+            deleteButton = itemView.findViewById(R.id.taskdeletebutton);
+            editButton = itemView.findViewById(R.id.taskeditbutton);
+            nextChildName = itemView.findViewById(R.id.nextchildname);
 
             // Set OnClickListener for the button specified on the Layout
             deleteButton.setOnClickListener(new View.OnClickListener() {
@@ -77,7 +81,7 @@ public class WhoseTurnAdapter extends RecyclerView.Adapter<WhoseTurnAdapter.Whos
     @NonNull
     @Override
     public WhoseTurnAdapter.WhoseTurnViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View childrenLayout = LayoutInflater.from(parent.getContext()).inflate(R.layout.child_item, parent, false);
+        View childrenLayout = LayoutInflater.from(parent.getContext()).inflate(R.layout.task_item, parent, false);
         return new WhoseTurnAdapter.WhoseTurnViewHolder(childrenLayout, deleteButtonListener);
     }
 
@@ -85,8 +89,10 @@ public class WhoseTurnAdapter extends RecyclerView.Adapter<WhoseTurnAdapter.Whos
     @Override
     public void onBindViewHolder(@NonNull WhoseTurnAdapter.WhoseTurnViewHolder holder, int position) {
         String currentTask = taskManager.getTask(position).getTaskName();
+        String nextChild = taskManager.getTask(position).getChild();
 
         holder.taskName.setText(currentTask);
+        holder.nextChildName.setText(nextChild);
     }
 
     // Get the number of items in the RecyclerView

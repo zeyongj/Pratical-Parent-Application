@@ -83,5 +83,6 @@ public class AddTaskActivity extends AppCompatActivity {
         if (taskManager.checkTaskManagerEmpty()) {
             taskManager.reinitializeTaskManager();
         }
+        taskManager.updateTasks(children);
     }
 }

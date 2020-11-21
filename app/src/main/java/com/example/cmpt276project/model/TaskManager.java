@@ -72,4 +72,10 @@ public class TaskManager {
     public void reinitializeTaskManager() {
         taskManager = new ArrayList<>();
     }
+
+    public void updateTasks(Children children) {
+        for (int i = 0; i<taskManager.size(); i++) {
+            taskManager.get(i).updateTask(children);
+        }
+    }
 }

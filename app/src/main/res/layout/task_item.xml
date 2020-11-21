@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp"
+    android:layout_marginBottom="10dp"
+    app:cardElevation="5dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="4dp">
+
+        <TextView
+            android:id="@+id/taskname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            tools:ignore="RelativeOverlap" />
+
+        <TextView
+            android:id="@+id/nextchildname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/taskname"
+            android:layout_marginTop="5sp"/>
+
+
+        <Button
+            android:id="@+id/taskdeletebutton"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:background="#FF0000"
+            android:textColor="#FFFFFF"
+            android:text="@string/DeleteButton"
+            android:layout_marginEnd="20dp"
+            android:textSize="10sp"
+            tools:ignore="RelativeOverlap,SmallSp" />
+
+        <Button
+            android:id="@+id/taskeditbutton"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/taskdeletebutton"
+            android:layout_marginEnd="20dp"
+            android:text="@string/EditButton"
+            android:textSize="10sp"
+            tools:ignore="RelativeOverlap,SmallSp" />
+
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

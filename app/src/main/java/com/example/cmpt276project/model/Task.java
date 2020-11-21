@@ -1,5 +1,7 @@
 package com.example.cmpt276project.model;
 
+import android.content.Context;
+
 // Class to represent a task made by the user
 // Contains the task name, task description, and the child whose responsible for doing the task
 public class Task {
@@ -40,7 +42,14 @@ public class Task {
         return taskDescription;
     }
 
-    public Children getChildren() {
-        return children;
+    public String getChild() {
+        if (children.getSize() == 0) {
+            return "";
+        }
+        return children.getChild(childIndex);
+    }
+
+    public void updateTask(Children children) {
+        this.children = children;
     }
 }
