@@ -13,15 +13,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.HelpPageActivity"
-            android:parentActivityName=".ui.MainActivity"
+            android:name=".ui.AddTaskActivity"
+            android:parentActivityName=".ui.WhoseTurnActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:label="@string/HelpPage"/>
+            android:label="@string/AddTask"/>
+        <activity
+            android:name=".ui.HelpPageActivity"
+            android:label="@string/HelpPage"
+            android:parentActivityName=".ui.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.WhoseTurnActivity"
+            android:label="@string/WhoseTurn"
             android:parentActivityName=".ui.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:label="@string/WhoseTurn"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.TimeoutTimerActivity"
             android:exported="true"

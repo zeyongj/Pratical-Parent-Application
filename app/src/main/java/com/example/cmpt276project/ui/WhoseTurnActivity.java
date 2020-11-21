@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -45,10 +46,10 @@ public class WhoseTurnActivity extends AppCompatActivity {
     }
 
 
-    // Create the Add Child option on the toolbar
+    // Create the Add Task option on the toolbar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.configure_children_menu, menu);
+        getMenuInflater().inflate(R.menu.add_tasks_menu, menu);
         return true;
     }
 
@@ -68,8 +69,8 @@ public class WhoseTurnActivity extends AppCompatActivity {
     // Open add child dialog when the add child button is pressed
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.add_child_button) {
-            addChild();
+        if (item.getItemId() == R.id.add_task_button) {
+            goToAddTasks();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -95,13 +96,12 @@ public class WhoseTurnActivity extends AppCompatActivity {
         whoseTurnAdapter.setDeleteButtonClickListener(new ChildrenAdapter.OnDeleteButtonClickListener() {
             @Override
             public void editChild(int position) {
-                editChildPopup(children, position);
+
             }
 
             @Override
             public void deleteChild(int position) {
                 // Remove the item from Children class and notify RecyclerView that it was removed
-                removeChild(position);
             }
         });
     }
@@ -115,27 +115,16 @@ public class WhoseTurnActivity extends AppCompatActivity {
     }
 
 
-    // Add a child to the RecyclerView
-    public void addChild() {
-/*        // Create a popup to add the child
-        FragmentManager manager = getSupportFragmentManager();
-        AddChildPopup addChildPopup = new AddChildPopup(children, whoseTurnAdapter);
-
-        addChildPopup.show(manager, "Add Child");*/
-    }
-
     // Remove the child at the current position
-    public void removeChild(int position) {
-        children.removeChild(position);
-        whoseTurnAdapter.notifyItemRemoved(position);
+    public void removeTask(int position) {
     }
 
     // Edit the child at the current position
-    public void editChildPopup(Children children, int position) {
-/*        // Create a popup to edit the current child
-        FragmentManager manager = getSupportFragmentManager();
-        EditChildPopup editChildPopup = new EditChildPopup(children, position, whoseTurnAdapter);
+    public void editTask(Children children, int position) {
+    }
 
-        editChildPopup.show(manager, "Edit Child");*/
+    public void goToAddTasks() {
+        Intent intent = new Intent(this, AddTaskActivity.class);
+        startActivity(intent);
     }
 }

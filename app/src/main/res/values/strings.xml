@@ -60,4 +60,6 @@
 
     <string name="HelpPage">Help Page</string>
     <string name="WhoseTurn">Whose Turn Is It</string>
+    <string name="AddTask">Add Task</string>
+    <string name="Save">Save</string>
 </resources>
