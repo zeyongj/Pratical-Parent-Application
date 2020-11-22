@@ -89,8 +89,8 @@ public class WhoseTurnAdapter extends RecyclerView.Adapter<WhoseTurnAdapter.Whos
     // Bind the child names to their relevant positions on the RecyclerView
     @Override
     public void onBindViewHolder(@NonNull WhoseTurnAdapter.WhoseTurnViewHolder holder, int position) {
-        String currentTask = taskManager.getTask(position).getTaskName();
-        String nextChild = taskManager.getTask(position).getChild();
+        String currentTask = "Task Name: " + taskManager.getTask(position).getTaskName();
+        String nextChild = "Next Child: " + taskManager.getTask(position).getChild();
 
         holder.taskName.setText(currentTask);
         holder.nextChildName.setText(nextChild);
