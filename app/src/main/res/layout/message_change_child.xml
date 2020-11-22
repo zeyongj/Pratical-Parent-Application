@@ -2,12 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/changeChildTextview"
+    <ListView
+        android:id="@+id/ChildName_ListView"
+        android:scrollbars="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="GointToChangeChild"
-        android:textAlignment="center" />
+        android:layout_height="match_parent" />
 
 </RelativeLayout>
