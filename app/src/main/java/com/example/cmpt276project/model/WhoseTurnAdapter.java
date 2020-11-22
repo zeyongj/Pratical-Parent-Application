@@ -102,7 +102,7 @@ public class WhoseTurnAdapter extends RecyclerView.Adapter<WhoseTurnAdapter.Whos
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(),"Clicked!",Toast.LENGTH_SHORT).show();
+//                Toast.makeText(view.getContext(),"Clicked!",Toast.LENGTH_SHORT).show();
             }
         });
     }
