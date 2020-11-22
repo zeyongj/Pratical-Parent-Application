@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.example.cmpt276project.R;
 import com.example.cmpt276project.model.Children;
 import com.example.cmpt276project.model.ChildrenAdapter;
+import com.example.cmpt276project.model.Task;
 import com.example.cmpt276project.model.TaskManager;
 import com.example.cmpt276project.model.WhoseTurnAdapter;
 
@@ -130,7 +131,8 @@ public class WhoseTurnActivity extends AppCompatActivity {
 
     // Edit the Task at the current position
     public void editTasks(int position) {
-
+        Intent intent = new Intent(this, EditTaskActivity.class);
+        startActivity(intent);
     }
 
     public void goToAddTasks() {
