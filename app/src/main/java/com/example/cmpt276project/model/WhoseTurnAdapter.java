@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -72,6 +73,8 @@ public class WhoseTurnAdapter extends RecyclerView.Adapter<WhoseTurnAdapter.Whos
                 }
             });
         }
+
+
     }
 
     // Constructor
@@ -92,11 +95,16 @@ public class WhoseTurnAdapter extends RecyclerView.Adapter<WhoseTurnAdapter.Whos
     public void onBindViewHolder(@NonNull WhoseTurnAdapter.WhoseTurnViewHolder holder, int position) {
         String currentTask = "Task Name: " + taskManager.getTask(position).getTaskName();
         String nextChild = "Next Child: " + taskManager.getTask(position).getChild();
-
         holder.taskName.setText(currentTask);
         holder.taskName.setTextColor(Color.BLUE);
         holder.nextChildName.setText(nextChild);
         holder.nextChildName.setTextColor(Color.BLACK);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(view.getContext(),"Clicked!",Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     // Get the number of items in the RecyclerView

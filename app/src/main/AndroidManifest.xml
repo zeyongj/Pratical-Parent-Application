@@ -34,7 +34,7 @@
             android:label="@string/WhoseTurn"
             android:parentActivityName=".ui.MainActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="sensor"/>
+            android:screenOrientation="sensor" />
         <activity
             android:name=".ui.TimeoutTimerActivity"
             android:exported="true"
