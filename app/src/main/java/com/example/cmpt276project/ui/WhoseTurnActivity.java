@@ -8,10 +8,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.cmpt276project.R;
@@ -28,6 +30,7 @@ public class WhoseTurnActivity extends AppCompatActivity {
     WhoseTurnAdapter whoseTurnAdapter;
     private TaskManager taskManager;
     private Children children;
+    Dialog myDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +54,8 @@ public class WhoseTurnActivity extends AppCompatActivity {
 
         // Build the delete buttons on the RecyclerView items
         setDeleteButtons();
+
+        myDialog = new Dialog(this);
     }
 
 
@@ -139,6 +144,16 @@ public class WhoseTurnActivity extends AppCompatActivity {
     public void goToAddTasks() {
         Intent intent = new Intent(this, AddTaskActivity.class);
         startActivity(intent);
+    }
+
+    public void clickTasks() {
+////        whoseTurnAdapter.setOnItemClick(new whoseTurnAdapter.OnItemClickListener() {
+////            @Override
+////            public void OnItemClick(View v, int position, String id) {
+////                Intent intent = new Intent(WhoseTurnActivity.this, TaskPopUpWindow.class);
+////                startActivity(intent);
+//            }
+//        });
     }
 
     public void loadTaskManager(TaskManager taskManager) {

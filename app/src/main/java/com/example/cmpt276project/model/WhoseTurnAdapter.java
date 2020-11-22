@@ -1,5 +1,6 @@
 package com.example.cmpt276project.model;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -13,6 +14,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cmpt276project.R;
+import com.example.cmpt276project.ui.AddTaskActivity;
+import com.example.cmpt276project.ui.EditTaskActivity;
+import com.example.cmpt276project.ui.TaskPopUpWindow;
 import com.example.cmpt276project.ui.WhoseTurnActivity;
 
 import org.w3c.dom.Text;
@@ -77,6 +81,14 @@ public class WhoseTurnAdapter extends RecyclerView.Adapter<WhoseTurnAdapter.Whos
 
     }
 
+    public static interface OnItemClickListener {
+        void onItemClick(View view,int position);
+    }
+    private OnItemClickListener monItemClickListener=null;
+    public void setonItemClickListener(OnItemClickListener listener){
+        this.monItemClickListener=listener;
+    }
+
     // Constructor
     public WhoseTurnAdapter(TaskManager taskManager) {
         this.taskManager = taskManager;
@@ -90,9 +102,11 @@ public class WhoseTurnAdapter extends RecyclerView.Adapter<WhoseTurnAdapter.Whos
         return new WhoseTurnAdapter.WhoseTurnViewHolder(childrenLayout, deleteButtonListener);
     }
 
+
+
     // Bind the child names to their relevant positions on the RecyclerView
     @Override
-    public void onBindViewHolder(@NonNull WhoseTurnAdapter.WhoseTurnViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull WhoseTurnAdapter.WhoseTurnViewHolder holder, final int position) {
         String currentTask = "Task Name: " + taskManager.getTask(position).getTaskName();
         String nextChild = "Next Child: " + taskManager.getTask(position).getChild();
         holder.taskName.setText(currentTask);
@@ -101,11 +115,11 @@ public class WhoseTurnAdapter extends RecyclerView.Adapter<WhoseTurnAdapter.Whos
         holder.nextChildName.setTextColor(Color.BLACK);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-//                Toast.makeText(view.getContext(),"Clicked!",Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
+            public void onClick(View v) {
+                
+                }
+            });
+        }
 
     // Get the number of items in the RecyclerView
     @Override
