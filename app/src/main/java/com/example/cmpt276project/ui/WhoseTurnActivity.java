@@ -132,6 +132,7 @@ public class WhoseTurnActivity extends AppCompatActivity {
     // Edit the Task at the current position
     public void editTasks(int position) {
         Intent intent = new Intent(this, EditTaskActivity.class);
+        intent.putExtra("position",position);
         startActivity(intent);
     }
 
