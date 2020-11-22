@@ -1,6 +1,7 @@
 package com.example.cmpt276project.model;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -93,7 +94,9 @@ public class WhoseTurnAdapter extends RecyclerView.Adapter<WhoseTurnAdapter.Whos
         String nextChild = "Next Child: " + taskManager.getTask(position).getChild();
 
         holder.taskName.setText(currentTask);
+        holder.taskName.setTextColor(Color.BLUE);
         holder.nextChildName.setText(nextChild);
+        holder.nextChildName.setTextColor(Color.BLACK);
     }
 
     // Get the number of items in the RecyclerView
