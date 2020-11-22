@@ -21,6 +21,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <ImageView
+            android:id="@+id/pop_tv_child_image"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:src="@drawable/image_white"
@@ -62,13 +63,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Description"
-                android:textSize="18sp"
-                android:textColor="#FFFFFF"/>
-            <TextView
-                android:id="@+id/pop_tv_task_desc_content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Content"
                 android:textSize="18sp"
                 android:textColor="#FFFFFF"/>
         </LinearLayout>

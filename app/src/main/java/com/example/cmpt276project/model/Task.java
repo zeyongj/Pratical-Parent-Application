@@ -26,14 +26,6 @@ public class Task {
         this.childIndex = childIndex;
     }
 
-    public void setTaskName(String taskName) {
-        this.taskName = taskName;
-    }
-
-    public void setTaskDescription(String taskDescription) {
-        this.taskDescription = taskDescription;
-    }
-
     public String getTaskName() {
         return taskName;
     }
@@ -51,5 +43,12 @@ public class Task {
 
     public void updateTask(Children children) {
         this.children = children;
+        if (childIndex > children.getSize()-1) {
+            childIndex = 0;
+        }
+    }
+
+    public int getChildIndex() {
+        return childIndex;
     }
 }

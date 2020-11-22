@@ -78,8 +78,8 @@ public class EditTaskActivity extends AppCompatActivity {
 //        Toast.makeText(this, text , Toast.LENGTH_SHORT).show();
 
         if (!checkTaskNameEmpty(taskName)) {
-            Task edittedTask = new Task(taskName.getText().toString(), taskDesc.getText().toString(), children);
-            taskManager.editTask(position, edittedTask);
+            Task editedTask = new Task(taskName.getText().toString(), taskDesc.getText().toString(), children, taskManager.getTask(position).getChildIndex());
+            taskManager.editTask(position, editedTask);
             taskManager.saveTaskManager(this);
             Intent intent = new Intent(this, WhoseTurnActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
