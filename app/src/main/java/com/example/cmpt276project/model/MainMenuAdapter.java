@@ -1,5 +1,6 @@
 package com.example.cmpt276project.model;
 
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,13 +13,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.cmpt276project.R;
 import com.example.cmpt276project.ui.ChildListActivity;
 import com.example.cmpt276project.ui.FlipCoinActivity;
+import com.example.cmpt276project.ui.HelpPageActivity;
 import com.example.cmpt276project.ui.TimeoutTimerActivity;
+import com.example.cmpt276project.ui.WhoseTurnActivity;
 
 // Class to set up the RecyclerView Menu for the Main Menu
 // Each button on the RecyclerView leads to its respective activity
 public class MainMenuAdapter extends RecyclerView.Adapter<MainMenuAdapter.MainMenuViewHolder> {
     // String array that will contain menu name strings
     private String[] menuNames;
+
+    public MainMenuAdapter(Context context) {
+        // Set menu name strings
+        this.menuNames = context.getResources().getStringArray(R.array.MenuNames);
+    }
 
     public static class MainMenuViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public TextView menuName;
@@ -45,6 +53,16 @@ public class MainMenuAdapter extends RecyclerView.Adapter<MainMenuAdapter.MainMe
                     Intent configChildIntent = new Intent(v.getContext(), ChildListActivity.class);
                     v.getContext().startActivity(configChildIntent);
                     break;
+                case 3: // Go to Whose Turn Is It Activity
+                    Intent whoseTurnIntent = new Intent(v.getContext(), WhoseTurnActivity.class);
+                    v.getContext().startActivity(whoseTurnIntent);
+                    break;
+                case 4: // Go to Help Page
+                    Intent helpPageIntent = new Intent(v.getContext(), HelpPageActivity.class);
+                    v.getContext().startActivity(helpPageIntent);
+                    break;
+                default:
+                    break;
             }
         }
     }
@@ -52,8 +70,6 @@ public class MainMenuAdapter extends RecyclerView.Adapter<MainMenuAdapter.MainMe
     @NonNull
     @Override
     public MainMenuViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // Set menu name strings and inflate layout
-        menuNames = parent.getContext().getResources().getStringArray(R.array.MenuNames);
         View mainMenuLayout = LayoutInflater.from(parent.getContext()).inflate(R.layout.content_main, parent, false);
         return new MainMenuViewHolder(mainMenuLayout);
     }
@@ -65,7 +81,7 @@ public class MainMenuAdapter extends RecyclerView.Adapter<MainMenuAdapter.MainMe
 
     @Override
     public int getItemCount() {
-        return 3; // Set at 3 as there will only be 3 items in the Main Menu
+        return menuNames.length; // Set at length of menuNames
     }
 }
 

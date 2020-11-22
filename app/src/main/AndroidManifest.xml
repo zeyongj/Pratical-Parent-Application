@@ -3,25 +3,41 @@
     package="com.example.cmpt276project">
 
     <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
         android:allowBackup="true"
+        android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/MainMenu"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:fullBackupContent="true">
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".ui.AddTaskActivity"
+            android:parentActivityName=".ui.WhoseTurnActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="@string/AddTask"/>
+        <activity
+            android:name=".ui.HelpPageActivity"
+            android:label="@string/HelpPage"
+            android:parentActivityName=".ui.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.WhoseTurnActivity"
+            android:label="@string/WhoseTurn"
+            android:parentActivityName=".ui.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.TimeoutTimerActivity"
-            android:screenOrientation="sensor"
-            android:parentActivityName=".ui.MainActivity"
+            android:exported="true"
             android:label="@string/TimeoutTimer"
-            android:exported="true" />
+            android:parentActivityName=".ui.MainActivity"
+            android:screenOrientation="sensor" />
         <activity
             android:name=".ui.FlipCoinHistoryActivity"
             android:label="@string/title_activity_flip_coin_history"
             android:parentActivityName=".ui.FlipCoinActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.FlipCoinActivity"
             android:label="@string/title_activity_flip_coin"
@@ -42,7 +58,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name=".model.AlarmNotificationService"/>
+
+        <service android:name=".model.AlarmNotificationService" />
     </application>
 
 </manifest>

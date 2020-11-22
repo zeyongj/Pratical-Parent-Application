@@ -44,6 +44,8 @@
         <item>Flip a Coin</item>
         <item>Timeout Timer</item>
         <item>Configure my Children</item>
+        <item>Whose Turn Is It</item>
+        <item>Help</item>
     </string-array>
 
     <string name="OneMinute">1 Minute</string>
@@ -55,4 +57,11 @@
     <string name="TimesUp">00:00</string>
     <string name="Set">Set</string>
     <string name="Reset">Reset</string>
+
+    <string name="HelpPage">Help Page</string>
+    <string name="WhoseTurn">Whose Turn Is It</string>
+    <string name="AddTask">Add Task</string>
+    <string name="Save">Save</string>
+    <string name="InputTaskName">Input Task Name</string>
+    <string name="InputTaskDesc">Input Task Description</string>
 </resources>

@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         menuRecyclerView.setLayoutManager(menuLayoutManager);
 
         // Set Adapter for the RecyclerView
-        mainMenuAdapter = new MainMenuAdapter();
+        mainMenuAdapter = new MainMenuAdapter(this);
         menuRecyclerView.setAdapter(mainMenuAdapter);
     }
 }
