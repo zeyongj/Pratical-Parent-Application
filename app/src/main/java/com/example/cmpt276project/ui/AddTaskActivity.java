@@ -69,8 +69,9 @@ public class AddTaskActivity extends AppCompatActivity {
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
             finish();
+            Toast.makeText(this, "Add the task successfully!", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, "Please enter the name of the task", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please enter the name of the task!", Toast.LENGTH_SHORT).show();
         }
     }
 

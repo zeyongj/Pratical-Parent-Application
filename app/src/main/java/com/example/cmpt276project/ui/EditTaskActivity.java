@@ -86,8 +86,9 @@ public class EditTaskActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
             taskManager.saveTaskManager(this);
+            Toast.makeText(this, "Edit the task successfully!", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, "Please enter the name of the task", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please enter the name of the task!", Toast.LENGTH_SHORT).show();
         }
     }
 
