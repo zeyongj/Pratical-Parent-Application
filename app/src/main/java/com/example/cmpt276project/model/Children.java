@@ -113,6 +113,14 @@ public class Children {
         editor.apply();
     }
 
+    // Set the current child index to next child index and save the index to Shared Preference
+    public void setCurrentToClickedChild(Context context, int index) {
+        SharedPreferences sp = context.getSharedPreferences(CHILD_INDEX_PREF, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putInt(CURRENT_CHILD_INDEX, index);
+        editor.apply();
+    }
+
     // Get the number of children from Shared Preference
     public int getNumChildren(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(CHILDREN_PREFS, Context.MODE_PRIVATE);

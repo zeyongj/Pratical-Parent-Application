@@ -7,8 +7,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,15 +25,11 @@ import java.util.List;
 
 public class ChangeChildMessageFragment extends AppCompatDialogFragment {
 
-    private Children children;
+    private Children children = Children.getInstance();
 
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-
-        // Initiate children
-        children = Children.getInstance();
-        children.loadChildren(getActivity());
 
         // Inflate the layout for the dialog
         View v = LayoutInflater.from(getActivity()).inflate(R.layout.message_change_child, null);
@@ -50,11 +48,30 @@ public class ChangeChildMessageFragment extends AppCompatDialogFragment {
         listView.setAdapter(adapter);
 
 
-        return new AlertDialog.Builder(getActivity())
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder
                 .setView(v)
                 .setPositiveButton(android.R.string.ok, null) // Add child when pressed
                 .setNegativeButton(android.R.string.cancel, null) // Close dialog and do nothing else when pressed
                 .setTitle("Changing Child")
                 .create();
+
+        AlertDialog alert = builder.show();
+        registerChildClicked(listView, alert);
+
+        return alert;
+    }
+
+    private void registerChildClicked(ListView listView, final AlertDialog alert){
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                children.setCurrentToClickedChild(getActivity(), (position + children.getCurrentChildIndex(getActivity())) % children.getSize());
+                TextView textView = (TextView) getActivity().findViewById(R.id.childNameTextView);
+                textView.setText(" The current child is: " + children.getChild(children.getCurrentChildIndex(getActivity())));
+                alert.dismiss();
+            }
+        });
     }
 }

@@ -285,9 +285,8 @@ public class FlipCoinActivity extends AppCompatActivity {
                 FragmentManager manager = getSupportFragmentManager();
                 ChangeChildMessageFragment dialog = new ChangeChildMessageFragment();
                 dialog.show(manager,"MessageDialog");
-
-                Log.i("TAG","Just showed the dialog");
             }
         });
+        displayChildName();
     }
 }
