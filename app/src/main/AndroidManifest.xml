@@ -15,22 +15,26 @@
         <activity android:name=".ui.EditTaskActivity"
             android:label="Edit Task"
             android:parentActivityName=".ui.WhoseTurnActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="sensor"/>
         <activity
             android:name=".ui.AddTaskActivity"
             android:label="@string/AddTask"
             android:parentActivityName=".ui.WhoseTurnActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="sensor"/>
         <activity
             android:name=".ui.HelpPageActivity"
             android:label="@string/HelpPage"
             android:parentActivityName=".ui.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="sensor"/>
         <activity
             android:name=".ui.WhoseTurnActivity"
             android:label="@string/WhoseTurn"
             android:parentActivityName=".ui.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="sensor"/>
         <activity
             android:name=".ui.TimeoutTimerActivity"
             android:exported="true"
@@ -41,17 +45,20 @@
             android:name=".ui.FlipCoinHistoryActivity"
             android:label="@string/title_activity_flip_coin_history"
             android:parentActivityName=".ui.FlipCoinActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="sensor"/>
         <activity
             android:name=".ui.FlipCoinActivity"
             android:label="@string/title_activity_flip_coin"
             android:parentActivityName=".ui.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="sensor"/>
         <activity
             android:name=".ui.ChildListActivity"
             android:label="@string/ChildrenActivityName"
             android:parentActivityName=".ui.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="sensor"/>
         <activity
             android:name=".ui.MainActivity"
             android:label="@string/MainMenu"
