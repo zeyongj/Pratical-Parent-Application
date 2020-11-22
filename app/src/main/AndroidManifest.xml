@@ -12,7 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.EditTaskActivity"></activity>
+        <activity android:name=".ui.EditTaskActivity"
+            android:label="Edit Task"
+            android:parentActivityName=".ui.WhoseTurnActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.AddTaskActivity"
             android:label="@string/AddTask"

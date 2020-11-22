@@ -61,6 +61,7 @@
     <string name="HelpPage">Help Page</string>
     <string name="WhoseTurn">Whose Turn Is It</string>
     <string name="AddTask">Add Task</string>
+    <string name="EditTask">Edit Task</string>
     <string name="Save">Save</string>
     <string name="InputTaskName">Input Task Name</string>
     <string name="InputTaskDesc">Input Task Description</string>

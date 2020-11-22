@@ -32,9 +32,9 @@ public class EditTaskActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         position = bundle.getInt("position");
         setContentView(R.layout.activity_edit_task);
-        Toolbar toolbar = findViewById(R.id.edittasktoolbar);
-//        setSupportActionBar(toolbar);
-//
+        Toolbar toolbarEdit = findViewById(R.id.edittasktoolbar);
+        setSupportActionBar(toolbarEdit);
+
         setBackButton();
 
         children = Children.getInstance();
