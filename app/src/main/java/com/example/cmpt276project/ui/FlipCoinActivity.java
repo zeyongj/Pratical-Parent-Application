@@ -51,6 +51,7 @@ public class FlipCoinActivity extends AppCompatActivity {
     private boolean buttonState = true;
     private String choose;
     private boolean WinOrLoss;
+    private boolean NobodyTurn = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -178,15 +179,21 @@ public class FlipCoinActivity extends AppCompatActivity {
                     coinSide = "Tail";
                     flipSound.start();
                 }
-                if(children.getNumChildren(FlipCoinActivity.this) != 0) {
+                if(children.getNumChildren(FlipCoinActivity.this) != 0 && NobodyTurn == false ) {
                     buttonState = true;
                     setButton();
                     WinOrLoss = choose.equals(coinSide);
                     historyManager.addHistory(saveCurrentDateAndTime(), saveChildNames(),choose, WinOrLoss);
                 }
                 // Set current child to next child
-                if(children.getNumChildren(FlipCoinActivity.this) != 0)
+                if(children.getNumChildren(FlipCoinActivity.this) != 0  && NobodyTurn == false )
                     children.setCurrentToNextChild(FlipCoinActivity.this);
+
+                if(NobodyTurn == true) {
+                    NobodyTurn = false;
+                    buttonState = true;
+                    setButton();
+                }
             }
         });
     }
@@ -219,6 +226,9 @@ public class FlipCoinActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 buttonState = true;
+                NobodyTurn = true;
+                TextView textView = findViewById(R.id.childNameTextView);
+                textView.setText("Nobody's Turn");
                 initiateButtons();
             }
         });
@@ -276,7 +286,8 @@ public class FlipCoinActivity extends AppCompatActivity {
         });
     }
 
-    //Setup Message Fragment
+    // Register Change Child Button clicked
+    // Setup Message Fragment
     private void setupChangeChildMessage() {
         Button button = (Button) findViewById(R.id.changeChildButton);
         button.setOnClickListener(new View.OnClickListener() {
@@ -285,6 +296,9 @@ public class FlipCoinActivity extends AppCompatActivity {
                 FragmentManager manager = getSupportFragmentManager();
                 ChangeChildMessageFragment dialog = new ChangeChildMessageFragment();
                 dialog.show(manager,"MessageDialog");
+                buttonState = true;
+                initiateButtons();
+                NobodyTurn = false;
             }
         });
         displayChildName();
