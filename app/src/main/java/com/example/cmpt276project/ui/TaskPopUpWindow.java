@@ -64,10 +64,12 @@ public class TaskPopUpWindow extends AppCompatDialogFragment {
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View popupView) {
+                String text = "No." + (position + 1) + " Task Done by " + taskManager.getTask(position).getChild();
+                Toast.makeText(popupView.getContext(), text, Toast.LENGTH_SHORT).show();
                 dismiss();
             }
         });
-        
+
         return new AlertDialog.Builder(getActivity())
                 .setView(popupView)
                 .create();
@@ -93,7 +95,7 @@ public class TaskPopUpWindow extends AppCompatDialogFragment {
     }
 
     public void removeTask(int position, View popupView) {
-        String text = "No." + position + " Task Cancelled";
+        String text = "No." + (position + 1) + " Task Cancelled";
         Toast.makeText(popupView.getContext(), text, Toast.LENGTH_SHORT).show();
         taskManager.removeTask(position);
         taskManager.saveTaskManager(popupView.getContext());
