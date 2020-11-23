@@ -101,13 +101,11 @@ public class ChildrenAdapter extends RecyclerView.Adapter<ChildrenAdapter.Childr
         holder.childName.setText(currentChild);
 
 
-        // bug: image is not a drawable
 
         // TODO: default case when children profile is not entered
         holder.profilePic.setImageBitmap(children.decodeToBase64(currentProfile));
 
 
-        //holder.profilePic.setImageResource(currentProfile);
     }
 
     // Get the number of items in the RecyclerView

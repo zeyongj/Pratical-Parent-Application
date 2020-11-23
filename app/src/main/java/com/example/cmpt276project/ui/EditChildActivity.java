@@ -31,13 +31,14 @@ public class EditChildActivity extends AppCompatActivity {
     private EditText editChildName;
 
 
-
     // Handling profile Image
     private ImageView profileImage;
     BitmapDrawable drawableProfile;
     Bitmap bitmapStored;
 
     boolean isProfileChanged = false;
+
+
 
 
     @Override
@@ -53,13 +54,16 @@ public class EditChildActivity extends AppCompatActivity {
         childrenAdapter = ChildrenAdapter.getInstance();
         editChildName = findViewById(R.id.txt_editChildNameEdit);
 
+        Intent intent = getIntent();
+        position = intent.getExtras().getInt("Id");
+
+
         editChildName.append(children.getChild(position));
 
         profileImage = findViewById(R.id.profileImage);
 
         // get current children profile
         profileImage.setImageBitmap(children.decodeToBase64(children.getChildProfile(position)));
-
 
 
         registerClickedOk();
@@ -136,4 +140,12 @@ public class EditChildActivity extends AppCompatActivity {
         childrenAdapter.notifyDataSetChanged();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        finish();
+    }
+
+
 }
+

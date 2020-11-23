@@ -170,6 +170,8 @@ public class ChildListActivity extends AppCompatActivity {
 //
 //        editChildPopup.show(manager, "Edit Child");
 
+        startEditChildActivity.putExtra("Id", position);
         startActivity(startEditChildActivity);
+
     }
 }
