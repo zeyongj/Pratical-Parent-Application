@@ -8,15 +8,18 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.cmpt276project.R;
 import com.example.cmpt276project.model.Children;
 import com.example.cmpt276project.model.ChildrenAdapter;
+import com.example.cmpt276project.model.Task;
 import com.example.cmpt276project.model.TaskManager;
 import com.example.cmpt276project.model.WhoseTurnAdapter;
 
@@ -27,6 +30,7 @@ public class WhoseTurnActivity extends AppCompatActivity {
     WhoseTurnAdapter whoseTurnAdapter;
     private TaskManager taskManager;
     private Children children;
+    Dialog myDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +53,9 @@ public class WhoseTurnActivity extends AppCompatActivity {
         buildWhoseTurnView(taskManager);
 
         // Build the delete buttons on the RecyclerView items
-        setDeleteButtons();
+        setRecyclerViewButtons();
+
+        myDialog = new Dialog(this);
     }
 
 
@@ -90,14 +96,14 @@ public class WhoseTurnActivity extends AppCompatActivity {
         whoseTurnRecyclerView.setLayoutManager(taskLayoutManager);
 
         // Set Adapter for the RecyclerView
-        whoseTurnAdapter = new WhoseTurnAdapter(taskManager);
+        whoseTurnAdapter = new WhoseTurnAdapter(taskManager, this);
         whoseTurnRecyclerView.setAdapter(whoseTurnAdapter);
     }
 
     // Method to build the Delete buttons on the RecyclerView items
-    public void setDeleteButtons() {
+    public void setRecyclerViewButtons() {
         // Use custom OnClickListener to remove items in RecyclerView
-        whoseTurnAdapter.setDeleteButtonClickListener(new WhoseTurnAdapter.OnDeleteButtonClickListener() {
+        whoseTurnAdapter.setRecyclerViewClickListener(new WhoseTurnAdapter.OnRecyclerViewClickListener() {
             @Override
             public void editTask(int position) {
                 // Put what to do when EDIT button is clicked here
@@ -108,6 +114,11 @@ public class WhoseTurnActivity extends AppCompatActivity {
             public void deleteTask(int position) {
                 // Remove the item from TaskManager class and notify RecyclerView that it was removed
                 removeTask(position);
+            }
+
+            @Override
+            public void showTask(int position) {
+                showCurrentTask(position);
             }
         });
     }
@@ -130,12 +141,25 @@ public class WhoseTurnActivity extends AppCompatActivity {
 
     // Edit the Task at the current position
     public void editTasks(int position) {
-
+        Intent intent = new Intent(this, EditTaskActivity.class);
+        intent.putExtra("position",position);
+        startActivity(intent);
+        whoseTurnAdapter.notifyDataSetChanged();
     }
 
     public void goToAddTasks() {
         Intent intent = new Intent(this, AddTaskActivity.class);
         startActivity(intent);
+    }
+
+    public void clickTasks() {
+////        whoseTurnAdapter.setOnItemClick(new whoseTurnAdapter.OnItemClickListener() {
+////            @Override
+////            public void OnItemClick(View v, int position, String id) {
+////                Intent intent = new Intent(WhoseTurnActivity.this, TaskPopUpWindow.class);
+////                startActivity(intent);
+//            }
+//        });
     }
 
     public void loadTaskManager(TaskManager taskManager) {
@@ -144,5 +168,14 @@ public class WhoseTurnActivity extends AppCompatActivity {
             taskManager.reinitializeTaskManager();
         }
         taskManager.updateTasks(children);
+    }
+
+    public void showCurrentTask(int position) {
+        String text = getString(R.string.CurrentIndex, position);
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+        FragmentManager manager = getSupportFragmentManager();
+        TaskPopUpWindow taskPopUpWindow = new TaskPopUpWindow(taskManager, position, whoseTurnAdapter);
+
+        taskPopUpWindow.show(manager, "yep");
     }
 }

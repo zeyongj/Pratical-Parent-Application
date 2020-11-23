@@ -5,7 +5,9 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,17 +18,22 @@ import com.example.cmpt276project.R;
 import com.example.cmpt276project.model.Children;
 import com.example.cmpt276project.model.Task;
 import com.example.cmpt276project.model.TaskManager;
+import com.google.gson.Gson;
 
-public class AddTaskActivity extends AppCompatActivity {
+public class EditTaskActivity extends AppCompatActivity {
     private TaskManager taskManager;
     private Children children;
+    private int position;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_task);
-        Toolbar toolbar = findViewById(R.id.addtasktoolbar);
-        setSupportActionBar(toolbar);
+        Bundle bundle = getIntent().getExtras();
+        position = bundle.getInt("position");
+        setContentView(R.layout.activity_edit_task);
+        Toolbar toolbarEdit = findViewById(R.id.edittasktoolbar);
+        setSupportActionBar(toolbarEdit);
 
         setBackButton();
 
@@ -42,13 +49,19 @@ public class AddTaskActivity extends AppCompatActivity {
         return true;
     }
 
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.save_task_button) {
-            saveTaskAdded();
+            saveTaskEdited(position);
         }
+
+//        String text = "onOptionsItemSelected Current position is " + position;
+//        Toast.makeText(this, text , Toast.LENGTH_SHORT).show();
         return super.onOptionsItemSelected(item);
     }
+
+
 
     private void setBackButton() {
         // Enable "up" on toolbar
@@ -58,18 +71,22 @@ public class AddTaskActivity extends AppCompatActivity {
         }
     }
 
-    public void saveTaskAdded() {
-        EditText taskName = findViewById(R.id.text_add_task_name);
-        EditText taskDesc = findViewById(R.id.text_add_task_description);
+    public void saveTaskEdited(int position) {
+        EditText taskName = findViewById(R.id.text_edit_task_name);
+        EditText taskDesc = findViewById(R.id.text_edit_task_description);
+//        String text = "saveTaskEdited Current position is " + position;
+//        Toast.makeText(this, text , Toast.LENGTH_SHORT).show();
 
         if (!checkTaskNameEmpty(taskName)) {
-            taskManager.addTask(new Task(taskName.getText().toString(), taskDesc.getText().toString(), children));
+            Task editedTask = new Task(taskName.getText().toString(), taskDesc.getText().toString(), children, taskManager.getTask(position).getChildIndex());
+            taskManager.editTask(position, editedTask);
             taskManager.saveTaskManager(this);
             Intent intent = new Intent(this, WhoseTurnActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             finish();
-            String success = getString(R.string.AddTaskSuccess);
+            taskManager.saveTaskManager(this);
+            String success = getString(R.string.EditTaskSuccess);
             Toast.makeText(this, success, Toast.LENGTH_SHORT).show();
         } else {
             String attention = getString(R.string.TaskNameAttention);
@@ -80,6 +97,8 @@ public class AddTaskActivity extends AppCompatActivity {
     public boolean checkTaskNameEmpty(EditText taskName) {
         return taskName.getText().toString().equals("");
     }
+
+
 
     public void loadTaskManager(TaskManager taskManager) {
         taskManager.loadTaskManager(this);
