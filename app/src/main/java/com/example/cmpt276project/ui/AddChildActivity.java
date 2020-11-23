@@ -35,10 +35,10 @@ public class AddChildActivity extends AppCompatActivity {
     // Handling profile Image
     private ImageView profileImage;
 
-    BitmapDrawable drawableProfile;
-    Bitmap bitmapStored;
+    private BitmapDrawable drawableProfile;
+    private Bitmap bitmapStored;
 
-    boolean isProfileSet = false;
+    private boolean isProfileSet = false;
 
 
     @Override
@@ -113,9 +113,9 @@ public class AddChildActivity extends AppCompatActivity {
             if (isProfileSet) {
                 addChildProfile(bitmapStored);
 
-                Toast.makeText(AddChildActivity.this,
-                        "The ID of image saved is: " + children.getChildProfile(0),
-                        Toast.LENGTH_SHORT).show();
+//                Toast.makeText(AddChildActivity.this,
+//                        "The ID of image saved is: " + children.getChildProfile(0),
+//                        Toast.LENGTH_SHORT).show();
                 }
 
             // default case for not setting profile image

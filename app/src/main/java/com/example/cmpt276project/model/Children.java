@@ -158,8 +158,8 @@ public class Children {
     }
 
     // Edit the profile of the selected child
-    public void editChildProfile(int position, String image) {
-        profileIDs.set(position, image);
+    public void editChildProfile(int position, Bitmap image) {
+        profileIDs.set(position, encodeToBase64(image));
     }
 
     // Save the list of children profiles
