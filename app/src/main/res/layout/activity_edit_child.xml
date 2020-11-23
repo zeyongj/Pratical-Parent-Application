@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.EditChildActivity">
+
+    <TextView
+        android:id="@+id/txt_editChildActivity"
+        android:text="@string/edit_child"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:layout_width="139dp"
+        android:layout_height="40dp"
+        tools:layout_editor_absoluteX="29dp"
+        tools:layout_editor_absoluteY="51dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.058"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023"/>
+
+    <ImageView
+        android:id="@+id/profileImage"
+        android:contentDescription="@string/default_profile_image"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.459"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.159"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <EditText
+        android:id="@+id/txt_editChildNameEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:ems="10"
+        android:hint="@string/EnterChildName"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/profileImage"
+        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintStart_toStartOf="@+id/profileImage"
+        app:layout_constraintTop_toBottomOf="@+id/profileImage" />
+
+    <Button
+        android:id="@+id/btn_changeProfileEdit"
+        android:layout_width="95dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="48dp"
+        android:text="@string/change_profile"
+        app:layout_constraintEnd_toEndOf="@+id/txt_editChildNameEdit"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/txt_editChildNameEdit"
+        app:layout_constraintTop_toBottomOf="@+id/txt_editChildNameEdit" />
+
+    <Button
+        android:id="@+id/btn_okEdit"
+        android:layout_width="210dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/ok1"
+        app:layout_constraintEnd_toEndOf="@+id/btn_changeProfileEdit"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/btn_changeProfileEdit"
+        app:layout_constraintTop_toBottomOf="@+id/btn_changeProfileEdit" />
+
+    <Button
+        android:id="@+id/btn_cancelEdit"
+        android:layout_width="210dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/Cancel"
+        app:layout_constraintEnd_toEndOf="@+id/btn_okEdit"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/btn_okEdit"
+        app:layout_constraintTop_toBottomOf="@+id/btn_okEdit" />
+
+    <Button
+        android:id="@+id/btn_editChildCamera"
+        android:layout_width="95dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="20dp"
+        android:text="@string/camera"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_changeProfileEdit"
+        app:layout_constraintStart_toEndOf="@+id/btn_changeProfileEdit"
+        app:layout_constraintTop_toTopOf="@+id/btn_changeProfileEdit"
+        app:layout_constraintVertical_bias="0.0" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

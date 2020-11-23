@@ -8,9 +8,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.cmpt276project.R;
 import com.example.cmpt276project.model.Children;
@@ -21,9 +23,16 @@ import com.example.cmpt276project.model.ChildrenAdapter;
 // Allows the user to add, edit or delete Children
 // Children are saved between application uses
 public class ChildListActivity extends AppCompatActivity {
+    public static final String ACTIVITY_ID = "Id";
     // Initiate adapter and variables
     ChildrenAdapter childrenAdapter;
     Children children;
+
+
+
+    Intent startAddChildActivity;
+    Intent startEditChildActivity;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +47,20 @@ public class ChildListActivity extends AppCompatActivity {
         children = Children.getInstance();
         children.loadChildren(this);
 
+
+        children.loadChildrenProfile(this);
+
+
         // Build the RecyclerView
         buildChildView(children);
 
         // Build the delete buttons on the RecyclerView items
         setDeleteButtons();
+
+
+        startAddChildActivity = new Intent(ChildListActivity.this, AddChildActivity.class);
+        startEditChildActivity = new Intent(ChildListActivity.this, EditChildActivity.class);
+
     }
 
     // Create the Add Child option on the toolbar
@@ -57,12 +75,16 @@ public class ChildListActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         children.saveChildren(this);
+
+        children.saveChildrenProfile(this);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         children.saveChildren(this);
+
+        children.saveChildrenProfile(this);
     }
 
     // Open add child dialog when the add child button is pressed
@@ -116,25 +138,25 @@ public class ChildListActivity extends AppCompatActivity {
 
     // Add a child to the RecyclerView
     public void addChild() {
-        // Create a popup to add the child
-        FragmentManager manager = getSupportFragmentManager();
-        AddChildPopup addChildPopup = new AddChildPopup(children, childrenAdapter);
 
-        addChildPopup.show(manager, "Add Child");
+        startActivity(startAddChildActivity);
+
     }
 
     // Remove the child at the current position
     public void removeChild(int position) {
         children.removeChild(position);
+
+        children.removeChildProfile(position);
+
         childrenAdapter.notifyItemRemoved(position);
     }
 
     // Edit the child at the current position
     public void editChildPopup(Children children, int position) {
-        // Create a popup to edit the current child
-        FragmentManager manager = getSupportFragmentManager();
-        EditChildPopup editChildPopup = new EditChildPopup(children, position, childrenAdapter);
 
-        editChildPopup.show(manager, "Edit Child");
+        startEditChildActivity.putExtra(ACTIVITY_ID, position);
+        startActivity(startEditChildActivity);
+
     }
 }

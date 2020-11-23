@@ -3,6 +3,7 @@
     package="com.example.cmpt276project">
 
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
         android:allowBackup="true"
@@ -12,6 +13,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ui.EditChildActivity"
+            android:parentActivityName=".ui.ChildListActivity"></activity>
+        <activity
+            android:name=".ui.AddChildActivity"
+            android:parentActivityName=".ui.ChildListActivity" />
         <activity
             android:name=".ui.AddTaskActivity"
             android:parentActivityName=".ui.WhoseTurnActivity"
