@@ -40,6 +40,7 @@ public class TaskPopUpWindow extends AppCompatDialogFragment {
         // Inflate the layout for the dialog
         View popupView = LayoutInflater.from(getActivity()).inflate(R.layout.pop_window, null);
         final PopupWindow popupWindow = new PopupWindow(popupView,400,400,true);
+
         Button btnClose = popupView.findViewById(R.id.pop_btn_close);
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,6 +50,7 @@ public class TaskPopUpWindow extends AppCompatDialogFragment {
             }
         });
         setValues(popupView);
+
         Button btnCancel = popupView.findViewById(R.id.pop_btn_cancel);
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,6 +59,15 @@ public class TaskPopUpWindow extends AppCompatDialogFragment {
                 dismiss();
             }
         });
+
+        Button btnConfirm = popupView.findViewById(R.id.pop_btn_confirm);
+        btnConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View popupView) {
+                dismiss();
+            }
+        });
+        
         return new AlertDialog.Builder(getActivity())
                 .setView(popupView)
                 .create();
