@@ -1,6 +1,7 @@
 package com.example.cmpt276project.model;
 
 import android.content.Context;
+import android.widget.Toast;
 
 // Class to represent a task made by the user
 // Contains the task name, task description, and the child whose responsible for doing the task
@@ -40,6 +41,20 @@ public class Task {
         }
         return children.getChild(childIndex);
     }
+
+    public Children getChildren(){
+        return children;
+    }
+
+    public void assignNewChild (int newIndex, Context context){
+        if (newIndex < children.getNumChildren(context)){
+        childIndex = newIndex;
+        }
+        else
+            childIndex = 0;
+    }
+
+
 
     public void updateTask(Children children) {
         this.children = children;

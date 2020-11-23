@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.example.cmpt276project.R;
+import com.example.cmpt276project.model.Task;
 import com.example.cmpt276project.model.TaskManager;
 import com.example.cmpt276project.model.WhoseTurnAdapter;
 
@@ -26,6 +27,7 @@ public class TaskPopUpWindow extends AppCompatDialogFragment {
     private TaskManager taskManager;
     private int position;
     private WhoseTurnAdapter whoseTurnAdapter;
+
 
     // Constructor
     public TaskPopUpWindow(TaskManager taskManager, int position, WhoseTurnAdapter whoseTurnAdapter) {
@@ -55,7 +57,7 @@ public class TaskPopUpWindow extends AppCompatDialogFragment {
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View popupView) {
-                removeTask(position,popupView);
+                removeTask(position, popupView);
                 dismiss();
             }
         });
@@ -64,8 +66,7 @@ public class TaskPopUpWindow extends AppCompatDialogFragment {
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View popupView) {
-                String text = "No." + (position + 1) + " Task Done by " + taskManager.getTask(position).getChild();
-                Toast.makeText(popupView.getContext(), text, Toast.LENGTH_SHORT).show();
+                updateTask(position, popupView);
                 dismiss();
             }
         });
@@ -100,6 +101,20 @@ public class TaskPopUpWindow extends AppCompatDialogFragment {
         taskManager.removeTask(position);
         taskManager.saveTaskManager(popupView.getContext());
         whoseTurnAdapter.notifyItemRemoved(position);
+    }
+
+    public void updateTask(int position, View popupView) {
+        String text = "No." + (position + 1) + " Task Done by " + taskManager.getTask(position).getChild();
+        Toast.makeText(popupView.getContext(), text, Toast.LENGTH_SHORT).show();
+        Task currentTask = taskManager.getTask(position);
+        int currentChildIndex = currentTask.getChildIndex();
+//                String childIndex = "Now child index is "+ currentChildIndex;
+//                Toast.makeText(popupView.getContext(), childIndex, Toast.LENGTH_SHORT).show();
+        int newChildIndex = currentChildIndex + 1;
+        currentTask.assignNewChild(newChildIndex,popupView.getContext());
+        String newChildName = "Next child for " + "No." + (position + 1) + " Task is "+ currentTask.getChild();
+        Toast.makeText(popupView.getContext(), newChildName, Toast.LENGTH_SHORT).show();
+        currentTask.updateTask(currentTask.getChildren());
     }
 
 }
