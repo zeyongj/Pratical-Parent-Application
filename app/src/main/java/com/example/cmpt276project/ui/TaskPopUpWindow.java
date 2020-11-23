@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.example.cmpt276project.R;
+import com.example.cmpt276project.model.Children;
 import com.example.cmpt276project.model.Task;
 import com.example.cmpt276project.model.TaskManager;
 import com.example.cmpt276project.model.WhoseTurnAdapter;
@@ -85,6 +86,7 @@ public class TaskPopUpWindow extends AppCompatDialogFragment {
         TextView childName = v.findViewById(R.id.pop_tv_child_name);
         TextView taskDesc = v.findViewById(R.id.pop_tv_task_desc_title);
         ImageView childImage = v.findViewById(R.id.pop_tv_child_image);
+        Children children = taskManager.getTask(position).getChildren();
 
 
         taskName.setText(taskManager.getTask(position).getTaskName());
@@ -93,6 +95,7 @@ public class TaskPopUpWindow extends AppCompatDialogFragment {
         if (taskDesc.getText().equals("")) {
             taskDesc.setText(R.string.NoDesc);
         }
+        childImage.setImageBitmap(children.decodeToBase64(children.getChildProfile(taskManager.getTask(position).getChildIndex())));
     }
 
     public void removeTask(int position, View popupView) {
