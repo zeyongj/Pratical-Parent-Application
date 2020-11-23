@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
+import android.widget.TextView;
 
 import com.example.cmpt276project.R;
 
@@ -22,5 +24,17 @@ public class HelpPageActivity extends AppCompatActivity {
         // Enable "up" on toolbar
         ActionBar ab = getSupportActionBar();
         Objects.requireNonNull(ab).setDisplayHomeAsUpEnabled(true);
+
+        setHyperLinks();
+    }
+
+    public void setHyperLinks() {
+        TextView backgroundSource = findViewById(R.id.BGSource);
+        TextView notificationIconSource = findViewById(R.id.NotifIconSource);
+        TextView codeStyleGuideSource = findViewById(R.id.CodeStyleSource);
+
+        backgroundSource.setMovementMethod(LinkMovementMethod.getInstance());
+        notificationIconSource.setMovementMethod(LinkMovementMethod.getInstance());
+        codeStyleGuideSource.setMovementMethod(LinkMovementMethod.getInstance());
     }
 }
