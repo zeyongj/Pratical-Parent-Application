@@ -20,4 +20,51 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <TextView
+        android:id="@+id/MadeBy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="79dp"
+        android:text="@string/MadeBy" />
+
+    <TextView
+        android:id="@+id/ImageSource"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="152dp"
+        android:text="@string/Sources" />
+
+    <TextView
+        android:id="@+id/BGSource"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/BGSource"
+        android:layout_below="@id/ImageSource"/>
+
+    <TextView
+        android:id="@+id/NotifIconSource"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:text="@string/NotifSource"
+        android:layout_below="@id/BGSource"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/CodeStyleSource"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:text="@string/CodeStyleSource"
+        android:layout_below="@id/NotifIconSource"
+        android:layout_marginTop="10dp"/>
+
 </RelativeLayout>

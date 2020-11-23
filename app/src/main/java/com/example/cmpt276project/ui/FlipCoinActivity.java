@@ -10,6 +10,7 @@ import com.example.cmpt276project.model.Children;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
 
 import android.util.Log;
 import android.view.Menu;
@@ -40,17 +41,10 @@ public class FlipCoinActivity extends AppCompatActivity {
     public static final String DATE_FORMAT = "MM dd yyyy, h:mm:s";
     private String coinSide;
 
-
     // Initiate variable
     private Children children;
-
-
     private FlipHistoryManager historyManager;
-
-
     private MediaPlayer flipSound;
-
-
 
     // When buttonState == true, Flip is invisible, Head and tail is visible
     // When buttonState == false, Flip is visible, Head and tail is invisible
@@ -73,23 +67,23 @@ public class FlipCoinActivity extends AppCompatActivity {
         children = Children.getInstance();
         children.loadChildren(this);
 
-
         // Handling history
         historyManager = FlipHistoryManager.getInstance();
-
 
         // Handling tossing coin sound
         flipSound = MediaPlayer.create(this,R.raw.coin_toss_sound);
 
-
+        //Setup Buttons
         displayChildName();
-
         initiateButtons();
-
         registerHeadOrTailClicked();
         registerFlipClicked();
-    }
+        registerChangeDefaultClicked();
+        registerNobodyClicked();
 
+        //Setup Message Fragment
+        setupChangeChildMessage();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -101,34 +95,13 @@ public class FlipCoinActivity extends AppCompatActivity {
     // Flip History
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         if (item.getItemId() == R.id.History_button) {
             Intent intent = new Intent(FlipCoinActivity.this, FlipCoinHistoryActivity.class);
             startActivity(intent);
             return true;
-
        }
        //return false;
         return super.onOptionsItemSelected(item);
-    }
-
-
-    // Set Button State
-    // Toggle visibility of the Flip button
-    private void setButton() {
-        Button headButton = findViewById(R.id.headButton);
-        Button tailButton = findViewById(R.id.tailButton);
-        Button flipButton = findViewById(R.id.btn_flip);
-        if(buttonState) {
-            headButton.setVisibility(View.VISIBLE);
-            tailButton.setVisibility(View.VISIBLE);
-            flipButton.setVisibility(View.GONE);
-        }
-        else{
-            headButton.setVisibility(View.GONE);
-            tailButton.setVisibility(View.GONE);
-            flipButton.setVisibility(View.VISIBLE);
-        }
     }
 
     // Initiate button state
@@ -140,6 +113,30 @@ public class FlipCoinActivity extends AppCompatActivity {
         }
         else
             setButton();
+    }
+
+    // Set Button State
+    // Toggle visibility of the Flip button
+    private void setButton() {
+        Button headButton = findViewById(R.id.headButton);
+        Button tailButton = findViewById(R.id.tailButton);
+        Button flipButton = findViewById(R.id.btn_flip);
+        Button changeChildButton = findViewById(R.id.changeChildButton);
+        Button changeNobodyButton = findViewById(R.id.changeNobodyButton);
+        Button changeDefaultButton = findViewById(R.id.changeDefaultButton);
+        changeChildButton.setVisibility(View.GONE);
+        changeNobodyButton.setVisibility(View.GONE);
+        changeDefaultButton.setVisibility(View.VISIBLE);
+        if(buttonState) {
+            headButton.setVisibility(View.VISIBLE);
+            tailButton.setVisibility(View.VISIBLE);
+            flipButton.setVisibility(View.GONE);
+        }
+        else{
+            headButton.setVisibility(View.GONE);
+            tailButton.setVisibility(View.GONE);
+            flipButton.setVisibility(View.VISIBLE);
+        }
     }
 
     // Registered for Head and tail buttons
@@ -171,70 +168,81 @@ public class FlipCoinActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 int randomNumber = ThreadLocalRandom.current().nextInt(1, 3);
-
                 if (randomNumber == 1) {
                     flipCoinAnimation(R.drawable.quarter_head, "Heads");
                     coinSide = "Head";
                     flipSound.start();
-
-                    WinOrLoss = choose.equals(coinSide);
-
                 }
                 else {
                     flipCoinAnimation(R.drawable.quarter_tail, "Tail");
-
                     coinSide = "Tail";
                     flipSound.start();
-
-                    WinOrLoss = choose.equals(coinSide);
-
                 }
-
                 if(children.getNumChildren(FlipCoinActivity.this) != 0) {
                     buttonState = true;
                     setButton();
+                    WinOrLoss = choose.equals(coinSide);
                     historyManager.addHistory(saveCurrentDateAndTime(), saveChildNames(),choose, WinOrLoss);
                 }
-
                 // Set current child to next child
                 if(children.getNumChildren(FlipCoinActivity.this) != 0)
                     children.setCurrentToNextChild(FlipCoinActivity.this);
             }
-
-
         });
     }
 
+    // Registered for Change Default buttons
+    private void registerChangeDefaultClicked() {
+        final Button changeDefaultBtn = findViewById(R.id.changeDefaultButton);
+        final Button changeChildBtn = findViewById(R.id.changeChildButton);
+        final Button changeNobodyBtn = findViewById(R.id.changeNobodyButton);
+        final Button headButton = findViewById(R.id.headButton);
+        final Button tailButton = findViewById(R.id.tailButton);
+        final Button flipButton = findViewById(R.id.btn_flip);
+        changeDefaultBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeDefaultBtn.setVisibility(View.GONE);
+                changeChildBtn.setVisibility(View.VISIBLE);
+                changeNobodyBtn.setVisibility(View.VISIBLE);
+                headButton.setVisibility(View.GONE);
+                tailButton.setVisibility(View.GONE);
+                flipButton.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    // Registered for Nobody buttons
+    private void registerNobodyClicked() {
+        final Button changeNobodyBtn = findViewById(R.id.changeNobodyButton);
+        changeNobodyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buttonState = true;
+                initiateButtons();
+            }
+        });
+    }
 
     private String saveCurrentDateAndTime() {
-
         @SuppressLint("SimpleDateFormat") DateFormat date = new SimpleDateFormat(DATE_FORMAT);
         String dateFormatted = date.format(Calendar.getInstance().getTime());
-
         Log.d("the date and time saved is:",dateFormatted);
-
         return dateFormatted;
-
-
     }
+
     private String saveChildNames() {
-
         if (children.getNumChildren(this) != 0) {
-
             Log.d("saved Child is: ", children.getChild(children.getCurrentChildIndex(this)) );
             return children.getChild(children.getCurrentChildIndex(this));
-
         }
         return null;
     }
-
-
 
     // Display current child name who flip the coin
     // If currently has no child, display "No child"
     private void displayChildName() {
         TextView textView = findViewById(R.id.childNameTextView);
-
         if(children.getNumChildren(this) == 0)
             textView.setText(DEFAULT);
         else {
@@ -249,7 +257,6 @@ public class FlipCoinActivity extends AppCompatActivity {
             }
         }
     }
-
 
     private void flipCoinAnimation(final int imageID, final String coinSide) {
         final ImageView coin = findViewById(R.id.img_coin);
@@ -269,8 +276,17 @@ public class FlipCoinActivity extends AppCompatActivity {
         });
     }
 
-
-
-
-
+    //Setup Message Fragment
+    private void setupChangeChildMessage() {
+        Button button = (Button) findViewById(R.id.changeChildButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager manager = getSupportFragmentManager();
+                ChangeChildMessageFragment dialog = new ChangeChildMessageFragment();
+                dialog.show(manager,"MessageDialog");
+            }
+        });
+        displayChildName();
+    }
 }

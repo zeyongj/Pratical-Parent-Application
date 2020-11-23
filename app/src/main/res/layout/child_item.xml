@@ -9,28 +9,34 @@
     app:cardElevation="5dp">
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="54dp"
         android:layout_margin="4dp">
 
         <TextView
             android:id="@+id/childname"
-            android:layout_width="wrap_content"
+            android:layout_width="216dp"
             android:layout_height="match_parent"
-            android:textSize="15sp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="1dp"
+            android:layout_marginBottom="-1dp"
+            android:layout_toStartOf="@+id/editbutton"
+            android:layout_toEndOf="@+id/img_profileImageChildItem"
             android:gravity="center_vertical"
+            android:textSize="15sp"
             tools:ignore="RelativeOverlap" />
 
         <Button
             android:id="@+id/deletebutton"
-            android:layout_width="40dp"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
+            android:layout_width="46dp"
+            android:layout_height="38dp"
             android:layout_alignParentEnd="true"
-            android:background="#FF0000"
-            android:textColor="#FFFFFF"
-            android:text="@string/DeleteButton"
+            android:layout_centerVertical="true"
             android:layout_marginEnd="20dp"
+            android:background="#FF0000"
+            android:text="@string/DeleteButton"
+            android:textColor="#FFFFFF"
             android:textSize="10sp"
             tools:ignore="RelativeOverlap,SmallSp" />
 
@@ -38,12 +44,23 @@
             android:id="@+id/editbutton"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="12dp"
             android:layout_toStartOf="@+id/deletebutton"
-            android:layout_marginEnd="20dp"
             android:text="@string/EditButton"
             android:textSize="10sp"
             tools:ignore="RelativeOverlap,SmallSp" />
+
+        <ImageView
+            android:id="@+id/img_profileImageChildItem"
+            android:layout_width="55dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="1dp"
+            android:layout_marginBottom="-1dp"
+            tools:srcCompat="@drawable/default_user_profile" />
 
 
     </RelativeLayout>
