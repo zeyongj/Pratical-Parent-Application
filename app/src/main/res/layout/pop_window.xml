@@ -6,21 +6,22 @@
     android:background="@color/colorPrimaryDark"
     android:padding="5dp"
     android:layout_gravity="center">
-    <TextView
-        android:id="@+id/pop_tv_close"
+    <Button
+        android:id="@+id/pop_btn_close"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:textColor="#FFFFFF"
-        android:text="X"
+        android:text="x"
         android:textStyle="bold"
         android:layout_gravity="end"
         android:gravity="center"
-        android:background="@drawable/circlebackground"/>
+        android:background="@drawable/button_clicked" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <ImageView
+            android:id="@+id/pop_tv_child_image"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:src="@drawable/image_white"
@@ -62,13 +63,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Description"
-                android:textSize="18sp"
-                android:textColor="#FFFFFF"/>
-            <TextView
-                android:id="@+id/pop_tv_task_desc_content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Content"
                 android:textSize="18sp"
                 android:textColor="#FFFFFF"/>
         </LinearLayout>
