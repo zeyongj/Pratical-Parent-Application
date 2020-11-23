@@ -49,11 +49,22 @@ public class TaskPopUpWindow extends AppCompatDialogFragment {
             }
         });
         setValues(popupView);
-
+        Button btnCancel = popupView.findViewById(R.id.pop_btn_cancel);
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View popupView) {
+                removeTask(position,popupView);
+                dismiss();
+            }
+        });
         return new AlertDialog.Builder(getActivity())
                 .setView(popupView)
                 .create();
     }
+
+
+
+
 
     public void setValues(final View v) {
         TextView taskName = v.findViewById(R.id.pop_tv_task_name);
@@ -62,14 +73,20 @@ public class TaskPopUpWindow extends AppCompatDialogFragment {
         ImageView childImage = v.findViewById(R.id.pop_tv_child_image);
 
 
-
         taskName.setText(taskManager.getTask(position).getTaskName());
         childName.setText(taskManager.getTask(position).getChild());
         taskDesc.setText(taskManager.getTask(position).getTaskDescription());
         if (taskDesc.getText().equals("")) {
             taskDesc.setText(R.string.NoDesc);
         }
+    }
 
+    public void removeTask(int position, View popupView) {
+        String text = "No." + position + " Task Cancelled";
+        Toast.makeText(popupView.getContext(), text, Toast.LENGTH_SHORT).show();
+        taskManager.removeTask(position);
+        taskManager.saveTaskManager(popupView.getContext());
+        whoseTurnAdapter.notifyItemRemoved(position);
     }
 
 }

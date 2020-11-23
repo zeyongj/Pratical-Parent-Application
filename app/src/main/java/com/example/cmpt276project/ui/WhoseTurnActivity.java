@@ -144,6 +144,7 @@ public class WhoseTurnActivity extends AppCompatActivity {
         Intent intent = new Intent(this, EditTaskActivity.class);
         intent.putExtra("position",position);
         startActivity(intent);
+        whoseTurnAdapter.notifyDataSetChanged();
     }
 
     public void goToAddTasks() {
