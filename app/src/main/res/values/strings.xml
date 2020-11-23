@@ -71,4 +71,11 @@
     <string name="TaskNameIs">Task Name: %s</string>
     <string name="ChildNameIs">Next Child: %s</string>
     <string name="NoDesc">No Description</string>
+    <string name="CancelTask">Cancel Task of %s</string>
+    <string name="FinishTask">%1$s Finished Task of %2$s</string>
+    <string name="UpdateTask">Next Child of %1$s Task Is %2$s</string>
+    <string name="CurrentIndex">Current index is %d</string>
+    <string name="TaskNameAttention">Please enter the name of the task!</string>
+    <string name="AddTaskSuccess">Add Task Successfully</string>
+    <string name="EditTaskSuccess">Edit Task Successfully</string>
 </resources>

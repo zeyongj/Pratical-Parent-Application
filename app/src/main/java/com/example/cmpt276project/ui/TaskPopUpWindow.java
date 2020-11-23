@@ -96,7 +96,7 @@ public class TaskPopUpWindow extends AppCompatDialogFragment {
     }
 
     public void removeTask(int position, View popupView) {
-        String text = "No." + (position + 1) + " Task Cancelled";
+        String text = getString(R.string.CancelTask,taskManager.getTask(position).getTaskName());
         Toast.makeText(popupView.getContext(), text, Toast.LENGTH_SHORT).show();
         taskManager.removeTask(position);
         taskManager.saveTaskManager(popupView.getContext());
@@ -104,18 +104,23 @@ public class TaskPopUpWindow extends AppCompatDialogFragment {
     }
 
     public void updateTask(int position, View popupView) {
-        String text = "No." + (position + 1) + " Task Done by " + taskManager.getTask(position).getChild();
+//        String text = "No." + (position + 1) + " Task Done by " + taskManager.getTask(position).getChild();
+//        Toast.makeText(popupView.getContext(), text, Toast.LENGTH_SHORT).show();
+        String text = getString(R.string.FinishTask, taskManager.getTask(position).getChild(), taskManager.getTask(position).getTaskName());
         Toast.makeText(popupView.getContext(), text, Toast.LENGTH_SHORT).show();
         Task currentTask = taskManager.getTask(position);
         int currentChildIndex = currentTask.getChildIndex();
-//                String childIndex = "Now child index is "+ currentChildIndex;
-//                Toast.makeText(popupView.getContext(), childIndex, Toast.LENGTH_SHORT).show();
+
         int newChildIndex = currentChildIndex + 1;
         currentTask.assignNewChild(newChildIndex,popupView.getContext());
-        String newChildName = "Next child for " + "No." + (position + 1) + " Task is "+ currentTask.getChild();
-        Toast.makeText(popupView.getContext(), newChildName, Toast.LENGTH_SHORT).show();
+
+//        String newChildName = "Next child for " + "No." + (position + 1) + " Task is "+ currentTask.getChild();
+//        Toast.makeText(popupView.getContext(), newChildName, Toast.LENGTH_SHORT).show();
+
         currentTask.updateTask(currentTask.getChildren());
         whoseTurnAdapter.notifyDataSetChanged();
+        String newText = getString(R.string.UpdateTask, taskManager.getTask(position).getTaskName(), taskManager.getTask(position).getChild());
+        Toast.makeText(popupView.getContext(), newText, Toast.LENGTH_SHORT).show();
     }
 
 }

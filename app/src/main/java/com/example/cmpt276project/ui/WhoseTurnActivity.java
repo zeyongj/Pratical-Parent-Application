@@ -171,7 +171,8 @@ public class WhoseTurnActivity extends AppCompatActivity {
     }
 
     public void showCurrentTask(int position) {
-        Toast.makeText(this, "Current index: " + position, Toast.LENGTH_SHORT).show();
+        String text = getString(R.string.CurrentIndex, position);
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
         FragmentManager manager = getSupportFragmentManager();
         TaskPopUpWindow taskPopUpWindow = new TaskPopUpWindow(taskManager, position, whoseTurnAdapter);
 
