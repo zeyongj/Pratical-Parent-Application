@@ -59,6 +59,15 @@
     <string name="Reset">Reset</string>
 
     <string name="HelpPage">Help Page</string>
+    <string name="WhoseTurn1">Whose Turn Is It</string>
+    <string name="change_profile">CHANGE PROFILE</string>
+    <string name="save_child">Save Child</string>
+    <string name="cancel">CANCEL</string>
+    <string name="add_child">Add Child</string>
+    <string name="edit_child">Edit Child</string>
+    <string name="default_profile_image">default profile image</string>
+    <string name="ok1">OK</string>
+    <string name="camera">Camera</string>
     <string name="WhoseTurn">Whose Turn Is It</string>s
     <string name="AddTask">Add Task</string>
     <string name="Save">Save</string>
