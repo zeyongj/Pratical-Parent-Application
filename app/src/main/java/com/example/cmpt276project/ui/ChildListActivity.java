@@ -46,6 +46,10 @@ public class ChildListActivity extends AppCompatActivity {
         children = Children.getInstance();
         children.loadChildren(this);
 
+
+        children.loadChildrenProfile(this);
+
+
         // Build the RecyclerView
         buildChildView(children);
 
@@ -74,12 +78,16 @@ public class ChildListActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         children.saveChildren(this);
+
+        children.saveChildrenProfile(this);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         children.saveChildren(this);
+
+        children.saveChildrenProfile(this);
     }
 
     // Open add child dialog when the add child button is pressed
@@ -148,6 +156,9 @@ public class ChildListActivity extends AppCompatActivity {
     // Remove the child at the current position
     public void removeChild(int position) {
         children.removeChild(position);
+
+        children.removeChildProfile(position);
+
         childrenAdapter.notifyItemRemoved(position);
     }
 

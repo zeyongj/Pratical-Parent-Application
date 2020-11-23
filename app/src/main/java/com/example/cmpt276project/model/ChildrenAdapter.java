@@ -95,11 +95,16 @@ public class ChildrenAdapter extends RecyclerView.Adapter<ChildrenAdapter.Childr
     public void onBindViewHolder(@NonNull ChildrenViewHolder holder, int position) {
         String currentChild = children.getChild(position);
 
-        //int currentProfile = children.getChildProfile(position);
-
+        String currentProfile = children.getChildProfile(position);
 
 
         holder.childName.setText(currentChild);
+
+
+        // bug: image is not a drawable
+
+        // TODO: default case when children profile is not entered
+        holder.profilePic.setImageBitmap(children.decodeToBase64(currentProfile));
 
 
         //holder.profilePic.setImageResource(currentProfile);

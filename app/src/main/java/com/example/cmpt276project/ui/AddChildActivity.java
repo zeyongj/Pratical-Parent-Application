@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -33,6 +35,10 @@ public class AddChildActivity extends AppCompatActivity {
     // Handling profile Image
     private ImageView profileImage;
 
+    BitmapDrawable drawableProfile;
+    Bitmap bitmapStored;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +54,9 @@ public class AddChildActivity extends AppCompatActivity {
         addChildName = findViewById(R.id.txt_enterChildName);
 
         profileImage = findViewById(R.id.profileImage);
+
+        // set default image
+        profileImage.setImageResource(R.drawable.default_user_profile);
 
 
 
@@ -80,6 +89,9 @@ public class AddChildActivity extends AppCompatActivity {
             if(resultCode == Activity.RESULT_OK) {
                 Uri imageUri = data.getData();
                 profileImage.setImageURI(imageUri);
+                drawableProfile = (BitmapDrawable) profileImage.getDrawable();
+                bitmapStored = drawableProfile.getBitmap();
+
             }
         }
     }
@@ -93,7 +105,13 @@ public class AddChildActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 addChild(children);
-                addChildProfile(profileImage.getId());
+
+
+                // convert the image view to bitmap
+//                BitmapDrawable drawable = (BitmapDrawable) profileImage.getDrawable();
+//                Bitmap bitmap = drawable.getBitmap();
+
+                addChildProfile(bitmapStored);
 
                 Toast.makeText(AddChildActivity.this,
                         "The ID of image saved is: " + children.getChildProfile(0),
@@ -119,8 +137,8 @@ public class AddChildActivity extends AppCompatActivity {
         childrenAdapter.notifyItemInserted(children.getSize()-1);
     }
 
-    public void addChildProfile(int profileID) {
-        children.addChildProfile(profileImage.getId());
+    public void addChildProfile(Bitmap profileID) {
+        children.addChildProfile(profileID);
         childrenAdapter.notifyItemInserted(children.getSize()-1);
     }
 
