@@ -123,9 +123,11 @@ public class EditChildActivity extends AppCompatActivity {
 
             }
         }
-        if (requestCode == 101) {
+        else if (requestCode == 101) {
             Bitmap bitmap  = (Bitmap) data.getExtras().get("data");
             profileImage.setImageBitmap(bitmap);
+            drawableProfile = (BitmapDrawable) profileImage.getDrawable();
+            bitmapStored = drawableProfile.getBitmap();
         }
     }
 
@@ -139,7 +141,6 @@ public class EditChildActivity extends AppCompatActivity {
 
                 if (isProfileChanged){
                     editChildProfile(bitmapStored, position);
-
                 }
             }
         });

@@ -122,13 +122,14 @@ public class AddChildActivity extends AppCompatActivity {
             }
         }
 
-        if (requestCode == 100) {
+        else if (requestCode == 100) {
             Bitmap bitmap  = (Bitmap) data.getExtras().get("data");
             profileImage.setImageBitmap(bitmap);
+            drawableProfile = (BitmapDrawable) profileImage.getDrawable();
+            bitmapStored = drawableProfile.getBitmap();
+
         }
     }
-
-    // TODO: fix bug when saving child with no names
 
 
     private void registerClickedSaveChild() {
@@ -144,7 +145,6 @@ public class AddChildActivity extends AppCompatActivity {
 
             if (isProfileSet) {
                 addChildProfile(bitmapStored);
-
 
                 }
 
