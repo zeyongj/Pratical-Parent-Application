@@ -19,6 +19,11 @@
             android:name=".ui.AddChildActivity"
             android:parentActivityName=".ui.ChildListActivity" />
         <activity
+            android:name=".ui.AddTaskActivity"
+            android:parentActivityName=".ui.WhoseTurnActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="@string/AddTask"/>
+        <activity
             android:name=".ui.HelpPageActivity"
             android:label="@string/HelpPage"
             android:parentActivityName=".ui.MainActivity"

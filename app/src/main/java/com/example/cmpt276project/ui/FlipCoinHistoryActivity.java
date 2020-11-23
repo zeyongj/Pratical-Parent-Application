@@ -54,9 +54,9 @@ public class FlipCoinHistoryActivity extends AppCompatActivity {
         manager = FlipHistoryManager.getInstance();
         children = Children.getInstance();
 
+        populateListView();
         if(children.getNumChildren(this) != 0) {
             currentChildName = "ChildName: " + children.getChild(children.getCurrentChildIndex(this));
-            populateListView();
         }
 
     }
@@ -79,7 +79,7 @@ public class FlipCoinHistoryActivity extends AppCompatActivity {
         }
 
         if (item.getItemId() == R.id.AllChildHsitory_Button_item) {
-            populateCurrentChildListView();
+            populateListView();
             toggleHistory = true;
             return true;
         }
@@ -87,13 +87,6 @@ public class FlipCoinHistoryActivity extends AppCompatActivity {
         //return false;
         return super.onOptionsItemSelected(item);
     }
-
-    private void populateCurrentChildListView() {
-        ArrayAdapter<FlipHistory> adapter = new myListAdapter();
-        ListView list = findViewById(R.id.history_ListView);
-        list.setAdapter(adapter);
-    }
-
 
     public void populateListView(){
         ArrayAdapter<FlipHistory> adapter = new myListAdapter();
