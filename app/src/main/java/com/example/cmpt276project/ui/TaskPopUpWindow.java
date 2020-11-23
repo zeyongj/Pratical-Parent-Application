@@ -115,6 +115,7 @@ public class TaskPopUpWindow extends AppCompatDialogFragment {
         String newChildName = "Next child for " + "No." + (position + 1) + " Task is "+ currentTask.getChild();
         Toast.makeText(popupView.getContext(), newChildName, Toast.LENGTH_SHORT).show();
         currentTask.updateTask(currentTask.getChildren());
+        whoseTurnAdapter.notifyDataSetChanged();
     }
 
 }
