@@ -77,10 +77,6 @@ public class TaskPopUpWindow extends AppCompatDialogFragment {
                 .create();
     }
 
-
-
-
-
     public void setValues(final View v) {
         TextView taskName = v.findViewById(R.id.pop_tv_task_name);
         TextView childName = v.findViewById(R.id.pop_tv_child_name);
