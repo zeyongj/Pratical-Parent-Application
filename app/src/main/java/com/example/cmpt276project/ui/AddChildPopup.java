@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,6 +24,10 @@ public class AddChildPopup extends AppCompatDialogFragment {
     private Children children;
     private ChildrenAdapter childrenAdapter;
     private EditText addChildName;
+
+
+    // Handling profile Image
+
 
     // Constructor
     public AddChildPopup(Children children, ChildrenAdapter childrenAdapter) {

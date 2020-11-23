@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.cmpt276project.R;
 import com.example.cmpt276project.model.Children;
@@ -28,9 +29,9 @@ public class AddChildActivity extends AppCompatActivity {
 
 
 
-    // Handling profile Image
-    ImageView profileImage;
 
+    // Handling profile Image
+    private ImageView profileImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +93,12 @@ public class AddChildActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 addChild(children);
-                //Toast.makeText(AddChildActivity.this, addChildName.getText().toString(), Toast.LENGTH_SHORT).show();
+                addChildProfile(profileImage.getId());
+
+                Toast.makeText(AddChildActivity.this,
+                        "The ID of image saved is: " + children.getChildProfile(0),
+                        Toast.LENGTH_SHORT).show();
+
             }
         });
     }
@@ -112,5 +118,11 @@ public class AddChildActivity extends AppCompatActivity {
         children.addChild(addChildName.getText().toString());
         childrenAdapter.notifyItemInserted(children.getSize()-1);
     }
+
+    public void addChildProfile(int profileID) {
+        children.addChildProfile(profileImage.getId());
+        childrenAdapter.notifyItemInserted(children.getSize()-1);
+    }
+
 
 }

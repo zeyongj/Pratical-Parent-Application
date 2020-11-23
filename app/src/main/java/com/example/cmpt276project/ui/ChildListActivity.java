@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.cmpt276project.R;
 import com.example.cmpt276project.model.Children;
@@ -57,7 +58,7 @@ public class ChildListActivity extends AppCompatActivity {
 
         startEditChildActivity = new Intent(ChildListActivity.this, EditChildActivity.class);
 
-
+        //Toast.makeText(ChildListActivity.this, children.profileIDs.get(0).toString(), Toast.LENGTH_SHORT).show();
 
     }
 

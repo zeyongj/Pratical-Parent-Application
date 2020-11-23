@@ -95,8 +95,14 @@ public class ChildrenAdapter extends RecyclerView.Adapter<ChildrenAdapter.Childr
     public void onBindViewHolder(@NonNull ChildrenViewHolder holder, int position) {
         String currentChild = children.getChild(position);
 
+        //int currentProfile = children.getChildProfile(position);
+
+
+
         holder.childName.setText(currentChild);
-       // holder.profilePic.setImageResource();
+
+
+        //holder.profilePic.setImageResource(currentProfile);
     }
 
     // Get the number of items in the RecyclerView
