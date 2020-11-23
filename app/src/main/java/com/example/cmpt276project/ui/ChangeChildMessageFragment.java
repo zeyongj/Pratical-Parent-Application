@@ -47,8 +47,6 @@ public class ChangeChildMessageFragment extends AppCompatDialogFragment {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1,ChildrenName);
         listView.setAdapter(adapter);
 
-
-
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder
                 .setView(v)
