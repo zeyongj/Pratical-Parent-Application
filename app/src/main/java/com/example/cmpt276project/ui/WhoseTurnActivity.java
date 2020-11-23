@@ -53,7 +53,7 @@ public class WhoseTurnActivity extends AppCompatActivity {
         buildWhoseTurnView(taskManager);
 
         // Build the delete buttons on the RecyclerView items
-        setRecyclerViewButtons();
+        setDeleteButtons();
 
         myDialog = new Dialog(this);
     }
@@ -96,14 +96,14 @@ public class WhoseTurnActivity extends AppCompatActivity {
         whoseTurnRecyclerView.setLayoutManager(taskLayoutManager);
 
         // Set Adapter for the RecyclerView
-        whoseTurnAdapter = new WhoseTurnAdapter(taskManager, this);
+        whoseTurnAdapter = new WhoseTurnAdapter(taskManager);
         whoseTurnRecyclerView.setAdapter(whoseTurnAdapter);
     }
 
     // Method to build the Delete buttons on the RecyclerView items
-    public void setRecyclerViewButtons() {
+    public void setDeleteButtons() {
         // Use custom OnClickListener to remove items in RecyclerView
-        whoseTurnAdapter.setRecyclerViewClickListener(new WhoseTurnAdapter.OnRecyclerViewClickListener() {
+        whoseTurnAdapter.setDeleteButtonClickListener(new WhoseTurnAdapter.OnDeleteButtonClickListener() {
             @Override
             public void editTask(int position) {
                 // Put what to do when EDIT button is clicked here
@@ -114,11 +114,6 @@ public class WhoseTurnActivity extends AppCompatActivity {
             public void deleteTask(int position) {
                 // Remove the item from TaskManager class and notify RecyclerView that it was removed
                 removeTask(position);
-            }
-
-            @Override
-            public void showTask(int position) {
-                showCurrentTask(position);
             }
         });
     }
@@ -144,7 +139,6 @@ public class WhoseTurnActivity extends AppCompatActivity {
         Intent intent = new Intent(this, EditTaskActivity.class);
         intent.putExtra("position",position);
         startActivity(intent);
-        whoseTurnAdapter.notifyDataSetChanged();
     }
 
     public void goToAddTasks() {
@@ -168,13 +162,5 @@ public class WhoseTurnActivity extends AppCompatActivity {
             taskManager.reinitializeTaskManager();
         }
         taskManager.updateTasks(children);
-    }
-
-    public void showCurrentTask(int position) {
-        Toast.makeText(this, "Current index: " + position, Toast.LENGTH_SHORT).show();
-        FragmentManager manager = getSupportFragmentManager();
-        TaskPopUpWindow taskPopUpWindow = new TaskPopUpWindow(taskManager, position, whoseTurnAdapter);
-
-        taskPopUpWindow.show(manager, "yep");
     }
 }

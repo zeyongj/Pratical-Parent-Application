@@ -1,7 +1,6 @@
 package com.example.cmpt276project.model;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -26,19 +25,17 @@ import org.w3c.dom.Text;
 public class WhoseTurnAdapter extends RecyclerView.Adapter<WhoseTurnAdapter.WhoseTurnViewHolder>{
     // Set variables
     private TaskManager taskManager;
-    private WhoseTurnAdapter.OnRecyclerViewClickListener recyclerViewClickListener;
-    private Context context;
+    private WhoseTurnAdapter.OnDeleteButtonClickListener deleteButtonListener;
 
-    // Set interface for RecyclerView items
-    public interface OnRecyclerViewClickListener {
+    // Set interface for Delete button on RecyclerView item
+    public interface OnDeleteButtonClickListener {
         void deleteTask(int position);
         void editTask(int position);
-        void showTask(int position);
     }
 
-    // Method to create OnClickListener for RecyclerView items
-    public void setRecyclerViewClickListener(WhoseTurnAdapter.OnRecyclerViewClickListener listener) {
-        recyclerViewClickListener = listener;
+    // Method to create OnClickListener for Delete button on RecyclerView item
+    public void setDeleteButtonClickListener(WhoseTurnAdapter.OnDeleteButtonClickListener listener) {
+        deleteButtonListener = listener;
     }
 
     public static class WhoseTurnViewHolder extends RecyclerView.ViewHolder {
@@ -47,7 +44,7 @@ public class WhoseTurnAdapter extends RecyclerView.Adapter<WhoseTurnAdapter.Whos
         public Button deleteButton;
         public Button editButton;
 
-        public WhoseTurnViewHolder(@NonNull View itemView, final WhoseTurnAdapter.OnRecyclerViewClickListener listener) {
+        public WhoseTurnViewHolder(@NonNull View itemView, final WhoseTurnAdapter.OnDeleteButtonClickListener listener) {
             super(itemView);
             taskName = itemView.findViewById(R.id.taskname);
             deleteButton = itemView.findViewById(R.id.taskdeletebutton);
@@ -79,26 +76,22 @@ public class WhoseTurnAdapter extends RecyclerView.Adapter<WhoseTurnAdapter.Whos
                     }
                 }
             });
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int position = getAdapterPosition();
-
-                    if (position != RecyclerView.NO_POSITION) {
-                        listener.showTask(position);
-                    }
-                }
-            });
         }
 
 
     }
 
+    public static interface OnItemClickListener {
+        void onItemClick(View view,int position);
+    }
+    private OnItemClickListener monItemClickListener=null;
+    public void setonItemClickListener(OnItemClickListener listener){
+        this.monItemClickListener=listener;
+    }
+
     // Constructor
-    public WhoseTurnAdapter(TaskManager taskManager, Context context) {
+    public WhoseTurnAdapter(TaskManager taskManager) {
         this.taskManager = taskManager;
-        this.context = context;
     }
 
     // Inflate the specified layout for use
@@ -106,7 +99,7 @@ public class WhoseTurnAdapter extends RecyclerView.Adapter<WhoseTurnAdapter.Whos
     @Override
     public WhoseTurnAdapter.WhoseTurnViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View childrenLayout = LayoutInflater.from(parent.getContext()).inflate(R.layout.task_item, parent, false);
-        return new WhoseTurnAdapter.WhoseTurnViewHolder(childrenLayout, recyclerViewClickListener);
+        return new WhoseTurnAdapter.WhoseTurnViewHolder(childrenLayout, deleteButtonListener);
     }
 
 
@@ -114,13 +107,19 @@ public class WhoseTurnAdapter extends RecyclerView.Adapter<WhoseTurnAdapter.Whos
     // Bind the child names to their relevant positions on the RecyclerView
     @Override
     public void onBindViewHolder(@NonNull WhoseTurnAdapter.WhoseTurnViewHolder holder, final int position) {
-        String currentTask = context.getString(R.string.TaskNameIs, taskManager.getTask(position).getTaskName());
-        String nextChild = context.getString(R.string.ChildNameIs, taskManager.getTask(position).getChild());
+        String currentTask = "Task Name: " + taskManager.getTask(position).getTaskName();
+        String nextChild = "Next Child: " + taskManager.getTask(position).getChild();
         holder.taskName.setText(currentTask);
         holder.taskName.setTextColor(Color.BLUE);
         holder.nextChildName.setText(nextChild);
         holder.nextChildName.setTextColor(Color.BLACK);
-    }
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
+                }
+            });
+        }
 
     // Get the number of items in the RecyclerView
     @Override

@@ -67,8 +67,4 @@
     <string name="InputTaskDesc">Input Task Description</string>
     <string name="EditTaskName">New Task Name</string>
     <string name="EditTaskDesc">New Task Description</string>
-
-    <string name="TaskNameIs">Task Name: %s</string>
-    <string name="ChildNameIs">Next Child: %s</string>
-    <string name="NoDesc">No Description</string>
 </resources>
