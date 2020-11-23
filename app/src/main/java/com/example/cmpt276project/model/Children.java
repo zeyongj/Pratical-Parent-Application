@@ -93,6 +93,7 @@ public class Children {
             editor.putString(CHILD_INDEX + i, childrenNames.get(i));
         }
         editor.apply();
+        saveChildrenProfile(context);
     }
 
     // Load the list of children
@@ -108,6 +109,7 @@ public class Children {
         for (int i = 0; i < numChildren; i++) {
             childrenNames.add(sharedPreferences.getString(CHILD_INDEX + i, null));
         }
+        loadChildrenProfile(context);
     }
 
 
