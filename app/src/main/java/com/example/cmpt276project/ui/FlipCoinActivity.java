@@ -189,8 +189,11 @@ public class FlipCoinActivity extends AppCompatActivity {
                 if(children.getNumChildren(FlipCoinActivity.this) != 0  && NobodyTurn == false )
                     children.setCurrentToNextChild(FlipCoinActivity.this);
 
-                if(NobodyTurn == true)
+                if(NobodyTurn == true) {
                     NobodyTurn = false;
+                    buttonState = true;
+                    setButton();
+                }
             }
         });
     }
@@ -283,7 +286,8 @@ public class FlipCoinActivity extends AppCompatActivity {
         });
     }
 
-    //Setup Message Fragment
+    // Register Change Child Button clicked
+    // Setup Message Fragment
     private void setupChangeChildMessage() {
         Button button = (Button) findViewById(R.id.changeChildButton);
         button.setOnClickListener(new View.OnClickListener() {
@@ -292,6 +296,9 @@ public class FlipCoinActivity extends AppCompatActivity {
                 FragmentManager manager = getSupportFragmentManager();
                 ChangeChildMessageFragment dialog = new ChangeChildMessageFragment();
                 dialog.show(manager,"MessageDialog");
+                buttonState = true;
+                initiateButtons();
+                NobodyTurn = false;
             }
         });
         displayChildName();
