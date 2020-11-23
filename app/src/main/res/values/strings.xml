@@ -67,4 +67,5 @@
     <string name="edit_child">Edit Child</string>
     <string name="default_profile_image">default profile image</string>
     <string name="ok1">OK</string>
+    <string name="camera">Camera</string>
 </resources>

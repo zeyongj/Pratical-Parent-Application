@@ -47,29 +47,30 @@
 
     <Button
         android:id="@+id/btn_changeProfileImage"
-        android:layout_width="201dp"
-        android:layout_height="46dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="95dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="28dp"
         android:text="@string/change_profile"
         app:layout_constraintEnd_toEndOf="@+id/txt_enterChildName"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/txt_enterChildName"
         app:layout_constraintTop_toBottomOf="@+id/txt_enterChildName" />
 
     <Button
         android:id="@+id/btn_saveChild"
-        android:layout_width="198dp"
-        android:layout_height="46dp"
+        android:layout_width="210dp"
+        android:layout_height="49dp"
         android:layout_marginTop="20dp"
         android:text="@string/save_child"
         app:layout_constraintEnd_toEndOf="@+id/btn_changeProfileImage"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/btn_changeProfileImage"
         app:layout_constraintTop_toBottomOf="@+id/btn_changeProfileImage" />
 
     <Button
         android:id="@+id/btn_cancel"
-        android:layout_width="195dp"
-        android:layout_height="47dp"
+        android:layout_width="210dp"
+        android:layout_height="49dp"
         android:text="@string/cancel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/btn_saveChild"
@@ -77,4 +78,15 @@
         app:layout_constraintStart_toStartOf="@+id/btn_saveChild"
         app:layout_constraintTop_toBottomOf="@+id/btn_saveChild"
         app:layout_constraintVertical_bias="0.129" />
+
+    <Button
+        android:id="@+id/btn_AddChildCamera"
+        android:layout_width="95dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="20dp"
+        android:text="@string/camera"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_changeProfileImage"
+        app:layout_constraintStart_toEndOf="@+id/btn_changeProfileImage"
+        app:layout_constraintTop_toTopOf="@+id/btn_changeProfileImage"
+        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

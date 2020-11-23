@@ -3,9 +3,13 @@ package com.example.cmpt276project.ui;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
@@ -61,15 +65,35 @@ public class AddChildActivity extends AppCompatActivity {
         // set default image
         profileImage.setImageResource(R.drawable.default_user_profile);
 
+        // request for camera runtime permission
+        if (ContextCompat.checkSelfPermission(AddChildActivity.this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(AddChildActivity.this, new String[]{
+                    Manifest.permission.CAMERA
+            }, 100);
+        }
 
 
         registerClickedSaveChild();
         registerClickedCancel();
         registerClickedChangeProfile();
+        registerClickedCamera();
 
 
 
     }
+
+    private void registerClickedCamera() {
+        Button btn = findViewById(R.id.btn_AddChildCamera);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent enableCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(enableCameraIntent, 100);
+            }
+        });
+    }
+
 
     private void registerClickedChangeProfile() {
         Button btn = findViewById(R.id.btn_changeProfileImage);
@@ -96,6 +120,11 @@ public class AddChildActivity extends AppCompatActivity {
                 bitmapStored = drawableProfile.getBitmap();
 
             }
+        }
+
+        if (requestCode == 100) {
+            Bitmap bitmap  = (Bitmap) data.getExtras().get("data");
+            profileImage.setImageBitmap(bitmap);
         }
     }
 

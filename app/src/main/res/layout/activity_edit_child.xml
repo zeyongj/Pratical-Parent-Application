@@ -50,8 +50,8 @@
 
     <Button
         android:id="@+id/btn_changeProfileEdit"
-        android:layout_width="210dp"
-        android:layout_height="49dp"
+        android:layout_width="95dp"
+        android:layout_height="58dp"
         android:layout_marginTop="48dp"
         android:text="@string/change_profile"
         app:layout_constraintEnd_toEndOf="@+id/txt_editChildNameEdit"
@@ -80,6 +80,17 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/btn_okEdit"
         app:layout_constraintTop_toBottomOf="@+id/btn_okEdit" />
+
+    <Button
+        android:id="@+id/btn_editChildCamera"
+        android:layout_width="95dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="20dp"
+        android:text="@string/camera"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_changeProfileEdit"
+        app:layout_constraintStart_toEndOf="@+id/btn_changeProfileEdit"
+        app:layout_constraintTop_toTopOf="@+id/btn_changeProfileEdit"
+        app:layout_constraintVertical_bias="0.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
