@@ -7,6 +7,4 @@ The codes of counting down are inspired and modified from the YouTube website: h
 The codes of notification display are inspired and modified from the website:  https://programmer.group/solutions-to-fail-to-post-notification-on-channel-null.html.
 The background image is downloaded from the website: https://wonderfulengineering.com/download-66-white-wallpaper-for-desktop-and-mobile/.
 The icon is downloaded from the website: https://www.flaticon.com/free-icon/notification_1040216?term=notification&page=1&position=16.
-We would like show our appreciation to the organizers of the fore-mentioned website.
-
-Date: November 9, 2020
+Coding style guide is taken from google: https://google.github.io/styleguide/javaguide.html
