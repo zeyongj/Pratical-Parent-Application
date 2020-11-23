@@ -102,7 +102,6 @@ public class EditChildActivity extends AppCompatActivity {
         }
     }
 
-    // TODO: fix bug when save edited child name with no String
 
     private void registerClickedOk() {
         Button btn = findViewById(R.id.btn_okEdit);
@@ -135,7 +134,6 @@ public class EditChildActivity extends AppCompatActivity {
         children.editChild(position, editChildName.getText().toString());
         childrenAdapter.notifyDataSetChanged();
     }
-
     public void editChildProfile(Bitmap profileID, int position) {
         children.editChildProfile(position, profileID);
         childrenAdapter.notifyDataSetChanged();

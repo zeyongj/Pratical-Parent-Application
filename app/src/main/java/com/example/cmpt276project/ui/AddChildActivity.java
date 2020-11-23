@@ -65,7 +65,6 @@ public class AddChildActivity extends AppCompatActivity {
 
         registerClickedSaveChild();
         registerClickedCancel();
-
         registerClickedChangeProfile();
 
 
@@ -129,6 +128,7 @@ public class AddChildActivity extends AppCompatActivity {
             }
 
 
+            // limiting button clicks
             buttonClicks++;
             if (buttonClicks >= 1) {
                 btn.setEnabled(false);

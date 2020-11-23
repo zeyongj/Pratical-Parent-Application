@@ -38,8 +38,7 @@ public class Children {
     // ArrayList to keep track of names of Children
     ArrayList<String> childrenNames = new ArrayList<>();
 
-    //TODO: add arraylist storing list of children profile pics
-    public ArrayList<String> profileIDs = new ArrayList<>();
+    ArrayList<String> profileIDs = new ArrayList<>();
 
 
 
@@ -112,7 +111,11 @@ public class Children {
     }
 
 
-    // ************************************************************************************************************************
+    // *********************************************************************************************
+
+    /* handling profile images*/
+
+
 
     // Encode and Decode Image
     public  String encodeToBase64(Bitmap image) {
@@ -124,14 +127,11 @@ public class Children {
         Log.d("Image Log: ", imageEncoded);
         return imageEncoded;
     }
-
     public  Bitmap decodeToBase64(String input) {
         byte[] decodedByte = Base64.decode(input, 0);
         return BitmapFactory
                 .decodeByteArray(decodedByte, 0, decodedByte.length);
     }
-
-
 
 
 
@@ -152,10 +152,6 @@ public class Children {
         numChildrenProfile --;
     }
 
-    // Get size of children profiles
-    public int getSizeProfile() {
-        return  profileIDs.size();
-    }
 
     // Edit the profile of the selected child
     public void editChildProfile(int position, Bitmap image) {
@@ -179,6 +175,7 @@ public class Children {
 
     // Load the list of childrenProfile
     public void loadChildrenProfile(Context context) {
+
         // Empty the list every time the method is called
         profileIDs = new ArrayList<>();
 
@@ -193,7 +190,7 @@ public class Children {
     }
 
 
-
+// *************************************************************************************************
 
 
     // Get the current child index from Shared Preference

@@ -58,9 +58,7 @@ public class ChildListActivity extends AppCompatActivity {
         setDeleteButtons();
 
 
-        // save child now is an activity
         startAddChildActivity = new Intent(ChildListActivity.this, AddChildActivity.class);
-
         startEditChildActivity = new Intent(ChildListActivity.this, EditChildActivity.class);
 
     }
@@ -140,14 +138,8 @@ public class ChildListActivity extends AppCompatActivity {
 
     // Add a child to the RecyclerView
     public void addChild() {
-        // Create a popup to add the child
-//        FragmentManager manager = getSupportFragmentManager();
-//        AddChildPopup addChildPopup = new AddChildPopup(children, childrenAdapter);
-//
-//        addChildPopup.show(manager, "Add Child");
 
         startActivity(startAddChildActivity);
-
 
     }
 
@@ -162,11 +154,6 @@ public class ChildListActivity extends AppCompatActivity {
 
     // Edit the child at the current position
     public void editChildPopup(Children children, int position) {
-        // Create a popup to edit the current child
-//        FragmentManager manager = getSupportFragmentManager();
-//        EditChildPopup editChildPopup = new EditChildPopup(children, position, childrenAdapter);
-//
-//        editChildPopup.show(manager, "Edit Child");
 
         startEditChildActivity.putExtra(ACTIVITY_ID, position);
         startActivity(startEditChildActivity);
