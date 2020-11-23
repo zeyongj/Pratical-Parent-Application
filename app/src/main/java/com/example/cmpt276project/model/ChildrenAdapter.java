@@ -100,9 +100,6 @@ public class ChildrenAdapter extends RecyclerView.Adapter<ChildrenAdapter.Childr
 
         holder.childName.setText(currentChild);
 
-
-
-        // TODO: default case when children profile is not entered
         holder.profilePic.setImageBitmap(children.decodeToBase64(currentProfile));
 
 

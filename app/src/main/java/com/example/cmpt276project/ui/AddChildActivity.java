@@ -40,6 +40,7 @@ public class AddChildActivity extends AppCompatActivity {
 
     private boolean isProfileSet = false;
 
+    private int buttonClicks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,7 +104,10 @@ public class AddChildActivity extends AppCompatActivity {
 
 
     private void registerClickedSaveChild() {
-        Button btn = findViewById(R.id.btn_saveChild);
+        final Button btn = findViewById(R.id.btn_saveChild);
+
+        buttonClicks = 0;
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,9 +117,7 @@ public class AddChildActivity extends AppCompatActivity {
             if (isProfileSet) {
                 addChildProfile(bitmapStored);
 
-//                Toast.makeText(AddChildActivity.this,
-//                        "The ID of image saved is: " + children.getChildProfile(0),
-//                        Toast.LENGTH_SHORT).show();
+
                 }
 
             // default case for not setting profile image
@@ -124,6 +126,12 @@ public class AddChildActivity extends AppCompatActivity {
                 drawableProfile = (BitmapDrawable) profileImage.getDrawable();
                 bitmapStored = drawableProfile.getBitmap();
                 addChildProfile(bitmapStored);
+            }
+
+
+            buttonClicks++;
+            if (buttonClicks >= 1) {
+                btn.setEnabled(false);
             }
 
             }

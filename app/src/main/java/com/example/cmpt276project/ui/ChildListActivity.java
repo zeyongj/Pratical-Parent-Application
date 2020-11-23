@@ -23,6 +23,7 @@ import com.example.cmpt276project.model.ChildrenAdapter;
 // Allows the user to add, edit or delete Children
 // Children are saved between application uses
 public class ChildListActivity extends AppCompatActivity {
+    public static final String ACTIVITY_ID = "Id";
     // Initiate adapter and variables
     ChildrenAdapter childrenAdapter;
     Children children;
@@ -61,8 +62,6 @@ public class ChildListActivity extends AppCompatActivity {
         startAddChildActivity = new Intent(ChildListActivity.this, AddChildActivity.class);
 
         startEditChildActivity = new Intent(ChildListActivity.this, EditChildActivity.class);
-
-        //Toast.makeText(ChildListActivity.this, children.profileIDs.get(0).toString(), Toast.LENGTH_SHORT).show();
 
     }
 
@@ -147,7 +146,6 @@ public class ChildListActivity extends AppCompatActivity {
 //
 //        addChildPopup.show(manager, "Add Child");
 
-
         startActivity(startAddChildActivity);
 
 
@@ -170,7 +168,7 @@ public class ChildListActivity extends AppCompatActivity {
 //
 //        editChildPopup.show(manager, "Edit Child");
 
-        startEditChildActivity.putExtra("Id", position);
+        startEditChildActivity.putExtra(ACTIVITY_ID, position);
         startActivity(startEditChildActivity);
 
     }

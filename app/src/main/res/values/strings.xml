@@ -64,4 +64,7 @@
     <string name="save_child">Save Child</string>
     <string name="cancel">CANCEL</string>
     <string name="add_child">Add Child</string>
+    <string name="edit_child">Edit Child</string>
+    <string name="default_profile_image">default profile image</string>
+    <string name="ok1">OK</string>
 </resources>

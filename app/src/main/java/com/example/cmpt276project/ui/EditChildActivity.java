@@ -25,6 +25,7 @@ import java.util.Objects;
 
 public class EditChildActivity extends AppCompatActivity {
 
+    public static final String ACTIVITY_ID = "Id";
     private Children children;
     private ChildrenAdapter childrenAdapter;
     private int position;
@@ -55,7 +56,7 @@ public class EditChildActivity extends AppCompatActivity {
         editChildName = findViewById(R.id.txt_editChildNameEdit);
 
         Intent intent = getIntent();
-        position = intent.getExtras().getInt("Id");
+        position = intent.getExtras().getInt(ACTIVITY_ID);
 
 
         editChildName.append(children.getChild(position));
