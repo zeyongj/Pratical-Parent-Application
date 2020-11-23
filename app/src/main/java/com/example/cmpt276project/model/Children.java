@@ -23,11 +23,11 @@ import java.util.List;
 // Contents of Children can be changed at will
 public class Children {
 
+    public static final String PROFILE_INDEX_ = "profile_index2";
     private String CHILD_INDEX_PREF = "Shared preference for current child index";
     private String CURRENT_CHILD_INDEX = "current child index";
     private String CHILDREN_PROF = "SharePreference for children profile";
     private String NUM_CHILDREN_PROFILE = "The number of children profile saved is: ";
-    private String PROFILE_INDEX = "Profile index_";
     private String CHILDREN_PREFS = "Shared Preferences for Children Class";
     private String CHILD_INDEX = "Child Index_";
     private String NUM_CHILDREN = "The number of Children saved is: ";
@@ -188,7 +188,7 @@ public class Children {
 
 
         for (int i = 0 ; i < numChildrenProfile; i++) {
-            profileIDs.add(sharedPreferences.getString("profile_index2" + i, null));
+            profileIDs.add(sharedPreferences.getString(PROFILE_INDEX_ + i, null));
         }
     }
 

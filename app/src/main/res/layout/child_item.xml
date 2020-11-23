@@ -60,7 +60,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginStart="1dp"
             android:layout_marginBottom="-1dp"
-            tools:srcCompat="@tools:sample/avatars" />
+            tools:srcCompat="@drawable/default_user_profile" />
 
 
     </RelativeLayout>

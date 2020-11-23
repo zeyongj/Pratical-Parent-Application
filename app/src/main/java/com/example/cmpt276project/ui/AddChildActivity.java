@@ -38,6 +38,8 @@ public class AddChildActivity extends AppCompatActivity {
     BitmapDrawable drawableProfile;
     Bitmap bitmapStored;
 
+    boolean isProfileSet = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +76,7 @@ public class AddChildActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                isProfileSet = true;
                 // open gallery
                 Intent openGalleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(openGalleryIntent, 1000);
@@ -107,15 +110,21 @@ public class AddChildActivity extends AppCompatActivity {
                 addChild(children);
 
 
-                // convert the image view to bitmap
-//                BitmapDrawable drawable = (BitmapDrawable) profileImage.getDrawable();
-//                Bitmap bitmap = drawable.getBitmap();
-
+            if (isProfileSet) {
                 addChildProfile(bitmapStored);
 
                 Toast.makeText(AddChildActivity.this,
                         "The ID of image saved is: " + children.getChildProfile(0),
                         Toast.LENGTH_SHORT).show();
+                }
+
+            // default case for not setting profile image
+            else {
+                profileImage.setImageResource(R.drawable.default_user_profile);
+                drawableProfile = (BitmapDrawable) profileImage.getDrawable();
+                bitmapStored = drawableProfile.getBitmap();
+                addChildProfile(bitmapStored);
+            }
 
             }
         });
