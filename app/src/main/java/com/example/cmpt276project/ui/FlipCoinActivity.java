@@ -85,6 +85,7 @@ public class FlipCoinActivity extends AppCompatActivity {
 
         //Setup Message Fragment
         setupChangeChildMessage();
+
     }
 
     @Override
@@ -255,6 +256,8 @@ public class FlipCoinActivity extends AppCompatActivity {
     // If currently has no child, display "No child"
     private void displayChildName() {
         TextView textView = findViewById(R.id.childNameTextView);
+        ImageView portrait = findViewById(R.id.Portrait_FlipCoin);
+
         if(children.getNumChildren(this) == 0)
             textView.setText(DEFAULT);
         else {
@@ -262,10 +265,12 @@ public class FlipCoinActivity extends AppCompatActivity {
                 children.setCurrentToFirstChild(this);
                 String childName = " The current child is: " + children.getChild(children.getCurrentChildIndex(this));
                 textView.setText(childName);
+                portrait.setImageBitmap(children.decodeToBase64(children.getChildProfile(children.getCurrentChildIndex(FlipCoinActivity.this))));
             }
             else {
                 String childName = " The current child is: " + children.getChild(children.getCurrentChildIndex(this));
                 textView.setText(childName);
+                portrait.setImageBitmap(children.decodeToBase64(children.getChildProfile(children.getCurrentChildIndex(FlipCoinActivity.this))));
             }
         }
     }
