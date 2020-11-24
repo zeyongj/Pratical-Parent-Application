@@ -1,6 +1,0 @@
-Scrum Roles for Iteration 1:
-
-Scrum Master: Yamato Nakahara
-Product Owner: Xiaoyang Yang
-Repo Manager: Weixiang Kong
-Team Member: Zeyong Jin

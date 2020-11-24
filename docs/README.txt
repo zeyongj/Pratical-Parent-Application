@@ -8,8 +8,8 @@ The background image is downloaded from the website: https://wonderfulengineerin
 The icon is downloaded from the website: https://www.flaticon.com/free-icon/notification_1040216?term=notification&page=1&position=16.
 We would like show our appreciation to organizers of the fore-mentioned websites.
 
-This is the iteration 1 of group Umber in the course of CMPT 276, and the instructor is Dr.Fraser.
+This is the iteration 2 of group Umber in the course of CMPT 276, and the instructor is Dr.Fraser.
 As for the part of timeout timer in the iteration, we would like to acknowledge that:
 The design of the pop-up window is inspired from the website: https://awsrh.blogspot.com/2017/10/custom-pop-up-window-with-android-studio.html.
 
-Date: November 9, 2020
+The source for the coding style guide is taken from Google from: https://google.github.io/styleguide/javaguide.html
