@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.example.cmpt276project.R;
 import com.example.cmpt276project.model.FlipHistory;
 import com.example.cmpt276project.model.FlipHistoryManager;
+import com.example.cmpt276project.model.TaskManager;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -71,6 +72,7 @@ public class FlipCoinActivity extends AppCompatActivity {
 
         // Handling history
         historyManager = FlipHistoryManager.getInstance();
+        loadFlipHistory(historyManager);
 
         // Handling tossing coin sound
         flipSound = MediaPlayer.create(this,R.raw.coin_toss_sound);
@@ -187,6 +189,7 @@ public class FlipCoinActivity extends AppCompatActivity {
                     WinOrLoss = choose.equals(coinSide);
                     profile = children.getChildProfile(children.getCurrentChildIndex(FlipCoinActivity.this));
                     historyManager.addHistory(saveCurrentDateAndTime(), saveChildNames(),choose, WinOrLoss, profile);
+                    historyManager.saveFlipHistory(FlipCoinActivity.this);
                 }
                 // Set current child to next child
                 if(children.getNumChildren(FlipCoinActivity.this) != 0  && NobodyTurn == false )
@@ -309,5 +312,12 @@ public class FlipCoinActivity extends AppCompatActivity {
             }
         });
         displayChildName();
+    }
+
+    public void loadFlipHistory(FlipHistoryManager flipHistoryManager) {
+        flipHistoryManager.loadFlipHistory(this);
+        if (flipHistoryManager.checkFlipHistoryEmpty()) {
+            flipHistoryManager.reinitializeFlipHistory();
+        }
     }
 }
