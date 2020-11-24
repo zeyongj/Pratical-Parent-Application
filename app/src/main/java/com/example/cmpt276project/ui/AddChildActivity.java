@@ -189,7 +189,7 @@ public class AddChildActivity extends AppCompatActivity {
                 profileImage.setImageURI(imageUri);
                 drawableProfile = (BitmapDrawable) profileImage.getDrawable();
                 bitmapStored = drawableProfile.getBitmap();
-                Toast.makeText(this, bitmapStored.toString(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, bitmapStored.toString(), Toast.LENGTH_SHORT).show();
 
 
             }
@@ -203,7 +203,7 @@ public class AddChildActivity extends AppCompatActivity {
                 profileImage.setImageBitmap(bitmap);
 
                 bitmapStored = bitmap;
-                Toast.makeText(this, bitmapStored.toString(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, bitmapStored.toString(), Toast.LENGTH_SHORT).show();
 
             }
         }
