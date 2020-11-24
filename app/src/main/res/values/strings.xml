@@ -91,4 +91,7 @@
     <string name="ChildNameIs">Child Name Is %s</string>
     <string name="NoDesc">No Description</string>
     <string name="EditTask">Edit Task</string>
+    <string name="NobodysTurn">Nobody\'s Turn</string>
+    <string name="CurrentChildIs"> The current child is: %s</string>
+    <string name="NoChild">No Child</string>
 </resources>
