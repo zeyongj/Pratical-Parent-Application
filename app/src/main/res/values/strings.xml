@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="MainMenu">Practical Parent</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
@@ -62,7 +62,7 @@
     <string name="WhoseTurn1">Whose Turn Is It</string>
     <string name="change_profile">CHANGE PROFILE</string>
     <string name="save_child">Save Child</string>
-    <string name="cancel">CANCEL</string>
+    <string name="cancel" tools:ignore="ButtonCase">CANCEL</string>
     <string name="add_child">Add Child</string>
     <string name="edit_child">Edit Child</string>
     <string name="default_profile_image">default profile image</string>
@@ -90,4 +90,5 @@
     <string name="TaskNameIs">Task Name Is %s</string>
     <string name="ChildNameIs">Child Name Is %s</string>
     <string name="NoDesc">No Description</string>
+    <string name="EditTask">Edit Task</string>
 </resources>
