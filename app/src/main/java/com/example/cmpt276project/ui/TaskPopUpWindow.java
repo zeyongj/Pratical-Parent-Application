@@ -87,15 +87,20 @@ public class TaskPopUpWindow extends AppCompatDialogFragment {
 
         taskName.setText(taskManager.getTask(position).getTaskName());
         childName.setText(taskManager.getTask(position).getChild());
+        if (childName.getText().equals("")) {
+            childName.setText(R.string.NoChild);
+        }
         taskDesc.setText(taskManager.getTask(position).getTaskDescription());
         if (taskDesc.getText().equals("")) {
             taskDesc.setText(R.string.NoDesc);
         }
-        childImage.setImageBitmap(children.decodeToBase64(children.getChildProfile(taskManager.getTask(position).getChildIndex())));
+        if (children.getSize() != 0) {
+            childImage.setImageBitmap(children.decodeToBase64(children.getChildProfile(taskManager.getTask(position).getChildIndex())));
+        }
     }
 
     public void removeTask(int position, View popupView) {
-        String text = getString(R.string.CancelTask,taskManager.getTask(position).getTaskName());
+        String text = getString(R.string.CancelTask);
         Toast.makeText(popupView.getContext(), text, Toast.LENGTH_SHORT).show();
         taskManager.removeTask(position);
         taskManager.saveTaskManager(popupView.getContext());
@@ -105,7 +110,7 @@ public class TaskPopUpWindow extends AppCompatDialogFragment {
     public void updateTask(int position, View popupView) {
 //        String text = "No." + (position + 1) + " Task Done by " + taskManager.getTask(position).getChild();
 //        Toast.makeText(popupView.getContext(), text, Toast.LENGTH_SHORT).show();
-        String text = getString(R.string.FinishTask, taskManager.getTask(position).getChild(), taskManager.getTask(position).getTaskName());
+        String text = getString(R.string.FinishTask, taskManager.getTask(position).getChild());
         Toast.makeText(popupView.getContext(), text, Toast.LENGTH_SHORT).show();
         Task currentTask = taskManager.getTask(position);
         int currentChildIndex = currentTask.getChildIndex();
