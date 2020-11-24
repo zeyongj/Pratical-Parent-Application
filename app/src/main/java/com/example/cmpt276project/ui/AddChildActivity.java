@@ -15,6 +15,9 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -73,6 +76,31 @@ public class AddChildActivity extends AppCompatActivity {
             }, 100);
         }
 
+
+        // Saving empty child error handling
+        final Button btn = findViewById(R.id.btn_saveChild);
+        btn.setEnabled(false);
+
+        addChildName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (TextUtils.isEmpty(s)){
+                    btn.setEnabled(false);
+                }
+                btn.setEnabled(true);
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                btn.setEnabled(true);
+            }
+        });
 
         registerClickedSaveChild();
         registerClickedCancel();
@@ -136,6 +164,7 @@ public class AddChildActivity extends AppCompatActivity {
         final Button btn = findViewById(R.id.btn_saveChild);
 
         buttonClicks = 0;
+
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
