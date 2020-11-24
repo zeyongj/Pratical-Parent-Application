@@ -92,7 +92,7 @@ public class EditTaskActivity extends AppCompatActivity {
             taskManager.editTask(position, editedTask);
             taskManager.saveTaskManager(this);
             Intent intent = new Intent(this, WhoseTurnActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
             finish();
             taskManager.saveTaskManager(this);

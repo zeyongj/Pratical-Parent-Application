@@ -35,10 +35,14 @@
             </provider>
 
 
-        <activity android:name=".ui.EditChildActivity"
-            android:parentActivityName=".ui.ChildListActivity">
-
-        </activity>
+        <activity
+            android:name=".ui.EditTaskActivity"
+            android:parentActivityName=".ui.WhoseTurnActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="@string/EditTask"/>
+        <activity
+            android:name=".ui.EditChildActivity"
+            android:parentActivityName=".ui.ChildListActivity" />
         <activity
             android:name=".ui.AddChildActivity"
             android:parentActivityName=".ui.ChildListActivity" />

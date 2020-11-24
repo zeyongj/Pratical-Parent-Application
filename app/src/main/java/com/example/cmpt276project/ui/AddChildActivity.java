@@ -197,7 +197,7 @@ public class AddChildActivity extends AppCompatActivity {
 
         else if (requestCode == REQUEST_IMAGE_CAPTURE) {
 
-            if (resultCode == Activity.RESULT_OK) {
+            if (resultCode == Activity.RESULT_OK && data != null) {
                 // get the thumb nail
                 Bitmap bitmap = BitmapFactory.decodeFile(currentImagePath);
                 profileImage.setImageBitmap(bitmap);
@@ -239,8 +239,17 @@ public class AddChildActivity extends AppCompatActivity {
                 btn.setEnabled(false);
             }
 
+            goBackToChildList();
+
             }
         });
+    }
+
+    private void goBackToChildList() {
+        Intent intent = new Intent(this, ChildListActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
     }
 
     private void registerClickedCancel() {

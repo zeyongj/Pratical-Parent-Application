@@ -63,8 +63,9 @@ public class EditChildActivity extends AppCompatActivity {
         editChildName = findViewById(R.id.txt_editChildNameEdit);
 
         Intent intent = getIntent();
-        position = intent.getExtras().getInt(ACTIVITY_ID);
-
+        if (intent != null) {
+            position = Objects.requireNonNull(intent.getExtras()).getInt(ACTIVITY_ID);
+        }
 
         editChildName.append(children.getChild(position));
 
@@ -128,10 +129,12 @@ public class EditChildActivity extends AppCompatActivity {
             }
         }
         else if (requestCode == REQUEST_CAMERA_ACCESS) {
-            Bitmap bitmap  = (Bitmap) data.getExtras().get("data");
-            profileImage.setImageBitmap(bitmap);
-            drawableProfile = (BitmapDrawable) profileImage.getDrawable();
-            bitmapStored = drawableProfile.getBitmap();
+            if (data != null) {
+                Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+                profileImage.setImageBitmap(bitmap);
+                drawableProfile = (BitmapDrawable) profileImage.getDrawable();
+                bitmapStored = drawableProfile.getBitmap();
+            }
         }
     }
 
@@ -146,8 +149,17 @@ public class EditChildActivity extends AppCompatActivity {
                 if (isProfileChanged){
                     editChildProfile(bitmapStored, position);
                 }
+
+                goBackToChildList();
             }
         });
+    }
+
+    private void goBackToChildList() {
+        Intent intent = new Intent(this, ChildListActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
     }
 
     private void registerClickedCancel() {
