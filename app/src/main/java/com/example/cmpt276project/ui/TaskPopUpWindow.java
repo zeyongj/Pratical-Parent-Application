@@ -123,6 +123,7 @@ public class TaskPopUpWindow extends AppCompatDialogFragment {
         whoseTurnAdapter.notifyDataSetChanged();
         String newText = getString(R.string.UpdateTask, taskManager.getTask(position).getTaskName(), taskManager.getTask(position).getChild());
         Toast.makeText(popupView.getContext(), newText, Toast.LENGTH_SHORT).show();
+        taskManager.saveTaskManager(popupView.getContext());
     }
 
 }

@@ -49,9 +49,9 @@ public class Task {
     public void assignNewChild (int newIndex, Context context){
         if (newIndex < children.getNumChildren(context)){
         childIndex = newIndex;
-        }
-        else
+        } else {
             childIndex = 0;
+        }
     }
 
     public void updateTask(Children children) {
