@@ -29,7 +29,10 @@ import java.util.Objects;
 
 public class EditChildActivity extends AppCompatActivity {
 
-    public static final String ACTIVITY_ID = "Id";
+    private static final String ACTIVITY_ID = "Id";
+    private static final int REQUEST_CAMERA_ACCESS = 101;
+    private static final int REQUEST_GALLERY_ACCESS = 1001;
+
     private Children children;
     private ChildrenAdapter childrenAdapter;
     private int position;
@@ -38,10 +41,10 @@ public class EditChildActivity extends AppCompatActivity {
 
     // Handling profile Image
     private ImageView profileImage;
-    BitmapDrawable drawableProfile;
-    Bitmap bitmapStored;
+    private BitmapDrawable drawableProfile;
+    private Bitmap bitmapStored;
 
-    boolean isProfileChanged = false;
+    private boolean isProfileChanged = false;
 
 
 
@@ -92,7 +95,7 @@ public class EditChildActivity extends AppCompatActivity {
             public void onClick(View v) {
                 isProfileChanged = true;
                 Intent enableCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(enableCameraIntent, 101);
+                startActivityForResult(enableCameraIntent, REQUEST_CAMERA_ACCESS);
             }
         });
     }
@@ -115,7 +118,7 @@ public class EditChildActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1001) {
+        if (requestCode == REQUEST_GALLERY_ACCESS) {
             if (resultCode == Activity.RESULT_OK){
                 Uri imageUri = data.getData();
                 profileImage.setImageURI(imageUri);
@@ -124,7 +127,7 @@ public class EditChildActivity extends AppCompatActivity {
 
             }
         }
-        else if (requestCode == 101) {
+        else if (requestCode == REQUEST_CAMERA_ACCESS) {
             Bitmap bitmap  = (Bitmap) data.getExtras().get("data");
             profileImage.setImageBitmap(bitmap);
             drawableProfile = (BitmapDrawable) profileImage.getDrawable();
