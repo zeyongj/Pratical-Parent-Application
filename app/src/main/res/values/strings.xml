@@ -102,4 +102,8 @@
     <string name="yes">Yes</string>
     <string name="delete_task">Delete task?</string>
     <string name="ChildImage">Child\'s Image</string>
+    <string name="change_default">Change Default</string>
+    <string name="child">Child</string>
+    <string name="nobody">Nobody</string>
+    <string name="image">Image</string>
 </resources>
