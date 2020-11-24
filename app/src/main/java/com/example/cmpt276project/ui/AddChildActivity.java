@@ -161,8 +161,6 @@ public class AddChildActivity extends AppCompatActivity {
             }
         });
     }
-
-
     private void registerClickedChangeProfile() {
         Button btn = findViewById(R.id.btn_changeProfileImage);
         btn.setOnClickListener(new View.OnClickListener() {
@@ -181,6 +179,7 @@ public class AddChildActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1000) {
+
             if(resultCode == Activity.RESULT_OK) {
                 Uri imageUri = data.getData();
                 profileImage.setImageURI(imageUri);
@@ -197,9 +196,7 @@ public class AddChildActivity extends AppCompatActivity {
                 Bitmap bitmap = BitmapFactory.decodeFile(currentImagePath);
                 profileImage.setImageBitmap(bitmap);
 
-
-                drawableProfile = (BitmapDrawable) profileImage.getDrawable();
-                bitmapStored = drawableProfile.getBitmap();
+                bitmapStored = bitmap;
             }
         }
     }
@@ -210,7 +207,6 @@ public class AddChildActivity extends AppCompatActivity {
 
         buttonClicks = 0;
 
-
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -219,7 +215,6 @@ public class AddChildActivity extends AppCompatActivity {
 
             if (isProfileSet) {
                 addChildProfile(bitmapStored);
-
                 }
 
             // default case for not setting profile image
