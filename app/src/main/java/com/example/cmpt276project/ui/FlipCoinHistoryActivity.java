@@ -2,6 +2,7 @@ package com.example.cmpt276project.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 
 import com.example.cmpt276project.model.Children;
@@ -112,6 +113,9 @@ public class FlipCoinHistoryActivity extends AppCompatActivity {
     private View getCoinHistoryView(int position, View itemView) {
         //Find the History to work with
         FlipHistory currentHistory = manager.getMyHistory().get(position);
+
+        ImageView profilePic = itemView.findViewById(R.id.Portrait);
+        profilePic.setImageBitmap(children.decodeToBase64(currentHistory.getProfile()));
 
         //Fill the view
         ImageView imageView = itemView.findViewById(R.id.item_Win);

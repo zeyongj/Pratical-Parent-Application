@@ -6,6 +6,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
+        android:id="@+id/Portrait"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="220dp"
+        android:adjustViewBounds="true"
+        android:maxWidth="80dp"
+        android:maxHeight="80dp"
+        app:srcCompat="@drawable/default_user_profile"/>
+
+    <ImageView
         android:id="@+id/item_Win"
         android:layout_width="80dp"
         android:layout_height="80dp"

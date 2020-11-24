@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.example.cmpt276project.R;
 import com.example.cmpt276project.model.FlipHistory;
 import com.example.cmpt276project.model.FlipHistoryManager;
+import com.example.cmpt276project.model.TaskManager;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -39,6 +40,7 @@ public class FlipCoinActivity extends AppCompatActivity {
 
     public static final String DATE_FORMAT = "MM dd yyyy, h:mm:s";
     private String coinSide;
+    private String profile;
 
     // Initiate variable
     private Children children;
@@ -69,6 +71,7 @@ public class FlipCoinActivity extends AppCompatActivity {
 
         // Handling history
         historyManager = FlipHistoryManager.getInstance();
+        loadFlipHistory(historyManager);
 
         // Handling tossing coin sound
         flipSound = MediaPlayer.create(this,R.raw.coin_toss_sound);
@@ -83,6 +86,7 @@ public class FlipCoinActivity extends AppCompatActivity {
 
         //Setup Message Fragment
         setupChangeChildMessage();
+
     }
 
     @Override
@@ -182,7 +186,9 @@ public class FlipCoinActivity extends AppCompatActivity {
                     buttonState = true;
                     setButton();
                     WinOrLoss = choose.equals(coinSide);
-                    historyManager.addHistory(saveCurrentDateAndTime(), saveChildNames(),choose, WinOrLoss);
+                    profile = children.getChildProfile(children.getCurrentChildIndex(FlipCoinActivity.this));
+                    historyManager.addHistory(saveCurrentDateAndTime(), saveChildNames(),choose, WinOrLoss, profile);
+                    historyManager.saveFlipHistory(FlipCoinActivity.this);
                 }
                 // Set current child to next child
                 if(children.getNumChildren(FlipCoinActivity.this) != 0  && !NobodyTurn)
@@ -252,6 +258,8 @@ public class FlipCoinActivity extends AppCompatActivity {
     // If currently has no child, display "No child"
     private void displayChildName() {
         TextView textView = findViewById(R.id.childNameTextView);
+        ImageView portrait = findViewById(R.id.Portrait_FlipCoin);
+
         if(children.getNumChildren(this) == 0)
             textView.setText(R.string.NoChild);
         else {
@@ -259,10 +267,12 @@ public class FlipCoinActivity extends AppCompatActivity {
                 children.setCurrentToFirstChild(this);
                 String childName = getString(R.string.ChildNameIs, children.getChild(children.getCurrentChildIndex(this)));
                 textView.setText(childName);
+                portrait.setImageBitmap(children.decodeToBase64(children.getChildProfile(children.getCurrentChildIndex(FlipCoinActivity.this))));
             }
             else {
                 String childName = getString(R.string.ChildNameIs, children.getChild(children.getCurrentChildIndex(this)));
                 textView.setText(childName);
+                portrait.setImageBitmap(children.decodeToBase64(children.getChildProfile(children.getCurrentChildIndex(FlipCoinActivity.this))));
             }
         }
     }
@@ -301,5 +311,12 @@ public class FlipCoinActivity extends AppCompatActivity {
             }
         });
         displayChildName();
+    }
+
+    public void loadFlipHistory(FlipHistoryManager flipHistoryManager) {
+        flipHistoryManager.loadFlipHistory(this);
+        if (flipHistoryManager.checkFlipHistoryEmpty()) {
+            flipHistoryManager.reinitializeFlipHistory();
+        }
     }
 }
