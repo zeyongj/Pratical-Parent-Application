@@ -40,6 +40,7 @@ public class FlipCoinActivity extends AppCompatActivity {
     private static final String DEFAULT = "no child";
     public static final String DATE_FORMAT = "MM dd yyyy, h:mm:s";
     private String coinSide;
+    private String profile;
 
     // Initiate variable
     private Children children;
@@ -183,7 +184,8 @@ public class FlipCoinActivity extends AppCompatActivity {
                     buttonState = true;
                     setButton();
                     WinOrLoss = choose.equals(coinSide);
-                    historyManager.addHistory(saveCurrentDateAndTime(), saveChildNames(),choose, WinOrLoss);
+                    profile = children.getChildProfile(children.getCurrentChildIndex(FlipCoinActivity.this));
+                    historyManager.addHistory(saveCurrentDateAndTime(), saveChildNames(),choose, WinOrLoss, profile);
                 }
                 // Set current child to next child
                 if(children.getNumChildren(FlipCoinActivity.this) != 0  && NobodyTurn == false )

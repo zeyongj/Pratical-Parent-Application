@@ -2,7 +2,9 @@ package com.example.cmpt276project.model;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -31,11 +33,12 @@ public class FlipHistoryManager implements Iterable<FlipHistory> {
 
     private List<FlipHistory> myHistory = new ArrayList<>();
 
-    public void addHistory(String Time, String ChildName, String result, boolean WinOrLoss){
+
+    public void addHistory(String Time, String ChildName, String result, boolean WinOrLoss, String profile){
         if(WinOrLoss)
-            myHistory.add(new FlipHistory(Time, "ChildName: " + ChildName, "choose " + result, R.drawable.win));
+            myHistory.add(new FlipHistory(Time, "ChildName: " + ChildName, "choose " + result, R.drawable.win, profile));
         else
-            myHistory.add(new FlipHistory(Time, "ChildName: " + ChildName, "choose " + result, R.drawable.loss));
+            myHistory.add(new FlipHistory(Time, "ChildName: " + ChildName, "choose " + result, R.drawable.loss, profile));
     }
 
     public List<FlipHistory> getMyHistory() {
