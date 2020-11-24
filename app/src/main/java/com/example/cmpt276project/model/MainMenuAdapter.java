@@ -79,7 +79,7 @@ public class MainMenuAdapter extends RecyclerView.Adapter<MainMenuAdapter.MainMe
         ((Activity) parent.getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
         ViewGroup.LayoutParams params = mainMenuLayout.getLayoutParams();
-        params.height = displayMetrics.heightPixels/menuNames.length-80;
+        params.height = displayMetrics.heightPixels/menuNames.length-40;
 
         mainMenuLayout.setLayoutParams(params);
 
