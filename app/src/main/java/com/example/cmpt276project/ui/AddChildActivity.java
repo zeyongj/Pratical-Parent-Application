@@ -39,7 +39,8 @@ import java.util.Objects;
 
 public class AddChildActivity extends AppCompatActivity {
 
-    public static final int REQUEST_GALLERY_ACCESS = 1000;
+    private static final int REQUEST_GALLERY_ACCESS = 1000;
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
     private Children children;
     private ChildrenAdapter childrenAdapter;
     private EditText addChildName;
@@ -47,13 +48,10 @@ public class AddChildActivity extends AppCompatActivity {
 
     // Handling profile Image
     private ImageView profileImage;
-
     private BitmapDrawable drawableProfile;
     private Bitmap bitmapStored;
 
-    String currentImagePath = null;
-    static final int REQUEST_IMAGE_CAPTURE = 1;
-
+    private String currentImagePath = null;
     private boolean isProfileSet = false;
 
     private int buttonClicks;
