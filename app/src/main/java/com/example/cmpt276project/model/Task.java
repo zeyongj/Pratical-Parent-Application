@@ -54,8 +54,6 @@ public class Task {
             childIndex = 0;
     }
 
-
-
     public void updateTask(Children children) {
         this.children = children;
         if (childIndex > children.getSize()-1) {

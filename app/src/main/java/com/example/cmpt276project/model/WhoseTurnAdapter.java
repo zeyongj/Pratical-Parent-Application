@@ -91,8 +91,6 @@ public class WhoseTurnAdapter extends RecyclerView.Adapter<WhoseTurnAdapter.Whos
                 }
             });
         }
-
-
     }
 
     // Constructor
@@ -108,8 +106,6 @@ public class WhoseTurnAdapter extends RecyclerView.Adapter<WhoseTurnAdapter.Whos
         View childrenLayout = LayoutInflater.from(parent.getContext()).inflate(R.layout.task_item, parent, false);
         return new WhoseTurnAdapter.WhoseTurnViewHolder(childrenLayout, recyclerViewClickListener);
     }
-
-
 
     // Bind the child names to their relevant positions on the RecyclerView
     @Override

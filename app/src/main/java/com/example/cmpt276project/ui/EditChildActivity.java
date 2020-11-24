@@ -35,16 +35,12 @@ public class EditChildActivity extends AppCompatActivity {
     private int position;
     private EditText editChildName;
 
-
     // Handling profile Image
     private ImageView profileImage;
     BitmapDrawable drawableProfile;
     Bitmap bitmapStored;
 
     boolean isProfileChanged = false;
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +56,7 @@ public class EditChildActivity extends AppCompatActivity {
         editChildName = findViewById(R.id.txt_editChildNameEdit);
 
         Intent intent = getIntent();
-        position = intent.getExtras().getInt(ACTIVITY_ID);
-
+        position = Objects.requireNonNull(intent.getExtras()).getInt(ACTIVITY_ID);
 
         editChildName.append(children.getChild(position));
 
@@ -76,7 +71,6 @@ public class EditChildActivity extends AppCompatActivity {
                     Manifest.permission.CAMERA
             }, 100);
         }
-
 
         registerClickedOk();
         registerClickedCancel();
@@ -116,15 +110,14 @@ public class EditChildActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1001) {
             if (resultCode == Activity.RESULT_OK){
-                Uri imageUri = data.getData();
+                Uri imageUri = Objects.requireNonNull(data).getData();
                 profileImage.setImageURI(imageUri);
                 drawableProfile = (BitmapDrawable) profileImage.getDrawable();
                 bitmapStored = drawableProfile.getBitmap();
-
             }
         }
         else if (requestCode == 101) {
-            Bitmap bitmap  = (Bitmap) data.getExtras().get("data");
+            Bitmap bitmap  = (Bitmap) Objects.requireNonNull(Objects.requireNonNull(data).getExtras()).get("data");
             profileImage.setImageBitmap(bitmap);
             drawableProfile = (BitmapDrawable) profileImage.getDrawable();
             bitmapStored = drawableProfile.getBitmap();
@@ -172,7 +165,5 @@ public class EditChildActivity extends AppCompatActivity {
         super.onDestroy();
         finish();
     }
-
-
 }
 

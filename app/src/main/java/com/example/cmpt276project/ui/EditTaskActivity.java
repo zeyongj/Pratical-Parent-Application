@@ -55,7 +55,6 @@ public class EditTaskActivity extends AppCompatActivity {
         return true;
     }
 
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.save_task_button) {
@@ -107,8 +106,6 @@ public class EditTaskActivity extends AppCompatActivity {
     public boolean checkTaskNameEmpty(EditText taskName) {
         return taskName.getText().toString().equals("");
     }
-
-
 
     public void loadTaskManager(TaskManager taskManager) {
         taskManager.loadTaskManager(this);

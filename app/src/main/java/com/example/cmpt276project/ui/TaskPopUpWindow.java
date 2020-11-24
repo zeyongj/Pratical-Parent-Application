@@ -108,8 +108,6 @@ public class TaskPopUpWindow extends AppCompatDialogFragment {
     }
 
     public void updateTask(int position, View popupView) {
-//        String text = "No." + (position + 1) + " Task Done by " + taskManager.getTask(position).getChild();
-//        Toast.makeText(popupView.getContext(), text, Toast.LENGTH_SHORT).show();
         String text = getString(R.string.FinishTask, taskManager.getTask(position).getChild());
         Toast.makeText(popupView.getContext(), text, Toast.LENGTH_SHORT).show();
         Task currentTask = taskManager.getTask(position);
@@ -117,9 +115,6 @@ public class TaskPopUpWindow extends AppCompatDialogFragment {
 
         int newChildIndex = currentChildIndex + 1;
         currentTask.assignNewChild(newChildIndex,popupView.getContext());
-
-//        String newChildName = "Next child for " + "No." + (position + 1) + " Task is "+ currentTask.getChild();
-//        Toast.makeText(popupView.getContext(), newChildName, Toast.LENGTH_SHORT).show();
 
         currentTask.updateTask(currentTask.getChildren());
         whoseTurnAdapter.notifyDataSetChanged();

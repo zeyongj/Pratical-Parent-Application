@@ -25,10 +25,6 @@ public class AddChildPopup extends AppCompatDialogFragment {
     private ChildrenAdapter childrenAdapter;
     private EditText addChildName;
 
-
-    // Handling profile Image
-
-
     // Constructor
     public AddChildPopup(Children children, ChildrenAdapter childrenAdapter) {
         this.children = children;
