@@ -25,6 +25,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.cmpt276project.R;
 import com.example.cmpt276project.model.Children;
@@ -38,11 +39,10 @@ import java.util.Objects;
 
 public class AddChildActivity extends AppCompatActivity {
 
+    public static final int REQUEST_GALLERY_ACCESS = 1000;
     private Children children;
     private ChildrenAdapter childrenAdapter;
     private EditText addChildName;
-
-
 
 
     // Handling profile Image
@@ -57,6 +57,7 @@ public class AddChildActivity extends AppCompatActivity {
     private boolean isProfileSet = false;
 
     private int buttonClicks;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,6 +158,7 @@ public class AddChildActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                isProfileSet = true;
                 captureImage(profileImage);
             }
         });
@@ -178,13 +180,15 @@ public class AddChildActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1000) {
+        if (requestCode == REQUEST_GALLERY_ACCESS) {
 
             if(resultCode == Activity.RESULT_OK) {
                 Uri imageUri = data.getData();
                 profileImage.setImageURI(imageUri);
                 drawableProfile = (BitmapDrawable) profileImage.getDrawable();
                 bitmapStored = drawableProfile.getBitmap();
+                Toast.makeText(this, bitmapStored.toString(), Toast.LENGTH_SHORT).show();
+
 
             }
         }
@@ -197,6 +201,8 @@ public class AddChildActivity extends AppCompatActivity {
                 profileImage.setImageBitmap(bitmap);
 
                 bitmapStored = bitmap;
+                Toast.makeText(this, bitmapStored.toString(), Toast.LENGTH_SHORT).show();
+
             }
         }
     }
@@ -215,8 +221,7 @@ public class AddChildActivity extends AppCompatActivity {
 
             if (isProfileSet) {
                 addChildProfile(bitmapStored);
-                }
-
+            }
             // default case for not setting profile image
             else {
                 profileImage.setImageResource(R.drawable.default_user_profile);
@@ -245,7 +250,6 @@ public class AddChildActivity extends AppCompatActivity {
             }
         });
     }
-
 
     public void addChild(Children children) {
         children.addChild(addChildName.getText().toString());

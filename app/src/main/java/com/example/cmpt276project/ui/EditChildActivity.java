@@ -90,6 +90,7 @@ public class EditChildActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                isProfileChanged = true;
                 Intent enableCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(enableCameraIntent, 101);
             }
