@@ -2,8 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.cmpt276project">
 
+
+    <uses-feature
+        android:name="android.hardware.Camera"
+        android:required="true"/>
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18"/>
 
     <application
         android:allowBackup="true"
@@ -13,8 +20,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.android.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                    android:name="android.support.FILE_PROVIDER_PATHS"
+                    android:resource="@xml/file_path">
+
+            </meta-data>
+            </provider>
+
+
         <activity android:name=".ui.EditChildActivity"
-            android:parentActivityName=".ui.ChildListActivity"></activity>
+            android:parentActivityName=".ui.ChildListActivity">
+
+        </activity>
         <activity
             android:name=".ui.AddChildActivity"
             android:parentActivityName=".ui.ChildListActivity" />

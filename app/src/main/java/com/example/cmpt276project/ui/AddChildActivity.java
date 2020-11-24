@@ -5,15 +5,18 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -22,12 +25,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.example.cmpt276project.R;
 import com.example.cmpt276project.model.Children;
 import com.example.cmpt276project.model.ChildrenAdapter;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Objects;
 
 public class AddChildActivity extends AppCompatActivity {
@@ -44,6 +50,9 @@ public class AddChildActivity extends AppCompatActivity {
 
     private BitmapDrawable drawableProfile;
     private Bitmap bitmapStored;
+
+    String currentImagePath = null;
+    static final int REQUEST_IMAGE_CAPTURE = 1;
 
     private boolean isProfileSet = false;
 
@@ -108,6 +117,38 @@ public class AddChildActivity extends AppCompatActivity {
         registerClickedCamera();
 
 
+    }
+
+    public void captureImage(View view){
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+            File imageFile = null;
+
+            try {
+                imageFile = getImageFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            if (imageFile != null)
+            {
+                Uri imageUri = FileProvider.getUriForFile(this, "com.example.android.fileprovider", imageFile);
+                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+                startActivityForResult(cameraIntent, REQUEST_IMAGE_CAPTURE);
+            }
+
+    }
+
+    private File getImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(imageFileName, ".jpg", storageDir);
+
+        currentImagePath = image.getAbsolutePath();
+        return image;
+
 
     }
 
@@ -116,8 +157,7 @@ public class AddChildActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent enableCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(enableCameraIntent, 100);
+                captureImage(profileImage);
             }
         });
     }
@@ -150,12 +190,17 @@ public class AddChildActivity extends AppCompatActivity {
             }
         }
 
-        else if (requestCode == 100) {
-            Bitmap bitmap  = (Bitmap) data.getExtras().get("data");
-            profileImage.setImageBitmap(bitmap);
-            drawableProfile = (BitmapDrawable) profileImage.getDrawable();
-            bitmapStored = drawableProfile.getBitmap();
+        else if (requestCode == REQUEST_IMAGE_CAPTURE) {
 
+            if (resultCode == Activity.RESULT_OK) {
+                // get the thumb nail
+                Bitmap bitmap = BitmapFactory.decodeFile(currentImagePath);
+                profileImage.setImageBitmap(bitmap);
+
+
+                drawableProfile = (BitmapDrawable) profileImage.getDrawable();
+                bitmapStored = drawableProfile.getBitmap();
+            }
         }
     }
 
