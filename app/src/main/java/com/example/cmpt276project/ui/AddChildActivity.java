@@ -37,6 +37,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
+/* When taking a photo with camera, the picture is saved under Android/data/com.example.cmpt276project/files/Pictures
+* However, when editing profile with camera, the picture is saved internally. */
+
+
 public class AddChildActivity extends AppCompatActivity {
 
     private static final int REQUEST_GALLERY_ACCESS = 1000;
