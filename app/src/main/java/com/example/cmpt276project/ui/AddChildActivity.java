@@ -30,6 +30,7 @@ import com.example.cmpt276project.model.ChildrenAdapter;
 
 import java.util.Objects;
 
+// Activity to allow the user to add a child to ChildListActivity
 public class AddChildActivity extends AppCompatActivity {
 
     private Children children;

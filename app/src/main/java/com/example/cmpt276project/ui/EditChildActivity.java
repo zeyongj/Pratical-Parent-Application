@@ -27,6 +27,7 @@ import com.example.cmpt276project.model.ChildrenAdapter;
 
 import java.util.Objects;
 
+// Activity to allow the user to edit the name or profile picture of a child in ChildListActivity
 public class EditChildActivity extends AppCompatActivity {
 
     public static final String ACTIVITY_ID = "Id";

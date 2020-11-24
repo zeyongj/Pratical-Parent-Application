@@ -23,6 +23,7 @@ import com.google.gson.Gson;
 
 import java.util.Objects;
 
+// Activity to allow the user to edit the name and description of a task in WhoseTurnActivity
 public class EditTaskActivity extends AppCompatActivity {
     private TaskManager taskManager;
     private Children children;

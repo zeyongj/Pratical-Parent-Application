@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-
+// Popup to allow the user to choose a child from the current queue of children in FlipCoinActivity
 public class ChangeChildMessageFragment extends AppCompatDialogFragment {
 
     private Children children = Children.getInstance();

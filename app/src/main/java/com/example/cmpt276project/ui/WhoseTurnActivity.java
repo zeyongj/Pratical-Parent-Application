@@ -25,6 +25,7 @@ import com.example.cmpt276project.model.WhoseTurnAdapter;
 
 import java.util.Objects;
 
+// Activity to allow the user to create, edit and delete tasks to assign to the children
 public class WhoseTurnActivity extends AppCompatActivity {
     // Initiate adapter and variables
     WhoseTurnAdapter whoseTurnAdapter;

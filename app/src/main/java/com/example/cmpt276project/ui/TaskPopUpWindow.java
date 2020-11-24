@@ -23,6 +23,9 @@ import com.example.cmpt276project.model.Task;
 import com.example.cmpt276project.model.TaskManager;
 import com.example.cmpt276project.model.WhoseTurnAdapter;
 
+// Class that acts as a popup for when a task is clicked on the WhoseTurnActivity page
+// Contains the task name, task description, and the name and profile picture of the child whose turn it is to complete the task
+// Allows the user to choose if the child has finished the task, and delete the task itself
 public class TaskPopUpWindow extends AppCompatDialogFragment {
     // Initialize variables
     private TaskManager taskManager;

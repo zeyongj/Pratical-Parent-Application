@@ -12,6 +12,8 @@ import com.example.cmpt276project.R;
 
 import java.util.Objects;
 
+// Activity containing which team made the Project
+// Also contains sources for various resources
 public class HelpPageActivity extends AppCompatActivity {
 
     @Override
