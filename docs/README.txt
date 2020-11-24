@@ -6,11 +6,10 @@ The codes of counting down are inspired and modified from the YouTube website: h
 The codes of notification display are inspired and modified from the website:  https://programmer.group/solutions-to-fail-to-post-notification-on-channel-null.html.
 The background image is downloaded from the website: https://wonderfulengineering.com/download-66-white-wallpaper-for-desktop-and-mobile/.
 The icon is downloaded from the website: https://www.flaticon.com/free-icon/notification_1040216?term=notification&page=1&position=16.
-We would like show our appreciation to the organizers of the fore-mentioned websites.
+We would like show our appreciation to organizers of the fore-mentioned websites.
 
-This is the iteration 2 of group Umber in the course of CMPT 276, and the instructor is Dr.Fraser.
+This is the iteration 1 of group Umber in the course of CMPT 276, and the instructor is Dr.Fraser.
 As for the part of timeout timer in the iteration, we would like to acknowledge that:
-The design of pop-up window is inspired by the website: https://awsrh.blogspot.com/2017/10/custom-pop-up-window-with-android-studio.html.
-e would like show our appreciation to the organizer of the fore-mentioned website.
+The design of the pop-up window is inspired from the website: https://awsrh.blogspot.com/2017/10/custom-pop-up-window-with-android-studio.html.
 
-Date: November 23, 2020
+Date: November 9, 2020
