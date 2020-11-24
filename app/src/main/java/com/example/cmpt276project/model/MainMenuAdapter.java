@@ -1,7 +1,10 @@
 package com.example.cmpt276project.model;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +37,7 @@ public class MainMenuAdapter extends RecyclerView.Adapter<MainMenuAdapter.MainMe
         public MainMenuViewHolder(@NonNull View itemView) {
             super(itemView);
             menuName = itemView.findViewById(R.id.menuname);
+            menuName.setGravity(Gravity.CENTER_VERTICAL);
             itemView.setOnClickListener(this);
         }
 
@@ -71,6 +75,16 @@ public class MainMenuAdapter extends RecyclerView.Adapter<MainMenuAdapter.MainMe
     @Override
     public MainMenuViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View mainMenuLayout = LayoutInflater.from(parent.getContext()).inflate(R.layout.content_main, parent, false);
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        ((Activity) parent.getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+
+        ViewGroup.LayoutParams params = mainMenuLayout.getLayoutParams();
+        params.height = displayMetrics.heightPixels/menuNames.length-80;
+
+        mainMenuLayout.setLayoutParams(params);
+
+        TextView menuName = mainMenuLayout.findViewById(R.id.menuname);
+        menuName.setGravity(Gravity.CENTER_VERTICAL);
         return new MainMenuViewHolder(mainMenuLayout);
     }
 
