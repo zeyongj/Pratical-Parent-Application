@@ -30,14 +30,12 @@ import com.example.cmpt276project.model.ChildrenAdapter;
 
 import java.util.Objects;
 
+// Activity to allow the user to add a child to ChildListActivity
 public class AddChildActivity extends AppCompatActivity {
 
     private Children children;
     private ChildrenAdapter childrenAdapter;
     private EditText addChildName;
-
-
-
 
     // Handling profile Image
     private ImageView profileImage;
@@ -84,7 +82,6 @@ public class AddChildActivity extends AppCompatActivity {
         addChildName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
@@ -93,7 +90,6 @@ public class AddChildActivity extends AppCompatActivity {
                     btn.setEnabled(false);
                 }
                 btn.setEnabled(true);
-
             }
 
             @Override
@@ -106,9 +102,6 @@ public class AddChildActivity extends AppCompatActivity {
         registerClickedCancel();
         registerClickedChangeProfile();
         registerClickedCamera();
-
-
-
     }
 
     private void registerClickedCamera() {
@@ -142,7 +135,7 @@ public class AddChildActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1000) {
             if(resultCode == Activity.RESULT_OK) {
-                Uri imageUri = data.getData();
+                Uri imageUri = Objects.requireNonNull(data).getData();
                 profileImage.setImageURI(imageUri);
                 drawableProfile = (BitmapDrawable) profileImage.getDrawable();
                 bitmapStored = drawableProfile.getBitmap();
@@ -151,7 +144,7 @@ public class AddChildActivity extends AppCompatActivity {
         }
 
         else if (requestCode == 100) {
-            Bitmap bitmap  = (Bitmap) data.getExtras().get("data");
+            Bitmap bitmap  = (Bitmap) Objects.requireNonNull(Objects.requireNonNull(data).getExtras()).get("data");
             profileImage.setImageBitmap(bitmap);
             drawableProfile = (BitmapDrawable) profileImage.getDrawable();
             bitmapStored = drawableProfile.getBitmap();
@@ -164,34 +157,22 @@ public class AddChildActivity extends AppCompatActivity {
         final Button btn = findViewById(R.id.btn_saveChild);
 
         buttonClicks = 0;
-
-
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 addChild(children);
-
-
-            if (isProfileSet) {
-                addChildProfile(bitmapStored);
-
+                if (!isProfileSet) {
+                    profileImage.setImageResource(R.drawable.default_user_profile);
+                    drawableProfile = (BitmapDrawable) profileImage.getDrawable();
+                    bitmapStored = drawableProfile.getBitmap();
                 }
-
-            // default case for not setting profile image
-            else {
-                profileImage.setImageResource(R.drawable.default_user_profile);
-                drawableProfile = (BitmapDrawable) profileImage.getDrawable();
-                bitmapStored = drawableProfile.getBitmap();
                 addChildProfile(bitmapStored);
-            }
 
-
-            // limiting button clicks
+                // limiting button clicks
             buttonClicks++;
-            if (buttonClicks >= 1) {
-                btn.setEnabled(false);
-            }
-
+                if (buttonClicks >= 1) {
+                    btn.setEnabled(false);
+                }
             }
         });
     }
@@ -206,7 +187,6 @@ public class AddChildActivity extends AppCompatActivity {
         });
     }
 
-
     public void addChild(Children children) {
         children.addChild(addChildName.getText().toString());
         childrenAdapter.notifyItemInserted(children.getSize()-1);
@@ -216,6 +196,4 @@ public class AddChildActivity extends AppCompatActivity {
         children.addChildProfile(profileID);
         childrenAdapter.notifyItemInserted(children.getSize()-1);
     }
-
-
 }

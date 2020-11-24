@@ -28,11 +28,8 @@ public class ChildListActivity extends AppCompatActivity {
     ChildrenAdapter childrenAdapter;
     Children children;
 
-
-
     Intent startAddChildActivity;
     Intent startEditChildActivity;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +43,7 @@ public class ChildListActivity extends AppCompatActivity {
         // Create children to test with
         children = Children.getInstance();
         children.loadChildren(this);
-
-
         children.loadChildrenProfile(this);
-
 
         // Build the RecyclerView
         buildChildView(children);
@@ -57,10 +51,8 @@ public class ChildListActivity extends AppCompatActivity {
         // Build the delete buttons on the RecyclerView items
         setDeleteButtons();
 
-
         startAddChildActivity = new Intent(ChildListActivity.this, AddChildActivity.class);
         startEditChildActivity = new Intent(ChildListActivity.this, EditChildActivity.class);
-
     }
 
     // Create the Add Child option on the toolbar
@@ -75,7 +67,6 @@ public class ChildListActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         children.saveChildren(this);
-
         children.saveChildrenProfile(this);
     }
 
@@ -83,7 +74,6 @@ public class ChildListActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         children.saveChildren(this);
-
         children.saveChildrenProfile(this);
     }
 
@@ -138,25 +128,19 @@ public class ChildListActivity extends AppCompatActivity {
 
     // Add a child to the RecyclerView
     public void addChild() {
-
         startActivity(startAddChildActivity);
-
     }
 
     // Remove the child at the current position
     public void removeChild(int position) {
         children.removeChild(position);
-
         children.removeChildProfile(position);
-
         childrenAdapter.notifyItemRemoved(position);
     }
 
     // Edit the child at the current position
     public void editChildPopup(Children children, int position) {
-
         startEditChildActivity.putExtra(ACTIVITY_ID, position);
         startActivity(startEditChildActivity);
-
     }
 }

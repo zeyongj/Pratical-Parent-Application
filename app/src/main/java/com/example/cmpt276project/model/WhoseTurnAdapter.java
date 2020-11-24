@@ -91,8 +91,6 @@ public class WhoseTurnAdapter extends RecyclerView.Adapter<WhoseTurnAdapter.Whos
                 }
             });
         }
-
-
     }
 
     // Constructor
@@ -109,13 +107,15 @@ public class WhoseTurnAdapter extends RecyclerView.Adapter<WhoseTurnAdapter.Whos
         return new WhoseTurnAdapter.WhoseTurnViewHolder(childrenLayout, recyclerViewClickListener);
     }
 
-
-
     // Bind the child names to their relevant positions on the RecyclerView
     @Override
     public void onBindViewHolder(@NonNull WhoseTurnAdapter.WhoseTurnViewHolder holder, final int position) {
         String currentTask = context.getString(R.string.TaskNameIs, taskManager.getTask(position).getTaskName());
-        String nextChild = context.getString(R.string.ChildNameIs, taskManager.getTask(position).getChild());
+        String childName = taskManager.getTask(position).getChild();
+        if (childName.equals("")) {
+            childName = context.getString(R.string.NoChild);
+        }
+        String nextChild = context.getString(R.string.ChildNameIs, childName);
         holder.taskName.setText(currentTask);
         holder.taskName.setTextColor(Color.BLUE);
         holder.nextChildName.setText(nextChild);

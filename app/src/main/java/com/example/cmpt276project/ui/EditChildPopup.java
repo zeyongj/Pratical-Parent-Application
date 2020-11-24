@@ -18,6 +18,7 @@ import com.example.cmpt276project.R;
 import com.example.cmpt276project.model.Children;
 import com.example.cmpt276project.model.ChildrenAdapter;
 
+// NO LONGER USED
 // Fragment that allows the user to edit a Child's name on ChildListActivity
 // Functions as a popup when the user clicks the "EDIT" button on the respective Child's RecyclerView
 public class EditChildPopup extends AppCompatDialogFragment {

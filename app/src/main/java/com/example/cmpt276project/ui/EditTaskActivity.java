@@ -23,6 +23,7 @@ import com.google.gson.Gson;
 
 import java.util.Objects;
 
+// Activity to allow the user to edit the name and description of a task in WhoseTurnActivity
 public class EditTaskActivity extends AppCompatActivity {
     private TaskManager taskManager;
     private Children children;
@@ -54,7 +55,6 @@ public class EditTaskActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.save_tasks_menu, menu);
         return true;
     }
-
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -107,8 +107,6 @@ public class EditTaskActivity extends AppCompatActivity {
     public boolean checkTaskNameEmpty(EditText taskName) {
         return taskName.getText().toString().equals("");
     }
-
-
 
     public void loadTaskManager(TaskManager taskManager) {
         taskManager.loadTaskManager(this);
