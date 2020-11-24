@@ -17,6 +17,7 @@ import com.example.cmpt276project.model.Children;
 import com.example.cmpt276project.model.Task;
 import com.example.cmpt276project.model.TaskManager;
 
+// Activity to allow the user to add a task to WhoseTurnActivity
 public class AddTaskActivity extends AppCompatActivity {
     private TaskManager taskManager;
     private Children children;

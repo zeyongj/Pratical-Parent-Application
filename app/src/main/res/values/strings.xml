@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="MainMenu">Practical Parent</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
@@ -62,7 +62,7 @@
     <string name="WhoseTurn1">Whose Turn Is It</string>
     <string name="change_profile">CHANGE PROFILE</string>
     <string name="save_child">Save Child</string>
-    <string name="cancel">CANCEL</string>
+    <string name="cancel" tools:ignore="ButtonCase">CANCEL</string>
     <string name="add_child">Add Child</string>
     <string name="edit_child">Edit Child</string>
     <string name="default_profile_image">default profile image</string>
@@ -78,16 +78,33 @@
     <string name="BGSource"><a href = "https://wonderfulengineering.com/download-66-white-wallpaper-for-desktop-and-mobile/">Timer Background Image Source Link</a></string>
     <string name="NotifSource"><a href = "https://www.flaticon.com/free-icon/notification_1040216?term=notification&amp;page=1&amp;position=16">Timer Notification Icon Source Link</a></string>
     <string name="CodeStyleSource"><a href = "https://google.github.io/styleguide/javaguide.html">Code Style Guide Source</a></string>
-    <string name="CancelTask">Cancel Task of %s</string>
-    <string name="FinishTask">%1$s Finished Task of %2$s</string>
-    <string name="UpdateTask">Next Child of %1$s Task Is %2$s</string>
+    <string name="CancelTask">Task Removed</string>
+    <string name="FinishTask">%1$s Finished Task</string>
+    <string name="UpdateTask">Next Child is %2$s</string>
     <string name="CurrentIndex">Current index is %d</string>
     <string name="TaskNameAttention">Please enter the name of the task!</string>
-    <string name="AddTaskSuccess">Add Task Successfully</string>
-    <string name="EditTaskSuccess">Edit Task Successfully</string>
+    <string name="AddTaskSuccess">Added Task Successfully</string>
+    <string name="EditTaskSuccess">Edited Task Successfully</string>
     <string name="EditTaskName">Edit Task Name</string>
     <string name="EditTaskDesc">Edit Task Description</string>
-    <string name="TaskNameIs">Task Name Is %s</string>
-    <string name="ChildNameIs">Child Name Is %s</string>
+    <string name="TaskNameIs">Task: %s</string>
+    <string name="ChildNameIs">Child: %s</string>
     <string name="NoDesc">No Description</string>
+    <string name="EditTask">Edit Task</string>
+    <string name="NobodysTurn">Nobody\'s Turn</string>
+    <string name="CurrentChildIs"> The current child is: %s</string>
+    <string name="NoChild">No Child</string>
+    <string name="x">x</string>
+    <string name="name">Name</string>
+    <string name="task">Task</string>
+    <string name="description">Description</string>
+    <string name="TaskFinished">Task Finished?</string>
+    <string name="yes">Yes</string>
+    <string name="delete_task">Delete task?</string>
+    <string name="ChildImage">Child\'s Image</string>
+    <string name="change_default">Change Default</string>
+    <string name="child">Child</string>
+    <string name="nobody">Nobody</string>
+    <string name="image">Image</string>
+    <string name="ChangingChild">Changing Child</string>
 </resources>

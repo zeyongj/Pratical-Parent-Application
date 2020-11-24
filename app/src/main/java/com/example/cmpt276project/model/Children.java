@@ -32,15 +32,11 @@ public class Children {
     private String CHILD_INDEX = "Child Index_";
     private String NUM_CHILDREN = "The number of Children saved is: ";
     private int numChildren;
-
     private int numChildrenProfile;
 
     // ArrayList to keep track of names of Children
     ArrayList<String> childrenNames = new ArrayList<>();
-
     ArrayList<String> profileIDs = new ArrayList<>();
-
-
 
     // Constructor
     private static Children instance;
@@ -93,6 +89,7 @@ public class Children {
             editor.putString(CHILD_INDEX + i, childrenNames.get(i));
         }
         editor.apply();
+        saveChildrenProfile(context);
     }
 
     // Load the list of children
@@ -108,14 +105,8 @@ public class Children {
         for (int i = 0; i < numChildren; i++) {
             childrenNames.add(sharedPreferences.getString(CHILD_INDEX + i, null));
         }
+        loadChildrenProfile(context);
     }
-
-
-    // *********************************************************************************************
-
-    /* handling profile images*/
-
-
 
     // Encode and Decode Image
     public  String encodeToBase64(Bitmap image) {
@@ -127,13 +118,12 @@ public class Children {
         Log.d("Image Log: ", imageEncoded);
         return imageEncoded;
     }
+
     public  Bitmap decodeToBase64(String input) {
         byte[] decodedByte = Base64.decode(input, 0);
         return BitmapFactory
                 .decodeByteArray(decodedByte, 0, decodedByte.length);
     }
-
-
 
     // Add childProfile to profileIDs
     public void addChildProfile(Bitmap profileImage) {
@@ -188,10 +178,6 @@ public class Children {
             profileIDs.add(sharedPreferences.getString(PROFILE_INDEX_ + i, null));
         }
     }
-
-
-// *************************************************************************************************
-
 
     // Get the current child index from Shared Preference
     public int getCurrentChildIndex(Context context) {

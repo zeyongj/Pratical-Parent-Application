@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cmpt276project.R;
@@ -20,17 +21,21 @@ import com.example.cmpt276project.model.Task;
 import com.example.cmpt276project.model.TaskManager;
 import com.google.gson.Gson;
 
+import java.util.Objects;
+
+// Activity to allow the user to edit the name and description of a task in WhoseTurnActivity
 public class EditTaskActivity extends AppCompatActivity {
     private TaskManager taskManager;
     private Children children;
     private int position;
-
+    private EditText taskName;
+    private EditText taskDesc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle bundle = getIntent().getExtras();
-        position = bundle.getInt("position");
+        position = Objects.requireNonNull(bundle).getInt("position");
         setContentView(R.layout.activity_edit_task);
         Toolbar toolbarEdit = findViewById(R.id.edittasktoolbar);
         setSupportActionBar(toolbarEdit);
@@ -40,6 +45,8 @@ public class EditTaskActivity extends AppCompatActivity {
         children = Children.getInstance();
         taskManager = TaskManager.getInstance();
         loadTaskManager(taskManager);
+
+        setTaskText();
     }
 
     // Create the Save option on the toolbar
@@ -48,7 +55,6 @@ public class EditTaskActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.save_tasks_menu, menu);
         return true;
     }
-
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -61,7 +67,13 @@ public class EditTaskActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void setTaskText() {
+        taskName = findViewById(R.id.text_edit_task_name);
+        taskDesc = findViewById(R.id.text_edit_task_description);
 
+        taskName.append(taskManager.getTask(position).getTaskName());
+        taskDesc.append(taskManager.getTask(position).getTaskDescription());
+    }
 
     private void setBackButton() {
         // Enable "up" on toolbar
@@ -72,8 +84,6 @@ public class EditTaskActivity extends AppCompatActivity {
     }
 
     public void saveTaskEdited(int position) {
-        EditText taskName = findViewById(R.id.text_edit_task_name);
-        EditText taskDesc = findViewById(R.id.text_edit_task_description);
 //        String text = "saveTaskEdited Current position is " + position;
 //        Toast.makeText(this, text , Toast.LENGTH_SHORT).show();
 
@@ -97,8 +107,6 @@ public class EditTaskActivity extends AppCompatActivity {
     public boolean checkTaskNameEmpty(EditText taskName) {
         return taskName.getText().toString().equals("");
     }
-
-
 
     public void loadTaskManager(TaskManager taskManager) {
         taskManager.loadTaskManager(this);

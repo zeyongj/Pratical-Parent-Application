@@ -25,6 +25,7 @@ import com.example.cmpt276project.model.WhoseTurnAdapter;
 
 import java.util.Objects;
 
+// Activity to allow the user to create, edit and delete tasks to assign to the children
 public class WhoseTurnActivity extends AppCompatActivity {
     // Initiate adapter and variables
     WhoseTurnAdapter whoseTurnAdapter;
@@ -57,7 +58,6 @@ public class WhoseTurnActivity extends AppCompatActivity {
 
         myDialog = new Dialog(this);
     }
-
 
     // Create the Add Task option on the toolbar
     @Override
@@ -131,7 +131,6 @@ public class WhoseTurnActivity extends AppCompatActivity {
         }
     }
 
-
     // Remove the Task at the current position
     public void removeTask(int position) {
         taskManager.removeTask(position);
@@ -152,16 +151,6 @@ public class WhoseTurnActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void clickTasks() {
-////        whoseTurnAdapter.setOnItemClick(new whoseTurnAdapter.OnItemClickListener() {
-////            @Override
-////            public void OnItemClick(View v, int position, String id) {
-////                Intent intent = new Intent(WhoseTurnActivity.this, TaskPopUpWindow.class);
-////                startActivity(intent);
-//            }
-//        });
-    }
-
     public void loadTaskManager(TaskManager taskManager) {
         taskManager.loadTaskManager(this);
         if (taskManager.checkTaskManagerEmpty()) {
@@ -171,8 +160,6 @@ public class WhoseTurnActivity extends AppCompatActivity {
     }
 
     public void showCurrentTask(int position) {
-        String text = getString(R.string.CurrentIndex, position);
-        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
         FragmentManager manager = getSupportFragmentManager();
         TaskPopUpWindow taskPopUpWindow = new TaskPopUpWindow(taskManager, position, whoseTurnAdapter);
 

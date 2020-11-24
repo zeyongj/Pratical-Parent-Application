@@ -72,7 +72,7 @@
             android:id="@+id/changeDefaultButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Change Default"
+            android:text="@string/change_default"
             android:textAllCaps="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -87,7 +87,7 @@
             android:layout_marginStart="55dp"
             android:layout_marginTop="65dp"
             android:textAllCaps="false"
-            android:text="Child"
+            android:text="@string/child"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/img_coin" />
 
@@ -98,7 +98,7 @@
             android:layout_marginTop="65dp"
             android:layout_marginEnd="55dp"
             android:textAllCaps="false"
-            android:text="Nobody"
+            android:text="@string/nobody"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/img_coin" />
 

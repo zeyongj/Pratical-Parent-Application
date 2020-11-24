@@ -37,7 +37,6 @@ import java.util.concurrent.ThreadLocalRandom;
 // Saves the history of the flips in the current session
 public class FlipCoinActivity extends AppCompatActivity {
 
-    private static final String DEFAULT = "no child";
     public static final String DATE_FORMAT = "MM dd yyyy, h:mm:s";
     private String coinSide;
 
@@ -149,7 +148,7 @@ public class FlipCoinActivity extends AppCompatActivity {
             public void onClick(View v) {
                 buttonState = false;
                 setButton();
-                choose = "Head";
+                choose = getString(R.string.head);
             }
         });
         tailButton.setOnClickListener(new View.OnClickListener() {
@@ -157,7 +156,7 @@ public class FlipCoinActivity extends AppCompatActivity {
             public void onClick(View v) {
                 buttonState = false;
                 setButton();
-                choose = "Tail";
+                choose = getString(R.string.tail);
             }
         });
     }
@@ -170,26 +169,26 @@ public class FlipCoinActivity extends AppCompatActivity {
             public void onClick(View v) {
                 int randomNumber = ThreadLocalRandom.current().nextInt(1, 3);
                 if (randomNumber == 1) {
-                    flipCoinAnimation(R.drawable.quarter_head, "Heads");
-                    coinSide = "Head";
+                    flipCoinAnimation(R.drawable.quarter_head, getString(R.string.head));
+                    coinSide = getString(R.string.head);
                     flipSound.start();
                 }
                 else {
-                    flipCoinAnimation(R.drawable.quarter_tail, "Tail");
-                    coinSide = "Tail";
+                    flipCoinAnimation(R.drawable.quarter_tail, getString(R.string.tail));
+                    coinSide = getString(R.string.tail);
                     flipSound.start();
                 }
-                if(children.getNumChildren(FlipCoinActivity.this) != 0 && NobodyTurn == false ) {
+                if(children.getNumChildren(FlipCoinActivity.this) != 0 && !NobodyTurn) {
                     buttonState = true;
                     setButton();
                     WinOrLoss = choose.equals(coinSide);
                     historyManager.addHistory(saveCurrentDateAndTime(), saveChildNames(),choose, WinOrLoss);
                 }
                 // Set current child to next child
-                if(children.getNumChildren(FlipCoinActivity.this) != 0  && NobodyTurn == false )
+                if(children.getNumChildren(FlipCoinActivity.this) != 0  && !NobodyTurn)
                     children.setCurrentToNextChild(FlipCoinActivity.this);
 
-                if(NobodyTurn == true) {
+                if(NobodyTurn) {
                     NobodyTurn = false;
                     buttonState = true;
                     setButton();
@@ -228,7 +227,7 @@ public class FlipCoinActivity extends AppCompatActivity {
                 buttonState = true;
                 NobodyTurn = true;
                 TextView textView = findViewById(R.id.childNameTextView);
-                textView.setText("Nobody's Turn");
+                textView.setText(getString(R.string.NobodysTurn));
                 initiateButtons();
             }
         });
@@ -254,15 +253,15 @@ public class FlipCoinActivity extends AppCompatActivity {
     private void displayChildName() {
         TextView textView = findViewById(R.id.childNameTextView);
         if(children.getNumChildren(this) == 0)
-            textView.setText(DEFAULT);
+            textView.setText(R.string.NoChild);
         else {
             if(children.getCurrentChildIndex(this) >= children.getNumChildren(this)) {
                 children.setCurrentToFirstChild(this);
-                String childName = " The current child is: " + children.getChild(children.getCurrentChildIndex(this));
+                String childName = getString(R.string.ChildNameIs, children.getChild(children.getCurrentChildIndex(this)));
                 textView.setText(childName);
             }
             else {
-                String childName = " The current child is: " + children.getChild(children.getCurrentChildIndex(this));
+                String childName = getString(R.string.ChildNameIs, children.getChild(children.getCurrentChildIndex(this)));
                 textView.setText(childName);
             }
         }
@@ -289,7 +288,7 @@ public class FlipCoinActivity extends AppCompatActivity {
     // Register Change Child Button clicked
     // Setup Message Fragment
     private void setupChangeChildMessage() {
-        Button button = (Button) findViewById(R.id.changeChildButton);
+        Button button = findViewById(R.id.changeChildButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

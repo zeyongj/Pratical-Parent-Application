@@ -21,8 +21,9 @@ import com.example.cmpt276project.model.Children;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-
+// Popup to allow the user to choose a child from the current queue of children in FlipCoinActivity
 public class ChangeChildMessageFragment extends AppCompatDialogFragment {
 
     private Children children = Children.getInstance();
@@ -38,13 +39,13 @@ public class ChangeChildMessageFragment extends AppCompatDialogFragment {
 
         //Add Children Name to Array List
         ArrayList<String> ChildrenName = new ArrayList<>();
-        for(int i = children.getCurrentChildIndex(getActivity()), j = 0; j < children.getNumChildren(getActivity()); j++){
+        for(int i = children.getCurrentChildIndex(requireActivity()), j = 0; j < children.getNumChildren(requireActivity()); j++){
             ChildrenName.add(children.getChild(i));
-            i = (i + 1) % children.getNumChildren(getActivity());
+            i = (i + 1) % children.getNumChildren(requireActivity());
         }
 
         // Create Array Adapter
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1,ChildrenName);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(requireActivity(), android.R.layout.simple_list_item_1,ChildrenName);
         listView.setAdapter(adapter);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -52,7 +53,7 @@ public class ChangeChildMessageFragment extends AppCompatDialogFragment {
                 .setView(v)
                 .setPositiveButton(android.R.string.ok, null) // Add child when pressed
                 .setNegativeButton(android.R.string.cancel, null) // Close dialog and do nothing else when pressed
-                .setTitle("Changing Child")
+                .setTitle(R.string.ChangingChild)
                 .create();
 
         AlertDialog alert = builder.show();
@@ -65,9 +66,9 @@ public class ChangeChildMessageFragment extends AppCompatDialogFragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                children.setCurrentToClickedChild(getActivity(), (position + children.getCurrentChildIndex(getActivity())) % children.getSize());
-                TextView textView = (TextView) getActivity().findViewById(R.id.childNameTextView);
-                textView.setText(" The current child is: " + children.getChild(children.getCurrentChildIndex(getActivity())));
+                children.setCurrentToClickedChild(requireActivity(), (position + children.getCurrentChildIndex(requireActivity())) % children.getSize());
+                TextView textView = requireActivity().findViewById(R.id.childNameTextView);
+                textView.setText(getString(R.string.CurrentChildIs, children.getChild(children.getCurrentChildIndex(requireActivity()))));
                 alert.dismiss();
             }
         });

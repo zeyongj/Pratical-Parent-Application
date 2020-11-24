@@ -39,7 +39,6 @@ public class FlipCoinHistoryActivity extends AppCompatActivity {
     private boolean toggleHistory = true;
     private String currentChildName;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +57,6 @@ public class FlipCoinHistoryActivity extends AppCompatActivity {
         if(children.getNumChildren(this) != 0) {
             currentChildName = "ChildName: " + children.getChild(children.getCurrentChildIndex(this));
         }
-
     }
 
     @Override

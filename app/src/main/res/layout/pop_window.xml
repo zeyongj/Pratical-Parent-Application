@@ -11,7 +11,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:textColor="#FFFFFF"
-        android:text="x"
+        android:text="@string/x"
         android:textStyle="bold"
         android:layout_gravity="end"
         android:gravity="center"
@@ -26,12 +26,13 @@
             android:layout_height="100dp"
             android:src="@drawable/image_white"
             android:layout_gravity="center"
-            android:layout_marginTop="15dp"/>
+            android:layout_marginTop="15dp"
+            android:contentDescription="@string/ChildImage" />
         <TextView
             android:id="@+id/pop_tv_child_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Name"
+            android:text="@string/name"
             android:textStyle="bold"
             android:textColor="#FFFFFF"
             android:layout_gravity="center_horizontal"
@@ -40,7 +41,7 @@
             android:id="@+id/pop_tv_task_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Task"
+            android:text="@string/task"
             android:textColor="#FFFFFF"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="5dp"/>
@@ -62,7 +63,7 @@
                 android:id="@+id/pop_tv_task_desc_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Description"
+                android:text="@string/description"
                 android:textSize="18sp"
                 android:textColor="#FFFFFF"/>
         </LinearLayout>
@@ -78,14 +79,14 @@
                 android:id="@+id/pop_tv_confirm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Finish task?"
+                android:text="@string/TaskFinished"
                 android:textSize="18sp"
                 android:textColor="#FFFFFF"/>
             <Button
                 android:id="@+id/pop_btn_confirm"
                 android:layout_width="60dp"
                 android:layout_height="28dp"
-                android:text="Yes"
+                android:text="@string/yes"
                 android:background="@drawable/button_clicked"
                 android:textSize="18sp"
                 android:textColor="#FFFFFF"/>
@@ -102,14 +103,14 @@
                 android:id="@+id/pop_tv_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cancel task?"
+                android:text="@string/delete_task"
                 android:textSize="18sp"
                 android:textColor="#FFFFFF"/>
             <Button
                 android:id="@+id/pop_btn_cancel"
                 android:layout_width="60dp"
                 android:layout_height="28dp"
-                android:text="Yes"
+                android:text="@string/yes"
                 android:background="@drawable/button_clicked"
                 android:textSize="18sp"
                 android:textColor="#FFFFFF"/>

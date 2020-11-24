@@ -94,15 +94,10 @@ public class ChildrenAdapter extends RecyclerView.Adapter<ChildrenAdapter.Childr
     @Override
     public void onBindViewHolder(@NonNull ChildrenViewHolder holder, int position) {
         String currentChild = children.getChild(position);
-
         String currentProfile = children.getChildProfile(position);
 
-
         holder.childName.setText(currentChild);
-
         holder.profilePic.setImageBitmap(children.decodeToBase64(currentProfile));
-
-
     }
 
     // Get the number of items in the RecyclerView
@@ -110,9 +105,6 @@ public class ChildrenAdapter extends RecyclerView.Adapter<ChildrenAdapter.Childr
     public int getItemCount() {
         return children.getSize();
     }
-
-
-
 
     // getInstance
     private static ChildrenAdapter instance;
@@ -125,8 +117,4 @@ public class ChildrenAdapter extends RecyclerView.Adapter<ChildrenAdapter.Childr
         }
         return instance;
     }
-
-
-
-
 }
