@@ -45,6 +45,7 @@
         <item>Timeout Timer</item>
         <item>Configure my Children</item>
         <item>Whose Turn Is It</item>
+        <item>Take a Breath</item>
         <item>Help</item>
     </string-array>
 
@@ -75,9 +76,9 @@
     <string name="InputTaskDesc">Input Task Description</string>
     <string name="MadeBy">Made by: Team Umber</string>
     <string name="Sources">Resource Sources</string>
-    <string name="BGSource"><a href = "https://wonderfulengineering.com/download-66-white-wallpaper-for-desktop-and-mobile/">Timer Background Image Source Link</a></string>
-    <string name="NotifSource"><a href = "https://www.flaticon.com/free-icon/notification_1040216?term=notification&amp;page=1&amp;position=16">Timer Notification Icon Source Link</a></string>
-    <string name="CodeStyleSource"><a href = "https://google.github.io/styleguide/javaguide.html">Code Style Guide Source</a></string>
+    <string name="BGSource"><a href="https://wonderfulengineering.com/download-66-white-wallpaper-for-desktop-and-mobile/">Timer Background Image Source Link</a></string>
+    <string name="NotifSource"><a href="https://www.flaticon.com/free-icon/notification_1040216?term=notification&amp;page=1&amp;position=16">Timer Notification Icon Source Link</a></string>
+    <string name="CodeStyleSource"><a href="https://google.github.io/styleguide/javaguide.html">Code Style Guide Source</a></string>
     <string name="CancelTask">Task Removed</string>
     <string name="FinishTask">%1$s Finished Task</string>
     <string name="UpdateTask">Next Child is %2$s</string>
@@ -107,4 +108,5 @@
     <string name="nobody">Nobody</string>
     <string name="image">Image</string>
     <string name="ChangingChild">Changing Child</string>
+    <string name="TakeBreath">Take Breath</string>
 </resources>
