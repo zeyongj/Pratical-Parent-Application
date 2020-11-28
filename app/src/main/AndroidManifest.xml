@@ -35,7 +35,7 @@
             android:name=".ui.TakeBreathActivity"
             android:parentActivityName=".ui.MainActivity"
             android:label="@string/TakeBreath"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            />
 
 
         <activity
