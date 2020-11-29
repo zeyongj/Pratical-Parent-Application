@@ -101,11 +101,11 @@ public class TakeBreathActivity extends AppCompatActivity implements AdapterView
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         Spinner spinner = (Spinner) parent;
-        ((TextView)spinner.getChildAt(0)).setTextColor(Color.WHITE);
+        ((TextView)spinner.getChildAt(0)).setTextColor(Color.BLACK);
         ((TextView)spinner.getChildAt(0)).setTextSize(16);
 
         String text = parent.getItemAtPosition(position).toString();
-
+        // TODO: Save number of breaths into SharedPreference
 
     }
 
