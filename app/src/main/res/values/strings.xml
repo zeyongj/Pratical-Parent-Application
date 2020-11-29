@@ -109,6 +109,8 @@
     <string name="image">Image</string>
     <string name="ChangingChild">Changing Child</string>
     <string name="TakeBreath">Take Breath</string>
+    <string name="begin">Begin</string>
+    <string name="number_of_breaths">Number of breaths</string>
     <string-array name="NumberOfBreathSpinner">
         <item>1</item>
         <item>2</item>
