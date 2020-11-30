@@ -5,12 +5,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
+
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.example.cmpt276project.R;
+
+import org.w3c.dom.Text;
 
 import java.util.Objects;
 
@@ -40,12 +47,27 @@ public class BreathingActivity extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
         Objects.requireNonNull(ab).setDisplayHomeAsUpEnabled(true);
 
-
+        // Set exhale button invisible when launching the activity
         Button exhaleButton = findViewById(R.id.btn_exhale);
         setButtonVisible(exhaleButton, View.INVISIBLE);
 
+        TextView inhaleText = findViewById(R.id.txt_inhaleText);
+        inhaleText.setVisibility(View.INVISIBLE);
+
         registerClickedStart();
 
+
+    }
+
+    // TODO: fix animation attribute to make it look reasonable and good
+    private void inhaleAnimation() {
+        TextView textView = findViewById(R.id.txt_inhaleText);
+        YoYo.with(Techniques.ZoomIn)
+                .duration(3000)
+                .repeat(1)
+                .playOn(textView);
+
+        // might need a handler for handling button holding time
 
     }
 
@@ -69,6 +91,13 @@ public class BreathingActivity extends AppCompatActivity {
             @Override
             public boolean onLongClick(View v) {
                 Toast.makeText(BreathingActivity.this, "bruh", Toast.LENGTH_SHORT).show();
+
+                TextView inhaleText = findViewById(R.id.txt_inhaleText);
+                inhaleText.setVisibility(View.VISIBLE);
+
+
+                inhaleAnimation();
+
                 return false;
             }
         });
