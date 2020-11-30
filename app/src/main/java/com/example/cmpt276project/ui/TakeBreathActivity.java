@@ -81,7 +81,9 @@ public class TakeBreathActivity extends AppCompatActivity implements AdapterView
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: Start activity inhale
+                // go to breathing activity
+                Intent intent = new Intent(TakeBreathActivity.this, BreathingActivity.class);
+                startActivity(intent);
             }
         });
 

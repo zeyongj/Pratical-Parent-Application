@@ -21,6 +21,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".ui.BreathingActivity"
+            android:parentActivityName=".ui.TakeBreathActivity" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.example.android.fileprovider"
@@ -33,11 +37,8 @@
 
         <activity
             android:name=".ui.TakeBreathActivity"
-            android:parentActivityName=".ui.MainActivity"
             android:label="@string/TakeBreath"
-            />
-
-
+            android:parentActivityName=".ui.MainActivity" />
         <activity
             android:name=".ui.EditTaskActivity"
             android:label="@string/EditTask"

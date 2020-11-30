@@ -111,6 +111,8 @@
     <string name="TakeBreath">Take Breath</string>
     <string name="begin">Begin</string>
     <string name="number_of_breaths">Number of breaths</string>
+    <string name="in">In</string>
+    <string name="out">out</string>
     <string-array name="NumberOfBreathSpinner">
         <item>1</item>
         <item>2</item>
@@ -123,7 +125,6 @@
         <item>9</item>
         <item>10</item>
     </string-array>
-
 
 
 </resources>
