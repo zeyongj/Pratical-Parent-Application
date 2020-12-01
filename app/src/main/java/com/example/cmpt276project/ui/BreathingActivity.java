@@ -37,6 +37,7 @@ import java.util.Objects;
 public class BreathingActivity extends AppCompatActivity {
 
     public static final String BREATH_IN_BUTTON_HELP = "Hold button and breath in";
+    boolean buttonPressed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +65,7 @@ public class BreathingActivity extends AppCompatActivity {
         TextView textView = findViewById(R.id.txt_inhaleText);
         YoYo.with(Techniques.ZoomIn)
                 .duration(3000)
-                .repeat(1)
+                .repeat(0)
                 .playOn(textView);
 
         // might need a handler for handling button holding time
@@ -75,34 +76,50 @@ public class BreathingActivity extends AppCompatActivity {
         button.setVisibility(visibility);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void registerClickedStart() {
         Button btn = findViewById(R.id.btn_inhale);
-        btn.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               Toast.makeText(BreathingActivity.this, BREATH_IN_BUTTON_HELP, Toast.LENGTH_SHORT).show();
-           }
-       });
 
 
-        // Should use LongClick Listener for "hold"
-        // TODO: fix bug when help message displayed when releasing the button.
-        btn.setOnLongClickListener(new View.OnLongClickListener() {
+       // should use onTouch listener for handling different user movements.
+        btn.setOnTouchListener(new View.OnTouchListener() {
+
+            private final Handler handler = new Handler();
+            private final Runnable runnable = new Runnable() {
+                @Override
+                public void run() {
+                    if (buttonPressed){
+                        // play inhale animation
+                        TextView inhaleText = findViewById(R.id.txt_inhaleText);
+                        inhaleText.setVisibility(View.VISIBLE);
+                        inhaleAnimation();
+                    }
+                }
+            };
+
+
             @Override
-            public boolean onLongClick(View v) {
-                Toast.makeText(BreathingActivity.this, "bruh", Toast.LENGTH_SHORT).show();
+            public boolean onTouch(View v, MotionEvent event) {
 
-                TextView inhaleText = findViewById(R.id.txt_inhaleText);
-                inhaleText.setVisibility(View.VISIBLE);
+                // TODO: add if statement to clarify different situations.
 
+                if (event.getAction() == MotionEvent.ACTION_DOWN){
+                    Toast.makeText(BreathingActivity.this, BREATH_IN_BUTTON_HELP, Toast.LENGTH_SHORT).show();
+                }
 
-                inhaleAnimation();
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    handler.postDelayed(runnable, 3000);
+                    buttonPressed = true;
+                }
 
+                if (event.getAction() == MotionEvent.ACTION_BUTTON_RELEASE) {
+                    buttonPressed = false;
+                    //handler.removeCallbacks(runnable);
+
+                }
                 return false;
             }
         });
-
-
     }
 }
 
