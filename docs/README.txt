@@ -11,5 +11,9 @@ We would like show our appreciation to organizers of the fore-mentioned websites
 This is the iteration 2 of group Umber in the course of CMPT 276, and the instructor is Dr.Fraser.
 As for the part of timeout timer in the iteration, we would like to acknowledge that:
 The design of the pop-up window is inspired from the website: https://awsrh.blogspot.com/2017/10/custom-pop-up-window-with-android-studio.html.
-
 The source for the coding style guide is taken from Google from: https://google.github.io/styleguide/javaguide.html
+
+This is the iteration 2 of group Umber in the course of CMPT 276, and the instructor is Dr.Fraser.
+As for the part of timeout timer in the iteration, we would like to acknowledge that:
+The idea of the progress bar of the timer activity is from the website: https://stackoverflow.com/questions/52569581/countdown-timer-with-a-progressbar.
+
