@@ -4,10 +4,8 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -132,8 +130,9 @@ public class BreathingActivity extends AppCompatActivity {
         // should use onTouch listener for handling different user movements.
         btn.setOnTouchListener(new View.OnTouchListener() {
 
-            private final Handler handler = new Handler();
+            long buttonDown;
 
+            private final Handler handler = new Handler();
 
             private final Runnable inhaleHelpMessage = new Runnable() {
                 @Override
@@ -142,7 +141,6 @@ public class BreathingActivity extends AppCompatActivity {
 
                 }
             };
-
 
             private final Runnable inhaleAnimation = new Runnable() {
                 @Override
@@ -156,12 +154,8 @@ public class BreathingActivity extends AppCompatActivity {
                 public void run() {
                     Button exhaleButton = findViewById(R.id.btn_exhale);
                     exhaleButton.setVisibility(View.VISIBLE);
-
-                    // play exhale animation after a short delay.
-                    handler.postDelayed(playExhaleAnimation, 1000);
                 }
             };
-
 
             private final Runnable remindExhaleMessage = new Runnable() {
                 @Override
@@ -170,20 +164,18 @@ public class BreathingActivity extends AppCompatActivity {
                 }
             };
 
-
-            private final Runnable playExhaleAnimation = new Runnable() {
+            private final Runnable exhaleAnimation = new Runnable() {
                 @Override
                 public void run() {
                     exhaleAnimation();
                 }
             };
 
-            long buttonDown;
 
 
+            /*--------------------------- button on touch event ----------------------------------*/
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-
 
                 if (event.getAction() == MotionEvent.ACTION_DOWN ){
 
@@ -191,8 +183,6 @@ public class BreathingActivity extends AppCompatActivity {
 
                     // Button onHold, show inhale animation
                     handler.postDelayed(inhaleAnimation, 200);
-
-
 
 
                     // TODO: fix bug when releasing button, the message still shows
@@ -213,6 +203,14 @@ public class BreathingActivity extends AppCompatActivity {
                     // Button released after holding for 3s, stop inhaling, reveal exhale button
                     if ((System.currentTimeMillis() - buttonDown) >= 3000 ) {
                         handler.post(revealExhaleButton);
+
+                        // play exhale animation after a short delay.
+                        handler.postDelayed(exhaleAnimation, 1000);
+
+                        // update remaining breaths
+                        breathTaken += 1;
+                        setRemainingBreaths();
+
                     }
 
                 }
@@ -220,6 +218,14 @@ public class BreathingActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
+
+
+
+
+
 
 
     private void registerExhaleButton() {
