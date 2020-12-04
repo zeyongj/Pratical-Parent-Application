@@ -36,6 +36,7 @@ import java.util.Objects;
 public class BreathingActivity extends AppCompatActivity {
 
     public static final String BREATH_IN_BUTTON_HELP = "Hold button and breath in";
+    public static final String EXHALE_REMINDER = "Release button and breath out";
     boolean buttonPressed;
 
     @Override
@@ -96,12 +97,12 @@ public class BreathingActivity extends AppCompatActivity {
             private final Runnable inhaleAnimation = new Runnable() {
                 @Override
                 public void run() {
-                    if (buttonPressed){
+
                         // play inhale animation
                         TextView inhaleText = findViewById(R.id.txt_inhaleText);
                         inhaleText.setVisibility(View.VISIBLE);
                         inhaleAnimation();
-                    }
+
                 }
             };
 
@@ -114,32 +115,47 @@ public class BreathingActivity extends AppCompatActivity {
             };
 
 
+            private final Runnable remindExhaleMessage = new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(BreathingActivity.this, EXHALE_REMINDER, Toast.LENGTH_SHORT).show();
+                }
+            };
+
+            long buttonDown;
 
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
 
-                // TODO: add if statement to clarify different situations.
 
                 if (event.getAction() == MotionEvent.ACTION_DOWN ){
 
-                    buttonPressed = true;
+                    buttonDown = System.currentTimeMillis();
 
-                    // Button clicked, display inhale help message
+                    // Button onHold, show inhale animation
+                    handler.postDelayed(inhaleAnimation, 200);
 
 
-                    // Button hold for 1s, show inhaleAnimation
-                    handler.postDelayed(inhaleAnimation, 500);
+                    // Button continuously held for 10s, show exhale reminder
+                    handler.postDelayed(remindExhaleMessage, 10000);
 
-                    // Button hold for 3s show exhale Button
-                    handler.postDelayed(revealExhaleButton, 3000);
-
-                    // Button hold for 10s, reveal exhale Button
-                    handler.postDelayed(revealExhaleButton, 10000);
                 }
 
                 else if (event.getAction() == MotionEvent.ACTION_UP) {
+
                     handler.removeCallbacks(inhaleAnimation);
+
+                    // inhale button "onClick", display inhale help message
+                    if ((System.currentTimeMillis() - buttonDown) < 200) {
+                        handler.post(inhaleHelpMessage);
+                    }
+
+                    // Button released after holding for 3s, stop inhaling
+                    if ((System.currentTimeMillis() - buttonDown) >= 3000 ) {
+                        handler.post(revealExhaleButton);
+                    }
+
                 }
                 return false;
             }
