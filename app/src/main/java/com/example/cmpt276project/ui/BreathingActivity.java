@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -16,8 +17,6 @@ import android.widget.Toast;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.example.cmpt276project.R;
-
-import org.w3c.dom.Text;
 
 import java.util.Objects;
 
@@ -65,10 +64,8 @@ public class BreathingActivity extends AppCompatActivity {
         TextView textView = findViewById(R.id.txt_inhaleText);
         YoYo.with(Techniques.ZoomIn)
                 .duration(3000)
-                .repeat(0)
                 .playOn(textView);
 
-        // might need a handler for handling button holding time
 
     }
 
@@ -85,7 +82,18 @@ public class BreathingActivity extends AppCompatActivity {
         btn.setOnTouchListener(new View.OnTouchListener() {
 
             private final Handler handler = new Handler();
-            private final Runnable runnable = new Runnable() {
+
+
+            private final Runnable inhaleHelpMessage = new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(BreathingActivity.this, BREATH_IN_BUTTON_HELP, Toast.LENGTH_SHORT).show();
+
+                }
+            };
+
+
+            private final Runnable inhaleAnimation = new Runnable() {
                 @Override
                 public void run() {
                     if (buttonPressed){
@@ -97,25 +105,41 @@ public class BreathingActivity extends AppCompatActivity {
                 }
             };
 
+            private final Runnable revealExhaleButton = new Runnable() {
+                @Override
+                public void run() {
+                    Button exhaleButton = findViewById(R.id.btn_exhale);
+                    exhaleButton.setVisibility(View.VISIBLE);
+                }
+            };
+
+
+
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
 
                 // TODO: add if statement to clarify different situations.
 
-                if (event.getAction() == MotionEvent.ACTION_DOWN){
-                    Toast.makeText(BreathingActivity.this, BREATH_IN_BUTTON_HELP, Toast.LENGTH_SHORT).show();
-                }
+                if (event.getAction() == MotionEvent.ACTION_DOWN ){
 
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    handler.postDelayed(runnable, 3000);
                     buttonPressed = true;
+
+                    // Button clicked, display inhale help message
+
+
+                    // Button hold for 1s, show inhaleAnimation
+                    handler.postDelayed(inhaleAnimation, 500);
+
+                    // Button hold for 3s show exhale Button
+                    handler.postDelayed(revealExhaleButton, 3000);
+
+                    // Button hold for 10s, reveal exhale Button
+                    handler.postDelayed(revealExhaleButton, 10000);
                 }
 
-                if (event.getAction() == MotionEvent.ACTION_BUTTON_RELEASE) {
-                    buttonPressed = false;
-                    //handler.removeCallbacks(runnable);
-
+                else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    handler.removeCallbacks(inhaleAnimation);
                 }
                 return false;
             }
