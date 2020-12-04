@@ -37,7 +37,6 @@ public class BreathingActivity extends AppCompatActivity {
 
     public static final String BREATH_IN_BUTTON_HELP = "Hold button and breath in";
     public static final String EXHALE_REMINDER = "Release button and breath out";
-    boolean buttonPressed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +51,13 @@ public class BreathingActivity extends AppCompatActivity {
         Button exhaleButton = findViewById(R.id.btn_exhale);
         setButtonVisible(exhaleButton, View.INVISIBLE);
 
+        // Set inhaleAnimation TextView invisible
         TextView inhaleText = findViewById(R.id.txt_inhaleText);
         inhaleText.setVisibility(View.INVISIBLE);
+
+        // Set exhaleAnimation TextView invisible
+        TextView exhaleText = findViewById(R.id.txt_exhaleText);
+        exhaleText.setVisibility(View.INVISIBLE);
 
         registerClickedStart();
 
@@ -70,16 +74,41 @@ public class BreathingActivity extends AppCompatActivity {
 
     }
 
+    // TODO: add inhale sound
+
+
+    // TODO: add exhale animation
+    private void exhaleAnimation() {
+        TextView textView = findViewById(R.id.txt_exhaleText);
+        YoYo.with(Techniques.ZoomOut)
+                .duration(3000)
+                .playOn(textView);
+    }
+
+
+    // TODO: add exhale sound
+
     private void setButtonVisible(Button button, int visibility) {
         button.setVisibility(visibility);
     }
 
-    @SuppressLint("ClickableViewAccessibility")
+
     private void registerClickedStart() {
+
+        registerInhaleButton();
+
+        //registerExhaleButton();
+
+    }
+
+
+
+
+    @SuppressLint("ClickableViewAccessibility")
+    private void registerInhaleButton() {
         Button btn = findViewById(R.id.btn_inhale);
 
-
-       // should use onTouch listener for handling different user movements.
+        // should use onTouch listener for handling different user movements.
         btn.setOnTouchListener(new View.OnTouchListener() {
 
             private final Handler handler = new Handler();
@@ -97,11 +126,10 @@ public class BreathingActivity extends AppCompatActivity {
             private final Runnable inhaleAnimation = new Runnable() {
                 @Override
                 public void run() {
-
-                        // play inhale animation
-                        TextView inhaleText = findViewById(R.id.txt_inhaleText);
-                        inhaleText.setVisibility(View.VISIBLE);
-                        inhaleAnimation();
+                    // play inhale animation
+                    TextView inhaleText = findViewById(R.id.txt_inhaleText);
+                    inhaleText.setVisibility(View.VISIBLE);
+                    inhaleAnimation();
 
                 }
             };
@@ -111,6 +139,9 @@ public class BreathingActivity extends AppCompatActivity {
                 public void run() {
                     Button exhaleButton = findViewById(R.id.btn_exhale);
                     exhaleButton.setVisibility(View.VISIBLE);
+
+
+                    // TODO: wait for 3s
                 }
             };
 
@@ -151,13 +182,30 @@ public class BreathingActivity extends AppCompatActivity {
                         handler.post(inhaleHelpMessage);
                     }
 
-                    // Button released after holding for 3s, stop inhaling
+                    // Button released after holding for 3s, stop inhaling, reveal exhale button
                     if ((System.currentTimeMillis() - buttonDown) >= 3000 ) {
                         handler.post(revealExhaleButton);
                     }
 
                 }
                 return false;
+            }
+        });
+    }
+
+
+    private void registerExhaleButton() {
+        Button inhaleButton = findViewById(R.id.btn_inhale);
+        Button exhaleButton = findViewById(R.id.btn_exhale);
+        TextView exhaleTextView = findViewById(R.id.txt_exhaleText);
+
+//        exhaleTextView.setVisibility(View.VISIBLE);
+//        exhaleAnimation();
+
+        exhaleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO: Done exhale: stop animation; stop sound
             }
         });
     }

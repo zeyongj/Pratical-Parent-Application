@@ -114,6 +114,7 @@
     <string name="in">In</string>
     <string name="out">out</string>
     <string name="inhaleText">TAKE \n A \n DEEP BREATH \n IN</string>
+    <string name="exhaleText">TAKE \nA \nDEEP \nBREATH \nOUT</string>
     <string-array name="NumberOfBreathSpinner">
         <item>1</item>
         <item>2</item>
