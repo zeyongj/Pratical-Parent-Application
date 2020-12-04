@@ -4,6 +4,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -35,8 +36,10 @@ import java.util.Objects;
 
 public class BreathingActivity extends AppCompatActivity {
 
-    public static final String BREATH_IN_BUTTON_HELP = "Hold button and breath in";
-    public static final String EXHALE_REMINDER = "Release button and breath out";
+    private static final String BREATH_IN_BUTTON_HELP = "Hold button and breath in";
+    private static final String EXHALE_REMINDER = "Release button and breath out";
+
+    private int breathTaken = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,17 +62,31 @@ public class BreathingActivity extends AppCompatActivity {
         TextView exhaleText = findViewById(R.id.txt_exhaleText);
         exhaleText.setVisibility(View.INVISIBLE);
 
+        // Set number of breaths in total;
+        setRemainingBreaths();
+
         registerClickedStart();
 
 
     }
 
+    private void setRemainingBreaths() {
+        int totalBreaths = TakeBreathActivity.getNumBreath(BreathingActivity.this);
+
+        String remainingBreaths = Integer.toString(totalBreaths - breathTaken);
+
+        TextView remainingBreathNumbers = findViewById(R.id.txt_remainingBreathNumber);
+        remainingBreathNumbers.setText(remainingBreaths);
+    }
+
     // TODO: fix animation attribute to make it look reasonable and good
     private void inhaleAnimation() {
-        TextView textView = findViewById(R.id.txt_inhaleText);
+        TextView inhaleText = findViewById(R.id.txt_inhaleText);
+        inhaleText.setVisibility(View.VISIBLE);
+
         YoYo.with(Techniques.ZoomIn)
                 .duration(3000)
-                .playOn(textView);
+                .playOn(inhaleText);
 
 
     }
@@ -77,12 +94,18 @@ public class BreathingActivity extends AppCompatActivity {
     // TODO: add inhale sound
 
 
-    // TODO: add exhale animation
+    // TODO: change animation so that it make sense (design)
     private void exhaleAnimation() {
-        TextView textView = findViewById(R.id.txt_exhaleText);
+        TextView exhaleTv = findViewById(R.id.txt_exhaleText);
+        exhaleTv.setVisibility(View.VISIBLE);
+
+        // Set inhale animation TextView invisible to avoid UI overlapping
+        TextView inhaleTv = findViewById(R.id.txt_inhaleText);
+        inhaleTv.setVisibility(View.INVISIBLE);
+
         YoYo.with(Techniques.ZoomOut)
                 .duration(3000)
-                .playOn(textView);
+                .playOn(exhaleTv);
     }
 
 
@@ -96,8 +119,6 @@ public class BreathingActivity extends AppCompatActivity {
     private void registerClickedStart() {
 
         registerInhaleButton();
-
-        //registerExhaleButton();
 
     }
 
@@ -126,11 +147,7 @@ public class BreathingActivity extends AppCompatActivity {
             private final Runnable inhaleAnimation = new Runnable() {
                 @Override
                 public void run() {
-                    // play inhale animation
-                    TextView inhaleText = findViewById(R.id.txt_inhaleText);
-                    inhaleText.setVisibility(View.VISIBLE);
                     inhaleAnimation();
-
                 }
             };
 
@@ -140,8 +157,8 @@ public class BreathingActivity extends AppCompatActivity {
                     Button exhaleButton = findViewById(R.id.btn_exhale);
                     exhaleButton.setVisibility(View.VISIBLE);
 
-
-                    // TODO: wait for 3s
+                    // play exhale animation after a short delay.
+                    handler.postDelayed(playExhaleAnimation, 1000);
                 }
             };
 
@@ -150,6 +167,14 @@ public class BreathingActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     Toast.makeText(BreathingActivity.this, EXHALE_REMINDER, Toast.LENGTH_SHORT).show();
+                }
+            };
+
+
+            private final Runnable playExhaleAnimation = new Runnable() {
+                @Override
+                public void run() {
+                    exhaleAnimation();
                 }
             };
 
@@ -168,6 +193,9 @@ public class BreathingActivity extends AppCompatActivity {
                     handler.postDelayed(inhaleAnimation, 200);
 
 
+
+
+                    // TODO: fix bug when releasing button, the message still shows
                     // Button continuously held for 10s, show exhale reminder
                     handler.postDelayed(remindExhaleMessage, 10000);
 

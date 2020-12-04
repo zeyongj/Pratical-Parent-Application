@@ -24,8 +24,9 @@ import java.util.Objects;
 
 public class TakeBreathActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    public static final String PREF_SPINNER = "Number of breath spinner sharedPreference";
-    public static final String NUMBER_OF_BREATH_SELECTED = "Number of breath selected";
+    private static final String PREF_SPINNER = "Number of breath spinner sharedPreference";
+    private static final String NUMBER_OF_BREATH_SELECTED = "Number of breath selected";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,6 +128,7 @@ public class TakeBreathActivity extends AppCompatActivity implements AdapterView
         editor.putInt(NUMBER_OF_BREATH_SELECTED, numBreath);
         editor.apply();
     }
+
     static public int getNumBreath(Context context) {
         SharedPreferences prefs = context.getSharedPreferences(PREF_SPINNER, MODE_PRIVATE);
         return prefs.getInt(NUMBER_OF_BREATH_SELECTED, 1);

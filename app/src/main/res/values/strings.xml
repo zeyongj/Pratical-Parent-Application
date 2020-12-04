@@ -115,6 +115,8 @@
     <string name="out">out</string>
     <string name="inhaleText">TAKE \n A \n DEEP BREATH \n IN</string>
     <string name="exhaleText">TAKE \nA \nDEEP \nBREATH \nOUT</string>
+    <string name="remaining_breaths_txt">Remaining breaths:</string>
+    <string name="remaining_breaths_number">0</string>
     <string-array name="NumberOfBreathSpinner">
         <item>1</item>
         <item>2</item>
