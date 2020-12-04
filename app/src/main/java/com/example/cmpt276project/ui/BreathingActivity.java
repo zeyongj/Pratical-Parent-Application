@@ -36,6 +36,8 @@ public class BreathingActivity extends AppCompatActivity {
 
     private static final String BREATH_IN_BUTTON_HELP = "Hold button and breath in";
     private static final String EXHALE_REMINDER = "Release button and breath out";
+    private static final String INHALE_BUTTON_TEXT = "IN";
+    private static final String EXHALE_BUTTON_TEXT = "OUT";
 
     private int breathTaken = 0;
 
@@ -48,9 +50,6 @@ public class BreathingActivity extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
         Objects.requireNonNull(ab).setDisplayHomeAsUpEnabled(true);
 
-        // Set exhale button invisible when launching the activity
-        Button exhaleButton = findViewById(R.id.btn_exhale);
-        setButtonVisible(exhaleButton, View.INVISIBLE);
 
         // Set inhaleAnimation TextView invisible
         TextView inhaleText = findViewById(R.id.txt_inhaleText);
@@ -62,6 +61,8 @@ public class BreathingActivity extends AppCompatActivity {
 
         // Set number of breaths in total;
         setRemainingBreaths();
+
+
 
         registerClickedStart();
 
@@ -75,6 +76,13 @@ public class BreathingActivity extends AppCompatActivity {
 
         TextView remainingBreathNumbers = findViewById(R.id.txt_remainingBreathNumber);
         remainingBreathNumbers.setText(remainingBreaths);
+    }
+
+    private int getRemainingBreaths() {
+
+        TextView tv = findViewById(R.id.txt_remainingBreathNumber);
+
+        return Integer.parseInt(tv.getText().toString());
     }
 
     // TODO: fix animation attribute to make it look reasonable and good
@@ -109,14 +117,10 @@ public class BreathingActivity extends AppCompatActivity {
 
     // TODO: add exhale sound
 
-    private void setButtonVisible(Button button, int visibility) {
-        button.setVisibility(visibility);
-    }
-
 
     private void registerClickedStart() {
 
-        registerInhaleButton();
+        registerClickedGeneralButton();
 
     }
 
@@ -124,7 +128,7 @@ public class BreathingActivity extends AppCompatActivity {
 
 
     @SuppressLint("ClickableViewAccessibility")
-    private void registerInhaleButton() {
+    private void registerClickedGeneralButton() {
         Button btn = findViewById(R.id.btn_inhale);
 
         // should use onTouch listener for handling different user movements.
@@ -149,11 +153,20 @@ public class BreathingActivity extends AppCompatActivity {
                 }
             };
 
+            private final Runnable revealInhaleButton = new Runnable() {
+                @Override
+                public void run() {
+                    Button btn = findViewById(R.id.btn_inhale);
+                    btn.setText(INHALE_BUTTON_TEXT);
+
+                }
+            };
+
             private final Runnable revealExhaleButton = new Runnable() {
                 @Override
                 public void run() {
-                    Button exhaleButton = findViewById(R.id.btn_exhale);
-                    exhaleButton.setVisibility(View.VISIBLE);
+                    Button btn = findViewById(R.id.btn_inhale);
+                    btn.setText(EXHALE_BUTTON_TEXT);
                 }
             };
 
@@ -211,6 +224,10 @@ public class BreathingActivity extends AppCompatActivity {
                         breathTaken += 1;
                         setRemainingBreaths();
 
+                        if (getRemainingBreaths() > 0) {
+                            handler.postDelayed(revealInhaleButton, 4000);
+                        }
+
                     }
 
                 }
@@ -220,29 +237,6 @@ public class BreathingActivity extends AppCompatActivity {
     }
 
 
-
-
-
-
-
-
-
-
-    private void registerExhaleButton() {
-        Button inhaleButton = findViewById(R.id.btn_inhale);
-        Button exhaleButton = findViewById(R.id.btn_exhale);
-        TextView exhaleTextView = findViewById(R.id.txt_exhaleText);
-
-//        exhaleTextView.setVisibility(View.VISIBLE);
-//        exhaleAnimation();
-
-        exhaleButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //TODO: Done exhale: stop animation; stop sound
-            }
-        });
-    }
 }
 
 
