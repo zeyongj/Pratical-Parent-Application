@@ -95,6 +95,7 @@ public class BreathingActivity extends AppCompatActivity {
         return Integer.parseInt(tv.getText().toString());
     }
 
+
     // TODO: fix animation attribute to make it look reasonable and good
     private void inhaleAnimationWithSound() {
         TextView inhaleText = findViewById(R.id.txt_inhaleText);
@@ -106,9 +107,6 @@ public class BreathingActivity extends AppCompatActivity {
 
         inhaleSound.start();
     }
-
-
-    // TODO: change animation so that it make sense (design)
     private void exhaleAnimationWithSound() {
         TextView exhaleTv = findViewById(R.id.txt_exhaleText);
         exhaleTv.setVisibility(View.VISIBLE);
@@ -149,11 +147,9 @@ public class BreathingActivity extends AppCompatActivity {
             private boolean isButtonHeld = false;
 
 
-
             private final Handler handler = new Handler();
 
-
-            /*------------------------------------------------------------------------------------*/
+            /*----------------------------- Runnable: Messages -----------------------------------*/
             private final Runnable inhaleHelpMessage = new Runnable() {
                 @Override
                 public void run() {
@@ -174,7 +170,7 @@ public class BreathingActivity extends AppCompatActivity {
                 }
             };
 
-            /*------------------------------------------------------------------------------------*/
+            /*------------------------------ Runnable: Animation ---------------------------------*/
 
             private final Runnable inhaleAnimation = new Runnable() {
                 @Override
@@ -184,6 +180,7 @@ public class BreathingActivity extends AppCompatActivity {
                     inhaleAnimationWithSound();
                 }
             };
+
             private final Runnable exhaleAnimation = new Runnable() {
                 @Override
                 public void run() {
@@ -191,7 +188,7 @@ public class BreathingActivity extends AppCompatActivity {
                 }
             };
 
-            /*------------------------------------------------------------------------------------*/
+            /*---------------------------- Runnable: Button Settings -----------------------------*/
             private final Runnable revealInhaleButton = new Runnable() {
                 @Override
                 public void run() {
@@ -219,12 +216,6 @@ public class BreathingActivity extends AppCompatActivity {
             /*------------------------------------------------------------------------------------*/
 
 
-            private final Runnable clickFinish = new Runnable() {
-                @Override
-                public void run() {
-                    registerClickedGoodJob();
-                }
-            };
 
 
             /*--------------------------- button on touch event ----------------------------------*/
@@ -271,25 +262,15 @@ public class BreathingActivity extends AppCompatActivity {
                         }
                         else {
                             handler.post(revealFinishButton);
-                            handler.post(clickFinish);
+
                         }
+
+                        // TODO: "MORE?" button
 
                     }
 
                 }
                 return false;
-            }
-        });
-    }
-
-    private void registerClickedGoodJob() {
-        final Button btn = findViewById(R.id.btn_inhale);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (btn.getText().toString().equals(ENDING_BUTTON_TEXT)) {
-                    btn.setText(CONTINUE_BREATHING);
-                }
             }
         });
     }

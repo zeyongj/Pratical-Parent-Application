@@ -8,8 +8,8 @@
 
     <Button
         android:id="@+id/btn_takeBreathBegin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="82dp"
         android:text="@string/begin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,14 +22,14 @@
         android:id="@+id/txt_beginMessage"
         android:layout_width="212dp"
         android:layout_height="35dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="28dp"
         android:text="@string/number_of_breaths"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/btn_takeBreathBegin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.631" />
+        app:layout_constraintVertical_bias="0.804" />
 
     <Spinner
         android:id="@+id/spinner_numBreaths"
@@ -44,8 +44,8 @@
 
     <Button
         android:id="@+id/btn_takeBreathStart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="151dp"
+        android:layout_height="98dp"
         android:layout_marginTop="136dp"
         android:text="@string/Start"
         app:layout_constraintBottom_toBottomOf="parent"
