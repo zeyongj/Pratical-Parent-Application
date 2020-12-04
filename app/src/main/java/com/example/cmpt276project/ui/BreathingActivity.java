@@ -200,16 +200,23 @@ public class BreathingActivity extends AppCompatActivity {
             private final Runnable revealExhaleButton = new Runnable() {
                 @Override
                 public void run() {
+                    isButtonClicked = false;
+                    isButtonHeld = true;
                     Button btn = findViewById(R.id.btn_inhale);
                     btn.setText(EXHALE_BUTTON_TEXT);
                 }
             };
 
+
+            // TODO: fix bug when inhale hint is displayed.
             private final Runnable revealFinishButton = new Runnable() {
                 @Override
                 public void run() {
-                    Button btn = findViewById(R.id.btn_inhale);
-                    btn.setText(ENDING_BUTTON_TEXT);
+
+                    if (!isButtonClicked && isButtonHeld) {
+                        Button btn = findViewById(R.id.btn_inhale);
+                        btn.setText(ENDING_BUTTON_TEXT);
+                    }
                 }
             };
 
