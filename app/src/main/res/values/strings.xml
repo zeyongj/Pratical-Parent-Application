@@ -107,4 +107,5 @@
     <string name="nobody">Nobody</string>
     <string name="image">Image</string>
     <string name="ChangingChild">Changing Child</string>
+    <string name="child_profile_image">Child\'s Profile Image</string>
 </resources>

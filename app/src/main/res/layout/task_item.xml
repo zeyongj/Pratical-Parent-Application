@@ -19,14 +19,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            tools:ignore="RelativeOverlap" />
+            tools:ignore="RelativeOverlap"
+            android:layout_toEndOf="@id/childprofileimage"
+            android:layout_marginStart="3dp"/>
 
         <TextView
             android:id="@+id/nextchildname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/taskname"
-            android:layout_marginTop="5sp"/>
+            android:layout_marginTop="5sp"
+            android:layout_toEndOf="@id/childprofileimage"
+            android:layout_marginStart="3dp"/>
 
 
         <Button
@@ -53,6 +57,17 @@
             android:text="@string/EditButton"
             android:textSize="10sp"
             tools:ignore="RelativeOverlap,SmallSp" />
+
+        <ImageView
+            android:id="@+id/childprofileimage"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginBottom="0dp"
+            app:srcCompat="@drawable/default_user_profile"
+            android:contentDescription="@string/child_profile_image" />
 
 
     </RelativeLayout>
