@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@id/edit_text_input"
-        android:layout_marginBottom="70dp"
+        android:layout_marginBottom="95dp"
         android:layout_marginStart="30dp"
         android:text="@string/OneMinute"
         android:background="@drawable/button_clicked"/>
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/edit_text_input"
         android:layout_toEndOf="@id/button_set1min"
-        android:layout_marginBottom="70dp"
+        android:layout_marginBottom="95dp"
         android:layout_marginStart="30dp"
         android:text="@string/TwoMinutes"
         android:background="@drawable/button_clicked"/>
@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/edit_text_input"
         android:layout_toEndOf="@id/button_set2min"
-        android:layout_marginBottom="70dp"
+        android:layout_marginBottom="95dp"
         android:layout_marginStart="30dp"
         android:text="@string/ThreeMinutes"
         android:background="@drawable/button_clicked"/>
@@ -43,7 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@id/edit_text_input"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="35dp"
         android:layout_marginStart="90dp"
         android:text="@string/FiveMinutes"
         android:background="@drawable/button_clicked"/>
@@ -54,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_toEndOf="@id/button_set5min"
         android:layout_above="@id/edit_text_input"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="35dp"
         android:layout_marginStart="30dp"
         android:text="@string/TenMinutes"
         android:background="@drawable/button_clicked"/>
@@ -65,7 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/text_view_countdown"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="85dp"
         android:hint="@string/Minutes"
         android:autofillHints="@string/Minutes"
         android:gravity="center"
@@ -97,6 +97,7 @@
         android:layout_height="wrap_content"
         android:text="@string/Start"
         android:layout_below="@id/text_view_countdown"
+        android:layout_marginTop="85dp"
         android:layout_centerHorizontal="true"
         android:background="@drawable/button_clicked"/>
 
@@ -106,10 +107,23 @@
         android:layout_height="wrap_content"
         android:text="@string/Reset"
         android:layout_below="@id/text_view_countdown"
+        android:layout_marginTop="85dp"
         android:layout_toEndOf="@id/button_start_pause"
         android:layout_marginStart="15dp"
         android:visibility="visible"
         android:background="@drawable/button_clicked"/>
+
+    <ProgressBar
+        android:id="@+id/timer_progressBar"
+        style="?android:progressBarStyleHorizontal"
+        android:layout_width="305dp"
+        android:layout_height="305dp"
+        android:indeterminate="false"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/circle_shape"
+        android:progressDrawable="@drawable/circle_progress_bar"
+        android:layout_centerVertical="true" />
+
 
 
 

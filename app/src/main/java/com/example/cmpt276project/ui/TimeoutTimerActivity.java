@@ -5,15 +5,18 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +38,7 @@ public class TimeoutTimerActivity extends AppCompatActivity {
     String id ="channel_1";//id of channel
     String description = "123";//Description information of channel
 
+
     int importance = NotificationManager.IMPORTANCE_LOW;//The Importance of channel
 //    NotificationChannel channel = new NotificationChannel(id, "123", importance);//Generating channel
     private EditText mEditTextInput;
@@ -43,13 +47,17 @@ public class TimeoutTimerActivity extends AppCompatActivity {
     private Button mButtonStartPause;
     private Button mButtonReset;
     private Button[] mButtons = new Button[5];
+    private ProgressBar mProgress;
+    int progress;
+
 
     private CountDownTimer mCountDownTimer;
 
     private boolean mTimerRunning;
 
-    private long mStartTimeInMillis;
-    private long mTimeLeftInMillis;
+    private static long mStartTimeInMillis;
+    private static long mTimeLeftInMillis;
+    int proportionOfRunning = 0;
     private long mEndTime;
 
     @Override
@@ -62,6 +70,10 @@ public class TimeoutTimerActivity extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
         Objects.requireNonNull(ab).setDisplayHomeAsUpEnabled(true);
 
+
+        Toast.makeText(this, R.string.timerInstruction, Toast.LENGTH_LONG).show();
+
+
         setButtonsAndViews();
         setCertainTime();
 
@@ -70,12 +82,12 @@ public class TimeoutTimerActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String input = mEditTextInput.getText().toString();
                 if (input.length() == 0) {
-                    Toast.makeText(TimeoutTimerActivity.this,"Field cannot be empty",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(TimeoutTimerActivity.this, R.string.timerInputEmpty,Toast.LENGTH_SHORT).show();
                     return;
                 }
                 long millisInput = Long.parseLong(input) * 60000; // To minutes
                 if (millisInput == 0) {
-                    Toast.makeText(TimeoutTimerActivity.this,"Please enter a positive number",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(TimeoutTimerActivity.this, R.string.timerInputNoPositive,Toast.LENGTH_SHORT).show();
                     return;
                 }
                 setTime(millisInput);
@@ -122,6 +134,25 @@ public class TimeoutTimerActivity extends AppCompatActivity {
         mButtonReset = findViewById(R.id.button_reset);
 
         mButtons = new Button[]{mButtonSet1Min, mButtonSet2Min, mButtonSet3Min, mButtonSet5Min, mButtonSet10Min};
+
+        //Initialize progress bar
+        mProgress = findViewById(R.id.timer_progressBar);
+//        final Handler handler = new Handler();
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                if( proportionOfRunning <= 100) {
+//                    mProgress.setProgress(proportionOfRunning);
+//                    handler.postDelayed(this,200);
+//                }
+//                else{
+//                    handler.removeCallbacks(this);
+//                }
+//            }
+//        },200);
+        mProgress.setVisibility(View.VISIBLE);
+        mProgress.setProgress(0);
+        mProgress.setMax(100);
     }
 
     private void setCertainTime() {
@@ -152,18 +183,33 @@ public class TimeoutTimerActivity extends AppCompatActivity {
 
     private void startTimer() {
         mEndTime = System.currentTimeMillis() + mTimeLeftInMillis;
+        final int numberOfSeconds = (int) (mStartTimeInMillis/1000);
+//        String checkSeconds = "Number of seconds is " + numberOfSeconds;
+//        Toast.makeText(this, checkSeconds, Toast.LENGTH_SHORT).show();
+        final double factor = 100.0 / numberOfSeconds;
+
 
         mCountDownTimer = new CountDownTimer(mTimeLeftInMillis, 1000) { //Every 1 second
             @Override
             public void onTick(long l) {
                 mTimeLeftInMillis = l;
                 updateCountDownText();
+                int secondsRemaining = (int) (l / 1000);
+//                String CheckRemaining = "Number of seconds is " + secondsRemaining;
+//                Toast.makeText(getApplicationContext(), CheckRemaining, Toast.LENGTH_SHORT).show();
+                int progressPercentage = (int) Math.floor((numberOfSeconds - secondsRemaining) * factor);
+//                String checkFactor = "Now the factor is " + factor;
+//                Toast.makeText(getApplicationContext(), checkFactor, Toast.LENGTH_SHORT).show();
+                mProgress.setProgress(progressPercentage);
+//                String checkProgressPercentage = "Number of progress percentage is " + progressPercentage;
+//                Toast.makeText(getApplicationContext(), checkProgressPercentage, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFinish() {
                 mTimerRunning = false;
                 pauseTimer();
+                mProgress.setProgress(100);
                 resetTimer();
             }
         }.start();
@@ -176,6 +222,7 @@ public class TimeoutTimerActivity extends AppCompatActivity {
         mCountDownTimer.cancel();
         mTimerRunning = false;
         updateWatchInterface();
+        mProgress.clearAnimation();
     }
 
     private void resetTimer() {
@@ -184,8 +231,10 @@ public class TimeoutTimerActivity extends AppCompatActivity {
             mTimerRunning = false;
         }
         mTimeLeftInMillis = mStartTimeInMillis;
+
         updateCountDownText();
         updateWatchInterface();
+        mProgress.setProgress(0);
     }
 
     private void updateCountDownText() {
@@ -195,13 +244,14 @@ public class TimeoutTimerActivity extends AppCompatActivity {
         String timeLeftFormatted;
         if (hours > 0) {
             timeLeftFormatted = String.format(Locale.getDefault(),
-                    "%d:%02d:%02d",hours, minutes, seconds);
+                    getString(R.string.timerWithHours),hours, minutes, seconds);
         } else {
             timeLeftFormatted = String.format(Locale.getDefault(),
-                    "%02d:%02d",minutes,seconds);
+                    getString(R.string.timerWithoutHours),minutes,seconds);
         }
         mTextViewCountDown.setText(timeLeftFormatted);
     }
+
 
     private void updateWatchInterface(){
         if (mTimerRunning) {
@@ -238,6 +288,7 @@ public class TimeoutTimerActivity extends AppCompatActivity {
         editor.putLong("endTime",mEndTime);
 
         editor.apply();
+
 
         if (mCountDownTimer != null) {
             mCountDownTimer.cancel();
