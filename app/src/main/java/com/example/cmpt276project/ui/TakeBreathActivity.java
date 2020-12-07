@@ -38,8 +38,6 @@ public class TakeBreathActivity extends AppCompatActivity implements AdapterView
         Objects.requireNonNull(ab).setDisplayHomeAsUpEnabled(true);
 
 
-
-        registerBeginClicked();
         registerStartClicked();
 
         numBreathSpinner();
@@ -48,32 +46,6 @@ public class TakeBreathActivity extends AppCompatActivity implements AdapterView
     }
 
 
-
-
-    private void registerBeginClicked() {
-
-        final Button startButton = findViewById(R.id.btn_takeBreathStart);
-        final Button btn = findViewById(R.id.btn_takeBreathBegin);
-        final View textBox = findViewById(R.id.txt_beginMessage);
-        final Spinner numBreathSpinner = findViewById(R.id.spinner_numBreaths);
-
-        startButton.setVisibility(View.INVISIBLE);
-        textBox.setVisibility(View.INVISIBLE);
-        numBreathSpinner.setVisibility(View.INVISIBLE);
-
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                textBox.setVisibility(View.VISIBLE);
-                numBreathSpinner.setVisibility(View.VISIBLE);
-                startButton.setVisibility(View.VISIBLE);
-
-                btn.setVisibility(View.INVISIBLE);
-
-            }
-        });
-    }
 
 
     private void registerStartClicked() {
