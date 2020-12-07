@@ -107,4 +107,11 @@
     <string name="nobody">Nobody</string>
     <string name="image">Image</string>
     <string name="ChangingChild">Changing Child</string>
+    <string name="twentyfive_percent">25%</string>
+    <string name="fifty_percent">50%</string>
+    <string name="seventyfive_percent">75%</string>
+    <string name="hundred_percent">100%</string>
+    <string name="twohundred_percent">200%</string>
+    <string name="threehundred_percent">300%</string>
+    <string name="fourhundred_percent">400%</string>
 </resources>

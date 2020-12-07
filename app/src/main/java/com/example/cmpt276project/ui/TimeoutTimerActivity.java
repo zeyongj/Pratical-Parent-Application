@@ -1,5 +1,6 @@
 package com.example.cmpt276project.ui;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +11,9 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -30,6 +34,7 @@ import com.example.cmpt276project.model.AlarmNotificationService;
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class TimeoutTimerActivity extends AppCompatActivity {
     private String ALARM_TIME_INT = "Countdown timer value for service";
+    private String TIME_SPEED_MULTIPLIER = "Multiplier for the speed of the CountDownTimer";
 
     // Initialize the variables
     String id ="channel_1";//id of channel
@@ -48,9 +53,11 @@ public class TimeoutTimerActivity extends AppCompatActivity {
 
     private boolean mTimerRunning;
 
+    private long mCountDownTimeInMillis;
     private long mStartTimeInMillis;
     private long mTimeLeftInMillis;
     private long mEndTime;
+    private double timeSpeedMultiplier;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +115,53 @@ public class TimeoutTimerActivity extends AppCompatActivity {
 //        updateCountDownText();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.timer_speed_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.twentyfive_speed:
+                changeCountDownSpeed(0.25);
+                return true;
+            case R.id.fifty_speed:
+                changeCountDownSpeed(0.5);
+                return true;
+            case R.id.seventyfive_speed:
+                changeCountDownSpeed(0.75);
+                return true;
+            case R.id.hundred_speed:
+                changeCountDownSpeed(1);
+                return true;
+            case R.id.twohundred_speed:
+                changeCountDownSpeed(2);
+                return true;
+            case R.id.threehundred_speed:
+                changeCountDownSpeed(3);
+                return true;
+            case R.id.fourhundred_speed:
+                changeCountDownSpeed(4);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void changeCountDownSpeed(double v) {
+        mCountDownTimeInMillis = (long) (mTimeLeftInMillis / v);
+        timeSpeedMultiplier = v;
+        mCountDownTimer.cancel();
+        stopTimerService();
+        startTimer();
+        Intent intent = new Intent(TimeoutTimerActivity.this, AlarmNotificationService.class);
+        intent.putExtra(ALARM_TIME_INT, mTimeLeftInMillis);
+        startService(intent);
+    }
+
     private void setButtonsAndViews() {
         mEditTextInput = findViewById(R.id.edit_text_input);
         mTextViewCountDown = findViewById(R.id.text_view_countdown);
@@ -146,17 +200,18 @@ public class TimeoutTimerActivity extends AppCompatActivity {
 
     private void setTime(long milliseconds) {
         mStartTimeInMillis = milliseconds;
+        stopTimerService();
         resetTimer();
         closeKeyBoard();
     }
 
     private void startTimer() {
-        mEndTime = System.currentTimeMillis() + mTimeLeftInMillis;
+        mEndTime = System.currentTimeMillis() + mCountDownTimeInMillis;
 
-        mCountDownTimer = new CountDownTimer(mTimeLeftInMillis, 1000) { //Every 1 second
+        mCountDownTimer = new CountDownTimer(mCountDownTimeInMillis, (long) (1000/timeSpeedMultiplier)) { //Every 1 second
             @Override
             public void onTick(long l) {
-                mTimeLeftInMillis = l;
+                mTimeLeftInMillis -= 1000;
                 updateCountDownText();
             }
 
@@ -183,7 +238,9 @@ public class TimeoutTimerActivity extends AppCompatActivity {
             mCountDownTimer.cancel();
             mTimerRunning = false;
         }
+        mCountDownTimeInMillis = mStartTimeInMillis;
         mTimeLeftInMillis = mStartTimeInMillis;
+        timeSpeedMultiplier = 1;
         updateCountDownText();
         updateWatchInterface();
     }
@@ -251,6 +308,8 @@ public class TimeoutTimerActivity extends AppCompatActivity {
         mStartTimeInMillis = prefs.getLong("startTimeInMillis", 600000);
         mTimeLeftInMillis = prefs.getLong("millisLeft", mStartTimeInMillis);
         mTimerRunning = prefs.getBoolean("timerRunning",false);
+        mCountDownTimeInMillis = mTimeLeftInMillis;
+        timeSpeedMultiplier = 1;
 
         updateCountDownText();
         updateWatchInterface();
