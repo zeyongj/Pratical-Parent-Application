@@ -114,4 +114,5 @@
     <string name="twohundred_percent">200%</string>
     <string name="threehundred_percent">300%</string>
     <string name="fourhundred_percent">400%</string>
+    <string name="current_time_speed">Time @%s</string>
 </resources>

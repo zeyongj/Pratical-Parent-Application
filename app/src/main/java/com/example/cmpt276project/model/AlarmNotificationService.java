@@ -34,8 +34,10 @@ public class AlarmNotificationService extends Service {
     // Broadcast ID for Intent when notification is clicked
     private String BROADCAST_ID = "Broadcast ID to stop notification";
     private String ALARM_TIME_INT = "Countdown timer value for service";
+    private String TIME_SPEED_MULTIPLIER = "Multiplier for the speed of the CountDownTimer";
 
     private long mTimeLeftInMillis;
+    private double timeSpeedMultiplier;
     private Ringtone alarmRingtone;
     private Vibrator vibration;
     private CountDownTimer countDownTimer;
@@ -56,6 +58,7 @@ public class AlarmNotificationService extends Service {
         // Get the timer value from TimeoutTimer activity
         if (intent.getExtras()!=null) {
             mTimeLeftInMillis = intent.getLongExtra(ALARM_TIME_INT, 0);
+            timeSpeedMultiplier = intent.getDoubleExtra(TIME_SPEED_MULTIPLIER, 1);
         }
 
         // Register the BroadcastReceiver
@@ -140,7 +143,7 @@ public class AlarmNotificationService extends Service {
 
     public void setTimer() {
         // Set timer with intervals every second
-        countDownTimer = new CountDownTimer(mTimeLeftInMillis, 1000) {
+        countDownTimer = new CountDownTimer((long) (mTimeLeftInMillis/timeSpeedMultiplier), (long) (1000/timeSpeedMultiplier)) {
             @Override
             public void onTick(long l) {
             }

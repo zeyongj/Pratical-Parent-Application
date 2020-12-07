@@ -44,6 +44,7 @@ public class TimeoutTimerActivity extends AppCompatActivity {
 //    NotificationChannel channel = new NotificationChannel(id, "123", importance);//Generating channel
     private EditText mEditTextInput;
     private TextView mTextViewCountDown;
+    private TextView mTimeSpeed;
     private Button mButtonSet;
     private Button mButtonStartPause;
     private Button mButtonReset;
@@ -127,44 +128,53 @@ public class TimeoutTimerActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.twentyfive_speed:
                 changeCountDownSpeed(0.25);
+                mTimeSpeed.setText(getString(R.string.current_time_speed, getString(R.string.twentyfive_percent)));
                 return true;
             case R.id.fifty_speed:
                 changeCountDownSpeed(0.5);
+                mTimeSpeed.setText(getString(R.string.current_time_speed, getString(R.string.fifty_percent)));
                 return true;
             case R.id.seventyfive_speed:
                 changeCountDownSpeed(0.75);
+                mTimeSpeed.setText(getString(R.string.current_time_speed, getString(R.string.seventyfive_percent)));
                 return true;
             case R.id.hundred_speed:
                 changeCountDownSpeed(1);
+                mTimeSpeed.setText(getString(R.string.current_time_speed, getString(R.string.hundred_percent)));
                 return true;
             case R.id.twohundred_speed:
                 changeCountDownSpeed(2);
+                mTimeSpeed.setText(getString(R.string.current_time_speed, getString(R.string.twohundred_percent)));
                 return true;
             case R.id.threehundred_speed:
                 changeCountDownSpeed(3);
+                mTimeSpeed.setText(getString(R.string.current_time_speed, getString(R.string.threehundred_percent)));
                 return true;
             case R.id.fourhundred_speed:
                 changeCountDownSpeed(4);
+                mTimeSpeed.setText(getString(R.string.current_time_speed, getString(R.string.fourhundred_percent)));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
-    private void changeCountDownSpeed(double v) {
-        mCountDownTimeInMillis = (long) (mTimeLeftInMillis / v);
-        timeSpeedMultiplier = v;
+    private void changeCountDownSpeed(double multiplier) {
+        mCountDownTimeInMillis = (long) (mTimeLeftInMillis / multiplier);
+        timeSpeedMultiplier = multiplier;
         mCountDownTimer.cancel();
         stopTimerService();
         startTimer();
         Intent intent = new Intent(TimeoutTimerActivity.this, AlarmNotificationService.class);
         intent.putExtra(ALARM_TIME_INT, mTimeLeftInMillis);
+        intent.putExtra(TIME_SPEED_MULTIPLIER, timeSpeedMultiplier);
         startService(intent);
     }
 
     private void setButtonsAndViews() {
         mEditTextInput = findViewById(R.id.edit_text_input);
         mTextViewCountDown = findViewById(R.id.text_view_countdown);
+        mTimeSpeed = findViewById(R.id.current_time_speed);
 
         mButtonSet = findViewById(R.id.button_set);
         Button mButtonSet1Min = findViewById(R.id.button_set1min);
@@ -174,6 +184,7 @@ public class TimeoutTimerActivity extends AppCompatActivity {
         Button mButtonSet10Min = findViewById(R.id.button_set10min);
         mButtonStartPause = findViewById(R.id.button_start_pause);
         mButtonReset = findViewById(R.id.button_reset);
+        mTimeSpeed.setText(getString(R.string.current_time_speed, getString(R.string.hundred_percent)));
 
         mButtons = new Button[]{mButtonSet1Min, mButtonSet2Min, mButtonSet3Min, mButtonSet5Min, mButtonSet10Min};
     }
