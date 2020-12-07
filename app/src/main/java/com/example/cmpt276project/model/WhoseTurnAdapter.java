@@ -4,10 +4,12 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,6 +46,7 @@ public class WhoseTurnAdapter extends RecyclerView.Adapter<WhoseTurnAdapter.Whos
     public static class WhoseTurnViewHolder extends RecyclerView.ViewHolder {
         public TextView taskName;
         public TextView nextChildName;
+        public ImageView childPortrait;
         public Button deleteButton;
         public Button editButton;
 
@@ -53,6 +56,7 @@ public class WhoseTurnAdapter extends RecyclerView.Adapter<WhoseTurnAdapter.Whos
             deleteButton = itemView.findViewById(R.id.taskdeletebutton);
             editButton = itemView.findViewById(R.id.taskeditbutton);
             nextChildName = itemView.findViewById(R.id.nextchildname);
+            childPortrait = itemView.findViewById(R.id.childprofileimage);
 
             // Set OnClickListener for the button specified on the Layout
             deleteButton.setOnClickListener(new View.OnClickListener() {
@@ -111,6 +115,8 @@ public class WhoseTurnAdapter extends RecyclerView.Adapter<WhoseTurnAdapter.Whos
     @Override
     public void onBindViewHolder(@NonNull WhoseTurnAdapter.WhoseTurnViewHolder holder, final int position) {
         String currentTask = context.getString(R.string.TaskNameIs, taskManager.getTask(position).getTaskName());
+        Children children = taskManager.getTask(position).getChildren();
+
         String childName = taskManager.getTask(position).getChild();
         if (childName.equals("")) {
             childName = context.getString(R.string.NoChild);
@@ -120,6 +126,7 @@ public class WhoseTurnAdapter extends RecyclerView.Adapter<WhoseTurnAdapter.Whos
         holder.taskName.setTextColor(Color.BLUE);
         holder.nextChildName.setText(nextChild);
         holder.nextChildName.setTextColor(Color.BLACK);
+        holder.childPortrait.setImageBitmap(children.decodeToBase64(children.getChildProfile(taskManager.getTask(position).getChildIndex())));
     }
 
     // Get the number of items in the RecyclerView
