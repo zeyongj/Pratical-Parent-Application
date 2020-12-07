@@ -296,7 +296,8 @@ public class TimeoutTimerActivity extends AppCompatActivity {
         }
         mCountDownTimeInMillis = mStartTimeInMillis;
         mTimeLeftInMillis = mStartTimeInMillis;
-        timeSpeedMultiplier = 1;
+        timeSpeedMultiplier = 1.0;
+        mTimeSpeed.setText(getString(R.string.current_time_speed, getString(R.string.hundred_percent)));
         updateCountDownText();
         updateWatchInterface();
         mProgress.setProgress(100);
