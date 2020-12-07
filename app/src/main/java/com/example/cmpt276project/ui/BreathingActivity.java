@@ -39,7 +39,6 @@ public class BreathingActivity extends AppCompatActivity {
     private static final String INHALE_BUTTON_TEXT = "IN";
     private static final String EXHALE_BUTTON_TEXT = "OUT";
     private static final String ENDING_BUTTON_TEXT = "Good Job";
-    private static final String CONTINUE_BREATHING = "More?";
 
 
 
@@ -286,7 +285,7 @@ public class BreathingActivity extends AppCompatActivity {
                             inhaleAnimationReset();
 
                         }
-                        else if ((t2 - t1) >= 3000 && (t2 - t1) < 10000) {
+                        else if ((t2 - t1) >= 3000 ) {
 
                             // After 3s, upon releasing button, stop animation and sound, to exhale
                             inhaleAnimationReset();
