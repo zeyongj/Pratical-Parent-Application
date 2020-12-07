@@ -185,6 +185,7 @@ public class TimeoutTimerActivity extends AppCompatActivity {
     private void setButtonsAndViews() {
         mEditTextInput = findViewById(R.id.edit_text_input);
         mTextViewCountDown = findViewById(R.id.text_view_countdown);
+        mTimeSpeed = findViewById(R.id.current_time_speed);
 
         mButtonSet = findViewById(R.id.button_set);
         Button mButtonSet1Min = findViewById(R.id.button_set1min);
@@ -195,6 +196,7 @@ public class TimeoutTimerActivity extends AppCompatActivity {
         mButtonStartPause = findViewById(R.id.button_start_pause);
         mButtonReset = findViewById(R.id.button_reset);
 
+        mTimeSpeed.setText(getString(R.string.current_time_speed, getString(R.string.hundred_percent)));
         mButtons = new Button[]{mButtonSet1Min, mButtonSet2Min, mButtonSet3Min, mButtonSet5Min, mButtonSet10Min};
 
         //Initialize progress bar
