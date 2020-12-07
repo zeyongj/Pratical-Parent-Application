@@ -164,6 +164,15 @@ public class BreathingActivity extends AppCompatActivity {
 
             /*----------------------------- Runnable: Messages -----------------------------------*/
 
+            private final Runnable inhaleHelpMessage = new Runnable() {
+                @Override
+                public void run() {
+                    TextView tv = findViewById(R.id.txt_inhaleHelpMessage);
+                    tv.setVisibility(View.VISIBLE);
+                }
+            };
+
+
             private final Runnable exhaleReminder = new Runnable() {
                 @Override
                 public void run() {
@@ -250,6 +259,8 @@ public class BreathingActivity extends AppCompatActivity {
                         t1 = System.currentTimeMillis();
 
                         inhaleAnimationWithSound();
+                        handler.post(inhaleHelpMessage);
+
 
                         // Button continue hold for 3s, change button text to "OUT"
                         handler.postDelayed(revealExhaleButton, 3000);
