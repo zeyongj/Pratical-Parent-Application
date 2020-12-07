@@ -261,7 +261,7 @@ public class TimeoutTimerActivity extends AppCompatActivity {
                 int secondsRemaining = (int) (l / 1000);
 //                String CheckRemaining = "Number of seconds is " + secondsRemaining;
 //                Toast.makeText(getApplicationContext(), CheckRemaining, Toast.LENGTH_SHORT).show();
-                int progressPercentage = (int) Math.floor((numberOfSeconds - secondsRemaining) * factor);
+                int progressPercentage = (int) Math.floor((double) (mTimeLeftInMillis) / mStartTimeInMillis * 100);
 //                String checkFactor = "Now the factor is " + factor;
 //                Toast.makeText(getApplicationContext(), checkFactor, Toast.LENGTH_SHORT).show();
                 mProgress.setProgress(progressPercentage);
