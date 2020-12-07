@@ -299,7 +299,7 @@ public class TimeoutTimerActivity extends AppCompatActivity {
         timeSpeedMultiplier = 1;
         updateCountDownText();
         updateWatchInterface();
-        mProgress.setProgress(0);
+        mProgress.setProgress(100);
     }
 
     private void updateCountDownText() {
