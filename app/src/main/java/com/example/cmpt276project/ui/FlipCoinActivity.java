@@ -202,17 +202,17 @@ public class FlipCoinActivity extends AppCompatActivity {
                     profile = children.getChildProfile(children.getCurrentChildIndex(FlipCoinActivity.this));
                     historyManager.addHistory(saveCurrentDateAndTime(), saveChildNames(),choose, WinOrLoss, profile);
                     historyManager.saveFlipHistory(FlipCoinActivity.this);
-                }
-
-                // Set current child to next child
-                if(children.getNumChildren(FlipCoinActivity.this) != 0  && !NobodyTurn)
                     children.setCurrentToNextChild(FlipCoinActivity.this);
+                    ImageView portrait = findViewById(R.id.Portrait_FlipCoin);
+                    portrait.setVisibility(View.VISIBLE);
+                }
 
                 if(NobodyTurn) {
                     NobodyTurn = false;
                     buttonState = true;
                     setButton();
                 }
+
             }
         });
     }
@@ -248,6 +248,8 @@ public class FlipCoinActivity extends AppCompatActivity {
                 NobodyTurn = true;
                 TextView textView = findViewById(R.id.childNameTextView);
                 textView.setText(getString(R.string.NobodysTurn));
+                ImageView portrait = findViewById(R.id.Portrait_FlipCoin);
+                portrait.setVisibility(View.GONE);
                 initiateButtons();
             }
         });
@@ -297,6 +299,8 @@ public class FlipCoinActivity extends AppCompatActivity {
                 Toast.makeText(FlipCoinActivity.this, coinSide, Toast.LENGTH_SHORT).show();
                 coin.setClickable(true);
                 displayChildName();
+                ImageView portrait = findViewById(R.id.Portrait_FlipCoin);
+                portrait.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -316,7 +320,6 @@ public class FlipCoinActivity extends AppCompatActivity {
                 NobodyTurn = false;
             }
         });
-        displayChildName();
     }
 
     public void loadFlipHistory(FlipHistoryManager flipHistoryManager) {

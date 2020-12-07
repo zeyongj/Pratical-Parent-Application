@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -76,6 +77,9 @@ public class ChangeChildMessageFragment extends AppCompatDialogFragment {
                 children.setCurrentToClickedChild(requireActivity(), position);
                 TextView textView = requireActivity().findViewById(R.id.childNameTextView);
                 textView.setText(getString(R.string.CurrentChildIs, children.getChild(children.getCurrentChildIndex(requireActivity()))));
+                ImageView portrait = requireActivity().findViewById(R.id.Portrait_FlipCoin);
+                portrait.setImageBitmap(children.decodeToBase64(children.getChildProfile(children.getCurrentChildIndex(requireActivity()))));
+                portrait.setVisibility(View.VISIBLE);
                 alert.dismiss();
             }
         });
