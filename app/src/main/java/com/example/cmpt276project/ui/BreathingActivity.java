@@ -107,7 +107,7 @@ public class BreathingActivity extends AppCompatActivity {
         inhaleText.setVisibility(View.VISIBLE);
 
         YoYo.with(Techniques.ZoomIn)
-                .duration(3000)
+                .duration(10000)
                 .playOn(inhaleText);
 
         inhaleSound.start();
@@ -116,8 +116,10 @@ public class BreathingActivity extends AppCompatActivity {
     private void inhaleAnimationReset() {
         TextView inhaleText = findViewById(R.id.txt_inhaleText);
         inhaleText.setVisibility(View.INVISIBLE);
+        inhaleText.clearAnimation();
 
         inhaleSound.pause();
+        inhaleSound.seekTo(0);
 
     }
 
@@ -178,11 +180,11 @@ public class BreathingActivity extends AppCompatActivity {
 
             };
 
-            private final Runnable exhaleHelpMessage = new Runnable() {
+            private final Runnable exhaleReminder = new Runnable() {
                 @Override
                 public void run() {
 
-                    if (!isButtonClicked && isButtonHeld) {
+                    if (isButtonHeld) {
                         Toast.makeText(BreathingActivity.this, EXHALE_REMINDER, Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -192,17 +194,20 @@ public class BreathingActivity extends AppCompatActivity {
             private final Runnable revealInhaleButton = new Runnable() {
                 @Override
                 public void run() {
-                    Button btn = findViewById(R.id.btn_inhale);
-                    btn.setText(INHALE_BUTTON_TEXT);
+                    if (isButtonHeld) {
+                        Button btn = findViewById(R.id.btn_inhale);
+                        btn.setText(INHALE_BUTTON_TEXT);
+                    }
                 }
             };
 
             private final Runnable revealExhaleButton = new Runnable() {
                 @Override
                 public void run() {
-
-                    Button btn = findViewById(R.id.btn_inhale);
-                    btn.setText(EXHALE_BUTTON_TEXT);
+                if (isButtonHeld) {
+                        Button btn = findViewById(R.id.btn_inhale);
+                        btn.setText(EXHALE_BUTTON_TEXT);
+                    }
                 }
             };
 
@@ -242,8 +247,19 @@ public class BreathingActivity extends AppCompatActivity {
                         t1 = System.currentTimeMillis();
 
                         inhaleAnimationWithSound();
+
+                        // Button continue hold for 3s, change button text to "OUT"
+                        handler.postDelayed(revealExhaleButton, 3000);
+                        isButtonHeld = true;
+
+                        // Button continue hold for 10s, stop animation and sound, add reminder
+                        handler.postDelayed(exhaleReminder, 10000);
+                        isButtonHeld = true;
+
+
                     }
 
+                    // exhale
                     else {
                         // do something
                     }
@@ -254,8 +270,13 @@ public class BreathingActivity extends AppCompatActivity {
 
                 else if (event.getAction() == MotionEvent.ACTION_UP) {
 
-                    if (stateInhale){
+                    if (stateInhale && isButtonHeld){
+
+
                         t2 = System.currentTimeMillis();
+
+                        // update button state
+                        isButtonHeld = false;
 
                         if ((t2 - t1) < 200) {
 
@@ -264,12 +285,18 @@ public class BreathingActivity extends AppCompatActivity {
                         }
                         else if ((t2 - t1) >= 200 && (t2 - t1) < 3000) {
 
+                            // Button released before 3s continuously, reset animation and sound.
+                            inhaleAnimationReset();
                         }
                         else if ((t2 - t1) >= 3000 && (t2 - t1) < 10000) {
+
+                            // After 3s, upon releasing button, stop animation and sound, to exhale
+                            inhaleAnimationReset();
                             //stateInhale = false;
                         }
                     }
 
+                    // exhale
                     else {
                         // exhale
                     }
