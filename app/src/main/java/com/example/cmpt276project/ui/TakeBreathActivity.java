@@ -74,10 +74,11 @@ public class TakeBreathActivity extends AppCompatActivity implements AdapterView
                 R.array.NumberOfBreathSpinner, android.R.layout.simple_spinner_item);
 
         // Specify the layout to use when the list of choices appears
+
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         numBreathSpinner.setAdapter(adapter);
         numBreathSpinner.setOnItemSelectedListener(this);
-
+        numBreathSpinner.setSelection(2);
     }
 
     @Override
