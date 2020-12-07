@@ -212,7 +212,7 @@ public class BreathingActivity extends AppCompatActivity {
             };
 
 
-            // TODO: fix bug when inhale hint is displayed.
+
             private final Runnable revealFinishButton = new Runnable() {
                 @Override
                 public void run() {
@@ -292,7 +292,16 @@ public class BreathingActivity extends AppCompatActivity {
 
                             // After 3s, upon releasing button, stop animation and sound, to exhale
                             inhaleAnimationReset();
+                            breathTaken++;
+
+
+
                             //stateInhale = false;
+                            // Update remaining breath number
+                            int remain = getRemainingBreaths() - breathTaken;
+                            TextView remainingBreath = findViewById(R.id.txt_remainingBreathNumber);
+                            remainingBreath.setText(Integer.toString(remain));
+
                         }
                     }
 
