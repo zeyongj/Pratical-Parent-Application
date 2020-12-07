@@ -11,7 +11,9 @@
         android:layout_width="145dp"
         android:layout_height="71dp"
         android:layout_marginTop="428dp"
+        android:background="@drawable/inhale_button"
         android:text="@string/in"
+        android:textColor="#F6F1F1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
