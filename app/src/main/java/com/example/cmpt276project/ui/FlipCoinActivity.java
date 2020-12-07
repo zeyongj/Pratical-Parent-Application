@@ -103,9 +103,22 @@ public class FlipCoinActivity extends AppCompatActivity {
             Intent intent = new Intent(FlipCoinActivity.this, FlipCoinHistoryActivity.class);
             startActivity(intent);
             return true;
-       }
-       //return false;
+        }
+        //return false;
         return super.onOptionsItemSelected(item);
+    }
+
+    // Save the children when the activity is closed
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        children.saveChildren(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        children.saveChildren(this);
     }
 
     // Initiate button state
@@ -190,6 +203,7 @@ public class FlipCoinActivity extends AppCompatActivity {
                     historyManager.addHistory(saveCurrentDateAndTime(), saveChildNames(),choose, WinOrLoss, profile);
                     historyManager.saveFlipHistory(FlipCoinActivity.this);
                 }
+
                 // Set current child to next child
                 if(children.getNumChildren(FlipCoinActivity.this) != 0  && !NobodyTurn)
                     children.setCurrentToNextChild(FlipCoinActivity.this);
@@ -263,17 +277,9 @@ public class FlipCoinActivity extends AppCompatActivity {
         if(children.getNumChildren(this) == 0)
             textView.setText(R.string.NoChild);
         else {
-            if(children.getCurrentChildIndex(this) >= children.getNumChildren(this)) {
-                children.setCurrentToFirstChild(this);
-                String childName = getString(R.string.ChildNameIs, children.getChild(children.getCurrentChildIndex(this)));
-                textView.setText(childName);
-                portrait.setImageBitmap(children.decodeToBase64(children.getChildProfile(children.getCurrentChildIndex(FlipCoinActivity.this))));
-            }
-            else {
-                String childName = getString(R.string.ChildNameIs, children.getChild(children.getCurrentChildIndex(this)));
-                textView.setText(childName);
-                portrait.setImageBitmap(children.decodeToBase64(children.getChildProfile(children.getCurrentChildIndex(FlipCoinActivity.this))));
-            }
+            String childName = getString(R.string.ChildNameIs, children.getChild(children.getCurrentChildIndex(this)));
+            textView.setText(childName);
+            portrait.setImageBitmap(children.decodeToBase64(children.getChildProfile(children.getCurrentChildIndex(FlipCoinActivity.this))));
         }
     }
 

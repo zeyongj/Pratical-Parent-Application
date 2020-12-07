@@ -39,9 +39,15 @@ public class ChangeChildMessageFragment extends AppCompatDialogFragment {
 
         //Add Children Name to Array List
         ArrayList<String> ChildrenName = new ArrayList<>();
-        for(int i = children.getCurrentChildIndex(requireActivity()), j = 0; j < children.getNumChildren(requireActivity()); j++){
-            ChildrenName.add(children.getChild(i));
-            i = (i + 1) % children.getNumChildren(requireActivity());
+        int minIndex = 0;
+        for(int i = 0; i < children.getNumChildren(requireActivity()); i++) {
+            for(int j = 0; j < children.getNumChildren(requireActivity()); j++) {
+                if(children.getChildIndex(j) == minIndex) {
+                    ChildrenName.add(children.getChild(j));
+                    minIndex++;
+                    break;
+                }
+            }
         }
 
         // Create Array Adapter
@@ -62,11 +68,12 @@ public class ChangeChildMessageFragment extends AppCompatDialogFragment {
         return alert;
     }
 
+
     private void registerChildClicked(ListView listView, final AlertDialog alert){
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                children.setCurrentToClickedChild(requireActivity(), (position + children.getCurrentChildIndex(requireActivity())) % children.getSize());
+                children.setCurrentToClickedChild(requireActivity(), position);
                 TextView textView = requireActivity().findViewById(R.id.childNameTextView);
                 textView.setText(getString(R.string.CurrentChildIs, children.getChild(children.getCurrentChildIndex(requireActivity()))));
                 alert.dismiss();
