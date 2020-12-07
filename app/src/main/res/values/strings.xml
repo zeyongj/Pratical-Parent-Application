@@ -45,6 +45,7 @@
         <item>Timeout Timer</item>
         <item>Configure my Children</item>
         <item>Whose Turn Is It</item>
+        <item>Take A Breath</item>
         <item>Help</item>
     </string-array>
 
@@ -75,9 +76,9 @@
     <string name="InputTaskDesc">Input Task Description</string>
     <string name="MadeBy">Made by: Team Umber</string>
     <string name="Sources">Resource Sources</string>
-    <string name="BGSource"><a href = "https://wonderfulengineering.com/download-66-white-wallpaper-for-desktop-and-mobile/">Timer Background Image Source Link</a></string>
-    <string name="NotifSource"><a href = "https://www.flaticon.com/free-icon/notification_1040216?term=notification&amp;page=1&amp;position=16">Timer Notification Icon Source Link</a></string>
-    <string name="CodeStyleSource"><a href = "https://google.github.io/styleguide/javaguide.html">Code Style Guide Source</a></string>
+    <string name="BGSource"><a href="https://wonderfulengineering.com/download-66-white-wallpaper-for-desktop-and-mobile/">Timer Background Image Source Link</a></string>
+    <string name="NotifSource"><a href="https://www.flaticon.com/free-icon/notification_1040216?term=notification&amp;page=1&amp;position=16">Timer Notification Icon Source Link</a></string>
+    <string name="CodeStyleSource"><a href="https://google.github.io/styleguide/javaguide.html">Code Style Guide Source</a></string>
     <string name="CancelTask">Task Removed</string>
     <string name="FinishTask">%1$s Finished Task</string>
     <string name="UpdateTask">Next Child is %2$s</string>
@@ -107,6 +108,30 @@
     <string name="nobody">Nobody</string>
     <string name="image">Image</string>
     <string name="ChangingChild">Changing Child</string>
+    <string name="TakeBreath">Take Breath</string>
+    <string name="begin">Begin</string>
+    <string name="number_of_breaths">Let\'s take</string>
+    <string name="in">In</string>
+    <string name="out">out</string>
+    <string name="inhaleText">TAKE \n A \n DEEP BREATH \n IN</string>
+    <string name="exhaleText">TAKE \nA \nDEEP \nBREATH \nOUT</string>
+    <string name="remaining_breaths_txt">Remaining breaths:</string>
+    <string name="remaining_breaths_number">0</string>
+    <string name="breath_in_help_msg">Hold button and breath in</string>
+    <string-array name="NumberOfBreathSpinner">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+    </string-array>
+
+
     <string name="child_profile_image">Child\'s Profile Image</string>
     <string name="twentyfive_percent">25%</string>
     <string name="fifty_percent">50%</string>

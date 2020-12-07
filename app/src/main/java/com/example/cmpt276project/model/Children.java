@@ -17,6 +17,8 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.Context.MODE_PRIVATE;
+
 // Class that contains the Children class
 // Holds an ArrayList of Strings containing only the names of the children
 // Is a singleton class to allow the current Children to be found in all activities
@@ -24,8 +26,9 @@ import java.util.List;
 public class Children {
 
     public static final String PROFILE_INDEX_ = "profile_index2";
-    private String CHILD_INDEX_PREF = "Shared preference for current child index";
-    private String CURRENT_CHILD_INDEX = "current child index";
+    public static final String CHILDREN_INDEX_PREFS = "Children Index Prefs";
+    public static final String NUMBER_OF_CHILDREN_INDEX = "Number of Children Index";
+    public static final String CHILDREN_INDEX = "Children Index";
     private String CHILDREN_PROF = "SharePreference for children profile";
     private String NUM_CHILDREN_PROFILE = "The number of children profile saved is: ";
     private String CHILDREN_PREFS = "Shared Preferences for Children Class";
@@ -33,11 +36,12 @@ public class Children {
     private String NUM_CHILDREN = "The number of Children saved is: ";
     private int numChildren;
     private int numChildrenProfile;
+    private int numChildrenIndex;
 
     // ArrayList to keep track of names of Children
     ArrayList<String> childrenNames = new ArrayList<>();
     ArrayList<String> profileIDs = new ArrayList<>();
-
+    ArrayList<Integer> ChildrenIndexList = new ArrayList<>();
     // Constructor
     private static Children instance;
     public Children() {
@@ -54,6 +58,7 @@ public class Children {
     public void addChild(String childName) {
         childrenNames.add(childName);
         numChildren++;
+        addChildIndex();
     }
 
     // Get child at current childrenNames
@@ -65,6 +70,7 @@ public class Children {
     public void removeChild(int position) {
         childrenNames.remove(position);
         numChildren--;
+        removeChildIndex(position);
     }
     // Get size of childrenNames
     public int getSize() {
@@ -78,7 +84,7 @@ public class Children {
 
     // Save the list of children
     public void saveChildren(Context context) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(CHILDREN_PREFS, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = context.getSharedPreferences(CHILDREN_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         // Save the current number of children for use in loadChildren
@@ -90,6 +96,7 @@ public class Children {
         }
         editor.apply();
         saveChildrenProfile(context);
+        saveChildIndex(context);
     }
 
     // Load the list of children
@@ -97,7 +104,7 @@ public class Children {
         // Empty the list every time the method is called
         childrenNames = new ArrayList<>();
 
-        SharedPreferences sharedPreferences = context.getSharedPreferences(CHILDREN_PREFS, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = context.getSharedPreferences(CHILDREN_PREFS, MODE_PRIVATE);
         // Get the number of children to be loaded to loop
         numChildren = sharedPreferences.getInt(NUM_CHILDREN, 0);
 
@@ -106,6 +113,7 @@ public class Children {
             childrenNames.add(sharedPreferences.getString(CHILD_INDEX + i, null));
         }
         loadChildrenProfile(context);
+        loadChildrenIndex(context);
     }
 
     // Encode and Decode Image
@@ -115,7 +123,7 @@ public class Children {
         byte[] b = baos.toByteArray();
         String imageEncoded = Base64.encodeToString(b, Base64.DEFAULT);
 
-        Log.d("Image Log: ", imageEncoded);
+        //Log.d("Image Log: ", imageEncoded);
         return imageEncoded;
     }
 
@@ -150,7 +158,7 @@ public class Children {
 
     // Save the list of children profiles
     public void saveChildrenProfile(Context context) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(CHILDREN_PROF, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = context.getSharedPreferences(CHILDREN_PROF, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         // save the current number of children profile for use in loadChildrenProfile
@@ -169,7 +177,7 @@ public class Children {
         // Empty the list every time the method is called
         profileIDs = new ArrayList<>();
 
-        SharedPreferences sharedPreferences = context.getSharedPreferences(CHILDREN_PROF, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = context.getSharedPreferences(CHILDREN_PROF, MODE_PRIVATE);
 
         numChildrenProfile = sharedPreferences.getInt(NUM_CHILDREN_PROFILE, 0);
 
@@ -179,42 +187,89 @@ public class Children {
         }
     }
 
-    // Get the current child index from Shared Preference
+    // -------------------------------------------------------------------------------------------------------------------
+    // Add an index to ChildrenIndex List
+    public void addChildIndex(){
+        ChildrenIndexList.add(ChildrenIndexList.size());
+        numChildrenIndex++;
+    }
+
+    // Get child index at given position;
+    public int getChildIndex(int position) {
+        return ChildrenIndexList.get(position);
+    }
+
+    // Remove child index at given position
+    public void removeChildIndex(int position) {
+        int removedIndex = ChildrenIndexList.get(position);
+        for(int i = 0; i < ChildrenIndexList.size(); i++){
+            if(ChildrenIndexList.get(i) > removedIndex)
+                ChildrenIndexList.set(i, ChildrenIndexList.get(i) - 1);
+        }
+        ChildrenIndexList.remove(position);
+        numChildrenIndex--;
+    }
+
+    // Edit the index of the selected child
+    public void editChildIndex(int position, int value) {
+        ChildrenIndexList.set(position, value);
+    }
+
+    // Save the list of children index
+    public void saveChildIndex(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(CHILDREN_INDEX_PREFS, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        // save the current number of children index for use in loadChildrenIndex
+        editor.putInt(NUMBER_OF_CHILDREN_INDEX, numChildrenIndex);
+
+        for (int i = 0; i < ChildrenIndexList.size(); i++) {
+            editor.putInt(CHILDREN_INDEX + i, ChildrenIndexList.get(i));
+        }
+        editor.apply();
+    }
+
+    // Load the list of children index
+    public void loadChildrenIndex(Context context) {
+        // Empty the list every time the method is called
+        ChildrenIndexList = new ArrayList<>();
+        SharedPreferences sharedPreferences = context.getSharedPreferences(CHILDREN_INDEX_PREFS, MODE_PRIVATE);
+        numChildrenIndex = sharedPreferences.getInt(NUMBER_OF_CHILDREN_INDEX, 0);
+
+        for (int i = 0; i < numChildrenProfile; i++) {
+            ChildrenIndexList.add(sharedPreferences.getInt(CHILDREN_INDEX + i, 0));
+        }
+    }
+
     public int getCurrentChildIndex(Context context) {
-        SharedPreferences sp = context.getSharedPreferences(CHILD_INDEX_PREF, Context.MODE_PRIVATE);
-        return sp.getInt(CURRENT_CHILD_INDEX, 0);
+        for(int i = 0; i < ChildrenIndexList.size(); i++) {
+            if(ChildrenIndexList.get(i) == 0)
+                return i;
+        }
+        return 0;
     }
 
-    // Set the current child index to next child index and save the index to Shared Preference
     public void setCurrentToNextChild(Context context) {
-        SharedPreferences sp = context.getSharedPreferences(CHILD_INDEX_PREF, Context.MODE_PRIVATE);
-        int currentChildIndex = sp.getInt(CURRENT_CHILD_INDEX, 0);
-        currentChildIndex = (currentChildIndex + 1) % childrenNames.size();
-
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putInt(CURRENT_CHILD_INDEX, currentChildIndex);
-        editor.apply();
+        for(int i = 0; i < ChildrenIndexList.size(); i++) {
+            if(ChildrenIndexList.get(i) != 0)
+                ChildrenIndexList.set(i, ChildrenIndexList.get(i) - 1);
+            else
+                ChildrenIndexList.set(i, ChildrenIndexList.size() - 1);
+        }
     }
 
-    // Set the current child index to next child index and save the index to Shared Preference
     public void setCurrentToClickedChild(Context context, int index) {
-        SharedPreferences sp = context.getSharedPreferences(CHILD_INDEX_PREF, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putInt(CURRENT_CHILD_INDEX, index);
-        editor.apply();
+        for(int i = 0; i < ChildrenIndexList.size(); i++) {
+            if(ChildrenIndexList.get(i) < index)
+                ChildrenIndexList.set(i, ChildrenIndexList.get(i) + 1);
+            else if(ChildrenIndexList.get(i) == index)
+                ChildrenIndexList.set(i, 0);
+        }
     }
 
     // Get the number of children from Shared Preference
     public int getNumChildren(Context context) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(CHILDREN_PREFS, Context.MODE_PRIVATE);
-        return sharedPreferences.getInt(NUM_CHILDREN, 0);
+        return ChildrenIndexList.size();
     }
 
-    //Set the current child index to first child index and save the index to Shared Preference
-    public void setCurrentToFirstChild(Context context) {
-        SharedPreferences sp = context.getSharedPreferences(CHILD_INDEX_PREF, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putInt(CURRENT_CHILD_INDEX, 0);
-        editor.apply();
-    }
 }

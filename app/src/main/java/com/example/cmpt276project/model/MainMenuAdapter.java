@@ -17,6 +17,7 @@ import com.example.cmpt276project.R;
 import com.example.cmpt276project.ui.ChildListActivity;
 import com.example.cmpt276project.ui.FlipCoinActivity;
 import com.example.cmpt276project.ui.HelpPageActivity;
+import com.example.cmpt276project.ui.TakeBreathActivity;
 import com.example.cmpt276project.ui.TimeoutTimerActivity;
 import com.example.cmpt276project.ui.WhoseTurnActivity;
 
@@ -61,10 +62,13 @@ public class MainMenuAdapter extends RecyclerView.Adapter<MainMenuAdapter.MainMe
                     Intent whoseTurnIntent = new Intent(v.getContext(), WhoseTurnActivity.class);
                     v.getContext().startActivity(whoseTurnIntent);
                     break;
-                case 4: // Go to Help Page
+                case 4: // Go to Take Breath Activity
+                    Intent takeBreathIntent = new Intent(v.getContext(), TakeBreathActivity.class);
+                    v.getContext().startActivity(takeBreathIntent);
+                    break;
+                case 5:
                     Intent helpPageIntent = new Intent(v.getContext(), HelpPageActivity.class);
                     v.getContext().startActivity(helpPageIntent);
-                    break;
                 default:
                     break;
             }
