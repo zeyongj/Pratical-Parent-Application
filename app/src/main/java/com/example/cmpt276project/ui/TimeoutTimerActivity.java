@@ -300,6 +300,7 @@ public class TimeoutTimerActivity extends AppCompatActivity {
         updateCountDownText();
         updateWatchInterface();
         mProgress.setProgress(0);
+        mTimeSpeed.setText(getString(R.string.current_time_speed, getString(R.string.hundred_percent)));
     }
 
     private void updateCountDownText() {
