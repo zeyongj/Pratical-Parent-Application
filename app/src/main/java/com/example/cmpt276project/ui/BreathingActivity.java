@@ -19,9 +19,6 @@ import com.daimajia.androidanimations.library.YoYo;
 import com.example.cmpt276project.R;
 
 import java.util.Objects;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.logging.FileHandler;
 
 /* Messages worth noticing:
 * 1. When first entering the activity, Exhale button should be invisible. Exhale button should only be
@@ -84,7 +81,7 @@ public class BreathingActivity extends AppCompatActivity {
 
     }
 
-    private int setRemainingBreaths() {
+    private void setRemainingBreaths() {
         int totalBreaths = TakeBreathActivity.getNumBreath(BreathingActivity.this);
 
         String remainingBreaths = Integer.toString(totalBreaths - breathTaken);
@@ -92,7 +89,6 @@ public class BreathingActivity extends AppCompatActivity {
         TextView remainingBreathNumbers = findViewById(R.id.txt_remainingBreathNumber);
         remainingBreathNumbers.setText(remainingBreaths);
 
-        return Integer.parseInt(remainingBreaths);
     }
 
     private int getRemainingBreaths() {
@@ -161,7 +157,7 @@ public class BreathingActivity extends AppCompatActivity {
 
 
             //flags for conditions
-            private boolean isButtonClicked = false;
+
             private boolean isButtonHeld = false;
 
 
@@ -224,10 +220,9 @@ public class BreathingActivity extends AppCompatActivity {
                 @Override
                 public void run() {
 
-                    if (!isButtonClicked && isButtonHeld) {
-                        Button btn = findViewById(R.id.btn_inhale);
-                        btn.setText(ENDING_BUTTON_TEXT);
-                    }
+                    Button btn = findViewById(R.id.btn_inhale);
+                    btn.setText(ENDING_BUTTON_TEXT);
+
                 }
             };
 
@@ -313,17 +308,15 @@ public class BreathingActivity extends AppCompatActivity {
                             // After exhale 3s, with remaining breath, change button to "IN", update count, enable button.
                             setRemainingBreaths();
 
-                            if (getRemainingBreaths() > 0 ) {
+                            if (getRemainingBreaths() != 0 ) {
                                 handler.postDelayed(enableButton, 3000);
 
                                 handler.postDelayed(revealInhaleButton, 3000);
 
                             }
-
-                            //TODO: good job not displayed
-
-
-
+                            else {
+                                handler.post(revealFinishButton);
+                            }
 
                         }
                     }
