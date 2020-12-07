@@ -116,7 +116,7 @@
     <string name="threehundred_percent">300%</string>
     <string name="fourhundred_percent">400%</string>
     <string name="current_time_speed">Time @%s</string>
-    <string name="timerInstruction">Indigo part means the remaining time. Crimson part means the past time.</string>
+    <string name="timerInstruction">Indigo part means the past time. Crimson part means the remaining time.</string>
     <string name="timerInputEmpty">Field cannot be empty</string>
     <string name="timerInputNoPositive">Please enter a positive number</string>
     <string name="timerWithHours">%d:%02d:%02d</string>
