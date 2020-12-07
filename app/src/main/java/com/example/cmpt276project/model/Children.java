@@ -57,8 +57,8 @@ public class Children {
     // Add child to childrenNames
     public void addChild(String childName) {
         childrenNames.add(childName);
-        numChildren++;
         addChildIndex();
+        numChildren++;
     }
 
     // Get child at current childrenNames
@@ -69,8 +69,8 @@ public class Children {
     // Remove child from childrenNames at given position
     public void removeChild(int position) {
         childrenNames.remove(position);
-        numChildren--;
         removeChildIndex(position);
+        numChildren--;
     }
     // Get size of childrenNames
     public int getSize() {

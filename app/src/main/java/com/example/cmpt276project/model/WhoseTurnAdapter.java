@@ -126,7 +126,10 @@ public class WhoseTurnAdapter extends RecyclerView.Adapter<WhoseTurnAdapter.Whos
         holder.taskName.setTextColor(Color.BLUE);
         holder.nextChildName.setText(nextChild);
         holder.nextChildName.setTextColor(Color.BLACK);
-        holder.childPortrait.setImageBitmap(children.decodeToBase64(children.getChildProfile(taskManager.getTask(position).getChildIndex())));
+        if (children.getSize() == 0)
+            holder.childPortrait.setImageResource(R.drawable.default_user_profile);
+        else
+            holder.childPortrait.setImageBitmap(children.decodeToBase64(children.getChildProfile(taskManager.getTask(position).getChildIndex())));
     }
 
     // Get the number of items in the RecyclerView

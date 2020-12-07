@@ -100,6 +100,9 @@ public class TaskPopUpWindow extends AppCompatDialogFragment {
         if (children.getSize() != 0) {
             childImage.setImageBitmap(children.decodeToBase64(children.getChildProfile(taskManager.getTask(position).getChildIndex())));
         }
+        else {
+            childImage.setImageResource(R.drawable.default_user_profile);
+        }
     }
 
     public void removeTask(int position, View popupView) {
