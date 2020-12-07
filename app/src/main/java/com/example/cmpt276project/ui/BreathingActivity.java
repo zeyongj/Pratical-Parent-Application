@@ -215,7 +215,7 @@ public class BreathingActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     Button btn = findViewById(R.id.btn_inhale);
-                    btn.setFocusableInTouchMode(false);
+                    btn.setEnabled(false);
                 }
             };
 
@@ -314,18 +314,13 @@ public class BreathingActivity extends AppCompatActivity {
                             setRemainingBreaths();
 
                             if (getRemainingBreaths() > 0 ) {
-                                handler.post(enableButton);
+                                handler.postDelayed(enableButton, 3000);
 
                                 handler.postDelayed(revealInhaleButton, 3000);
 
                             }
 
-                            else {
-                                // TODO: good job not displayed
-
-                                // No remaining breath, update button to "GOOD JOB"
-                                handler.post(revealFinishButton);
-                            }
+                            //TODO: good job not displayed
 
 
 
