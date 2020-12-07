@@ -117,6 +117,7 @@
     <string name="exhaleText">TAKE \nA \nDEEP \nBREATH \nOUT</string>
     <string name="remaining_breaths_txt">Remaining breaths:</string>
     <string name="remaining_breaths_number">0</string>
+    <string name="breath_in_help_msg">Hold button and breath in</string>
     <string-array name="NumberOfBreathSpinner">
         <item>1</item>
         <item>2</item>

@@ -19,6 +19,9 @@ import com.daimajia.androidanimations.library.YoYo;
 import com.example.cmpt276project.R;
 
 import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.logging.FileHandler;
 
 /* Messages worth noticing:
 * 1. When first entering the activity, Exhale button should be invisible. Exhale button should only be
@@ -35,7 +38,6 @@ import java.util.Objects;
 
 public class BreathingActivity extends AppCompatActivity {
 
-    private static final String BREATH_IN_BUTTON_HELP = "Hold button and breath in";
     private static final String EXHALE_REMINDER = "Release button and breath out";
     private static final String INHALE_BUTTON_TEXT = "IN";
     private static final String EXHALE_BUTTON_TEXT = "OUT";
@@ -57,6 +59,9 @@ public class BreathingActivity extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
         Objects.requireNonNull(ab).setDisplayHomeAsUpEnabled(true);
 
+        // Set inhaleHelpMessage TextView invisible
+        TextView inhaleHelpMessage = findViewById(R.id.txt_inhaleHelpMessage);
+        inhaleHelpMessage.setVisibility(View.INVISIBLE);
 
         // Set inhaleAnimation TextView invisible
         TextView inhaleText = findViewById(R.id.txt_inhaleText);
@@ -107,6 +112,16 @@ public class BreathingActivity extends AppCompatActivity {
 
         inhaleSound.start();
     }
+
+    private void inhaleAnimationReset() {
+        TextView inhaleText = findViewById(R.id.txt_inhaleText);
+        inhaleText.setVisibility(View.INVISIBLE);
+
+        inhaleSound.pause();
+
+    }
+
+
     private void exhaleAnimationWithSound() {
         TextView exhaleTv = findViewById(R.id.txt_exhaleText);
         exhaleTv.setVisibility(View.VISIBLE);
@@ -140,7 +155,6 @@ public class BreathingActivity extends AppCompatActivity {
         // should use onTouch listener for handling different user movements.
         btn.setOnTouchListener(new View.OnTouchListener() {
 
-            private long buttonDown;
 
             //flags for conditions
             private boolean isButtonClicked = false;
@@ -151,13 +165,17 @@ public class BreathingActivity extends AppCompatActivity {
 
             /*----------------------------- Runnable: Messages -----------------------------------*/
             private final Runnable inhaleHelpMessage = new Runnable() {
+
                 @Override
                 public void run() {
+
                     isButtonClicked = true;
                     isButtonHeld = false;
-                    Toast.makeText(BreathingActivity.this, BREATH_IN_BUTTON_HELP, Toast.LENGTH_SHORT).show();
+                    TextView inhaleHelpMessage = findViewById(R.id.txt_inhaleHelpMessage);
+                    inhaleHelpMessage.setVisibility(View.VISIBLE);
 
                 }
+
             };
 
             private final Runnable exhaleHelpMessage = new Runnable() {
@@ -167,24 +185,6 @@ public class BreathingActivity extends AppCompatActivity {
                     if (!isButtonClicked && isButtonHeld) {
                         Toast.makeText(BreathingActivity.this, EXHALE_REMINDER, Toast.LENGTH_SHORT).show();
                     }
-                }
-            };
-
-            /*------------------------------ Runnable: Animation ---------------------------------*/
-
-            private final Runnable inhaleAnimation = new Runnable() {
-                @Override
-                public void run() {
-                    isButtonClicked = false;
-                    isButtonHeld = true;
-                    inhaleAnimationWithSound();
-                }
-            };
-
-            private final Runnable exhaleAnimation = new Runnable() {
-                @Override
-                public void run() {
-                    exhaleAnimationWithSound();
                 }
             };
 
@@ -200,8 +200,7 @@ public class BreathingActivity extends AppCompatActivity {
             private final Runnable revealExhaleButton = new Runnable() {
                 @Override
                 public void run() {
-                    isButtonClicked = false;
-                    isButtonHeld = true;
+
                     Button btn = findViewById(R.id.btn_inhale);
                     btn.setText(EXHALE_BUTTON_TEXT);
                 }
@@ -226,57 +225,60 @@ public class BreathingActivity extends AppCompatActivity {
 
 
             /*--------------------------- button on touch event ----------------------------------*/
+            long t1; long t2;
+
+            private boolean stateInhale = true;
+
+
             @Override
             public boolean onTouch(View v, MotionEvent event) {
 
-                if (event.getAction() == MotionEvent.ACTION_DOWN ){
 
-                    buttonDown = System.currentTimeMillis();
+                // Inhale
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
 
-                    // Button onHold, show inhale animation
-                    handler.postDelayed(inhaleAnimation, 200);
+                    if (stateInhale){
+
+                        t1 = System.currentTimeMillis();
+
+                        inhaleAnimationWithSound();
+                    }
+
+                    else {
+                        // do something
+                    }
 
 
-                    // Button continuously held for 10s, show exhale reminder
-                    handler.postDelayed(exhaleHelpMessage, 10000);
 
                 }
-
 
                 else if (event.getAction() == MotionEvent.ACTION_UP) {
 
-                    handler.removeCallbacks(inhaleAnimation);
+                    if (stateInhale){
+                        t2 = System.currentTimeMillis();
 
-                    // inhale button "onClick", display inhale help message
-                    if ((System.currentTimeMillis() - buttonDown) < 200) {
-                        handler.post(inhaleHelpMessage);
-                    }
+                        if ((t2 - t1) < 200) {
 
-                    // Button released after holding for 3s, stop inhaling, reveal exhale button
-                    if ((System.currentTimeMillis() - buttonDown) >= 3000 ) {
-                        handler.post(revealExhaleButton);
-
-                        // play exhale animation after a short delay.
-                        handler.postDelayed(exhaleAnimation, 1000);
-
-                        // update remaining breaths
-                        breathTaken += 1;
-                        setRemainingBreaths();
-
-                        // if no remaining breaths
-                        if (getRemainingBreaths() > 0) {
-                            handler.postDelayed(revealInhaleButton, 4000);
-                        }
-                        else {
-                            handler.post(revealFinishButton);
+                            inhaleAnimationReset();
 
                         }
+                        else if ((t2 - t1) >= 200 && (t2 - t1) < 3000) {
 
-                        // TODO: "MORE?" button
-
+                        }
+                        else if ((t2 - t1) >= 3000 && (t2 - t1) < 10000) {
+                            //stateInhale = false;
+                        }
                     }
+
+                    else {
+                        // exhale
+                    }
+
+
+
 
                 }
+
                 return false;
             }
         });
