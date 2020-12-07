@@ -84,13 +84,15 @@ public class BreathingActivity extends AppCompatActivity {
 
     }
 
-    private void setRemainingBreaths() {
+    private int setRemainingBreaths() {
         int totalBreaths = TakeBreathActivity.getNumBreath(BreathingActivity.this);
 
         String remainingBreaths = Integer.toString(totalBreaths - breathTaken);
 
         TextView remainingBreathNumbers = findViewById(R.id.txt_remainingBreathNumber);
         remainingBreathNumbers.setText(remainingBreaths);
+
+        return Integer.parseInt(remainingBreaths);
     }
 
     private int getRemainingBreaths() {
@@ -166,19 +168,6 @@ public class BreathingActivity extends AppCompatActivity {
             private final Handler handler = new Handler();
 
             /*----------------------------- Runnable: Messages -----------------------------------*/
-            private final Runnable inhaleHelpMessage = new Runnable() {
-
-                @Override
-                public void run() {
-
-                    isButtonClicked = true;
-                    isButtonHeld = false;
-                    TextView inhaleHelpMessage = findViewById(R.id.txt_inhaleHelpMessage);
-                    inhaleHelpMessage.setVisibility(View.VISIBLE);
-
-                }
-
-            };
 
             private final Runnable exhaleReminder = new Runnable() {
                 @Override
@@ -190,14 +179,17 @@ public class BreathingActivity extends AppCompatActivity {
                 }
             };
 
+
+
             /*---------------------------- Runnable: Button Settings -----------------------------*/
             private final Runnable revealInhaleButton = new Runnable() {
                 @Override
                 public void run() {
-                    if (isButtonHeld) {
-                        Button btn = findViewById(R.id.btn_inhale);
-                        btn.setText(INHALE_BUTTON_TEXT);
-                    }
+
+                    Button btn = findViewById(R.id.btn_inhale);
+                    btn.setText(INHALE_BUTTON_TEXT);
+
+
                 }
             };
 
@@ -211,6 +203,21 @@ public class BreathingActivity extends AppCompatActivity {
                 }
             };
 
+            private final Runnable enableButton = new Runnable() {
+                @Override
+                public void run() {
+                    Button btn = findViewById(R.id.btn_inhale);
+                    btn.setEnabled(true);
+                }
+            };
+
+            private final Runnable disableButton = new Runnable() {
+                @Override
+                public void run() {
+                    Button btn = findViewById(R.id.btn_inhale);
+                    btn.setFocusableInTouchMode(false);
+                }
+            };
 
 
             private final Runnable revealFinishButton = new Runnable() {
@@ -239,10 +246,12 @@ public class BreathingActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
 
 
-                // Inhale
+                stateInhale= true;
+
+
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
 
-                    if (stateInhale){
+                    if (stateInhale) {
 
                         t1 = System.currentTimeMillis();
 
@@ -256,22 +265,14 @@ public class BreathingActivity extends AppCompatActivity {
                         handler.postDelayed(exhaleReminder, 10000);
                         isButtonHeld = true;
 
-
                     }
-
-                    // exhale
-                    else {
-                        // do something
-                    }
-
 
 
                 }
 
                 else if (event.getAction() == MotionEvent.ACTION_UP) {
 
-                    if (stateInhale && isButtonHeld){
-
+                    if (stateInhale && isButtonHeld) {
 
                         t2 = System.currentTimeMillis();
 
@@ -283,39 +284,59 @@ public class BreathingActivity extends AppCompatActivity {
                             inhaleAnimationReset();
 
                         }
+
                         else if ((t2 - t1) >= 200 && (t2 - t1) < 3000) {
 
                             // Button released before 3s continuously, reset animation and sound.
                             inhaleAnimationReset();
+
                         }
                         else if ((t2 - t1) >= 3000 && (t2 - t1) < 10000) {
 
                             // After 3s, upon releasing button, stop animation and sound, to exhale
                             inhaleAnimationReset();
+
+
+                            // Exhale
+                            stateInhale = false;
+
+                            // Disable button
+                            handler.post(disableButton);
+
+                            exhaleAnimationWithSound();
+
+
+
+                            // Update remaining breath number
                             breathTaken++;
 
+                            // After exhale 3s, with remaining breath, change button to "IN", update count, enable button.
+                            setRemainingBreaths();
+
+                            if (getRemainingBreaths() > 0 ) {
+                                handler.post(enableButton);
+
+                                handler.postDelayed(revealInhaleButton, 3000);
+
+                            }
+
+                            else {
+                                // TODO: good job not displayed
+
+                                // No remaining breath, update button to "GOOD JOB"
+                                handler.post(revealFinishButton);
+                            }
 
 
-                            //stateInhale = false;
-                            // Update remaining breath number
-                            int remain = getRemainingBreaths() - breathTaken;
-                            TextView remainingBreath = findViewById(R.id.txt_remainingBreathNumber);
-                            remainingBreath.setText(Integer.toString(remain));
+
 
                         }
                     }
 
-                    // exhale
-                    else {
-                        // exhale
-                    }
-
-
-
-
                 }
 
-                return false;
+                    return false;
+
             }
         });
     }
