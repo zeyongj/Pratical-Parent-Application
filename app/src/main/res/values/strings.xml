@@ -108,6 +108,14 @@
     <string name="image">Image</string>
     <string name="ChangingChild">Changing Child</string>
     <string name="child_profile_image">Child\'s Profile Image</string>
+    <string name="twentyfive_percent">25%</string>
+    <string name="fifty_percent">50%</string>
+    <string name="seventyfive_percent">75%</string>
+    <string name="hundred_percent">100%</string>
+    <string name="twohundred_percent">200%</string>
+    <string name="threehundred_percent">300%</string>
+    <string name="fourhundred_percent">400%</string>
+    <string name="current_time_speed">Time @%s</string>
     <string name="timerInstruction">Indigo part means the remaining time. Crimson part means the past time.</string>
     <string name="timerInputEmpty">Field cannot be empty</string>
     <string name="timerInputNoPositive">Please enter a positive number</string>
