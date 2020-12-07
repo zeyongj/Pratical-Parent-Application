@@ -107,6 +107,7 @@
     <string name="nobody">Nobody</string>
     <string name="image">Image</string>
     <string name="ChangingChild">Changing Child</string>
+    <string name="child_profile_image">Child\'s Profile Image</string>
     <string name="twentyfive_percent">25%</string>
     <string name="fifty_percent">50%</string>
     <string name="seventyfive_percent">75%</string>
