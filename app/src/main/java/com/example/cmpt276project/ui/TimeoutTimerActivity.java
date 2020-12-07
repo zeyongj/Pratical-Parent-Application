@@ -215,7 +215,7 @@ public class TimeoutTimerActivity extends AppCompatActivity {
 //            }
 //        },200);
         mProgress.setVisibility(View.VISIBLE);
-        mProgress.setProgress(0);
+        mProgress.setProgress(100);
         mProgress.setMax(100);
     }
 
@@ -299,7 +299,7 @@ public class TimeoutTimerActivity extends AppCompatActivity {
         timeSpeedMultiplier = 1;
         updateCountDownText();
         updateWatchInterface();
-        mProgress.setProgress(0);
+        mProgress.setProgress(100);
     }
 
     private void updateCountDownText() {
