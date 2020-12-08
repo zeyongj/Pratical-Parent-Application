@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -19,6 +20,8 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.example.cmpt276project.R;
 import com.example.cmpt276project.model.Children;
+import com.example.cmpt276project.model.FlipCoinChildrenList;
+import com.example.cmpt276project.model.FlipHistory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +31,7 @@ import java.util.Objects;
 public class ChangeChildMessageFragment extends AppCompatDialogFragment {
 
     private Children children = Children.getInstance();
-
+    private ArrayList<FlipCoinChildrenList> myChildList = new ArrayList<>();
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -39,12 +42,11 @@ public class ChangeChildMessageFragment extends AppCompatDialogFragment {
         ListView listView = v.findViewById(R.id.ChildName_ListView);
 
         //Add Children Name to Array List
-        ArrayList<String> ChildrenName = new ArrayList<>();
         int minIndex = 0;
         for(int i = 0; i < children.getNumChildren(requireActivity()); i++) {
             for(int j = 0; j < children.getNumChildren(requireActivity()); j++) {
                 if(children.getChildIndex(j) == minIndex) {
-                    ChildrenName.add(children.getChild(j));
+                    myChildList.add(new FlipCoinChildrenList(children.getChild(j), children.getChildProfile(j)));
                     minIndex++;
                     break;
                 }
@@ -52,7 +54,7 @@ public class ChangeChildMessageFragment extends AppCompatDialogFragment {
         }
 
         // Create Array Adapter
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(requireActivity(), android.R.layout.simple_list_item_1,ChildrenName);
+        ArrayAdapter<FlipCoinChildrenList> adapter = new ChangeChildMessageFragment.myListAdapter();
         listView.setAdapter(adapter);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -69,6 +71,35 @@ public class ChangeChildMessageFragment extends AppCompatDialogFragment {
         return alert;
     }
 
+    private class myListAdapter extends ArrayAdapter<FlipCoinChildrenList> {
+        public myListAdapter(){
+            super(requireActivity(), R.layout.childlist_item, myChildList);
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            View itemView = convertView;
+            if (itemView == null) {
+                itemView = getLayoutInflater().inflate(R.layout.childlist_item, parent, false);
+            }
+
+            return getFlipCoinChildrenListView(position, itemView);
+        }
+    }
+
+    private View getFlipCoinChildrenListView(int position, View itemView) {
+        //Find the History to work with
+        FlipCoinChildrenList childList = myChildList.get(position);
+
+        ImageView profilePic = itemView.findViewById(R.id.ChildList_Portrait);
+        profilePic.setImageBitmap(children.decodeToBase64(childList.getProfile()));
+
+        TextView ChildName = itemView.findViewById(R.id.ChildList_ChildrenName);
+        ChildName.setText(childList.getChildName());
+
+        return itemView;
+    }
 
     private void registerChildClicked(ListView listView, final AlertDialog alert){
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
