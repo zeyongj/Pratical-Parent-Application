@@ -11,3 +11,10 @@ Scrum Master: Weixiang Kong
 Product Owner: Zeyong Jin
 Repo Manager: Yamato Nakahara
 Team Member: Xiaoyang Yang
+
+Scrum Roles for Iteration 3:
+
+Scrum Master: Zeyong Jin
+Product Owner: Yamato Nakahara
+Repo Manager: Xiaoyang Yang
+Team Member: Weixiang Kong
