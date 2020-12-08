@@ -46,7 +46,7 @@
         android:layout_width="170dp"
         android:layout_height="33dp"
         android:layout_marginEnd="16dp"
-        android:text="breath together"
+        android:text="@string/breath_together"
         android:textAlignment="viewStart"
         android:textSize="24sp"
         android:textStyle="bold"

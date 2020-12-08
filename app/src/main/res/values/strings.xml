@@ -146,6 +146,7 @@
     <string name="timerInputNoPositive">Please enter a positive number</string>
     <string name="timerWithHours">%d:%02d:%02d</string>
     <string name="timerWithoutHours">%02d:%02d</string>
+    <string name="breath_together">breath together</string>
 
 
 </resources>
