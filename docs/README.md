@@ -47,6 +47,7 @@ that Student Services will be notified, and they will record the dishonesty in t
 are strongly encouraged to review SFU’s Code of Academic Integrity and Good Conduct (S10.01) available
 online at: http://www.sfu.ca/policies/gazette/student/s10-01.html.
 
+## Author
 
 Team Umber
 
