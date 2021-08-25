@@ -20,6 +20,12 @@
 - As for the part of timeout timer in the iteration, we would like to acknowledge that:
 - The idea of the progress bar of the timer activity is from the website: https://stackoverflow.com/questions/52569581/countdown-timer-with-a-progressbar.
 
+## License
+
+This work is licensed under [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0) (or any later version). 
+
+`SPDX-License-Identifier: Apache-2.0-or-later`
+
 ## Disclaimer
 
 **This repository is *ONLY* for backup. Students should *NEVER* use this repository to finish their works, *IN ANY WAY*.**
